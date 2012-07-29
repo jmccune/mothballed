@@ -1,0 +1,27 @@
+What is the difference between a root element and a context?
+
+A sentence is an element of data derived from the root element.
+A sentence may be associated with several contexts-- e.g. for example, it may be used in several documents.  (A talk by a general authority, the bible, a treatise on the sermon on the mount, the topical guide, etc.)
+
+
+
+
+A Particular Sentence may map to:
+	[It may be associated with:]
+	any of several sources
+	any of several comments related to it
+	any of several cross references, footnotes, etc.
+	any of several highlights related to topical studies
+	any of several tags that have been given to it.
+	any of several citations that use it
+	any of several ratings/reviews that have been given it.
+	
+	
+A Particular Sentence originates from a particular source:
+	The source itself may be complex-- just as a verse can belong in a book, a testament, a volume (bible,bom, d&c), or the full set (of standard works)
+	The source may be actually several -- A paper written by several joint authors.  [E.g. the document belongs to a paper, but the paper belongs to several authors and the corporation that published it, etc.]
+	
+	
+Each of the above types/ideas (sources, comments, cross-references, highlights, tags, citations, ratings/reviews, etc) is a context.
+The context may be simple or complex  (representing one very clear idea and value or representing or connected to several).
+	

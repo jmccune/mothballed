@@ -1,0 +1,20 @@
+doctype 5
+html
+  head
+    title= title
+
+    - var url = '/stylesheets/style.css'
+    - if (!(env == 'production')) {url += "?d=" + (new Date().getTime())}
+    link(rel='stylesheet', href=url)
+
+    if optimize
+      script(src='/javascripts/main-built.js')
+    else
+      script(src='/javascripts/vendor/require.js', data-main='/javascripts/main.js')
+
+    if reload
+      script(src='/socket.io/socket.io.js')
+      script(src='/socket-enable.js')
+
+  body
+    block content

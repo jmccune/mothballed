@@ -1,0 +1,145 @@
+What is the difference between a root element and a context?
+
+A sentence is an element of data derived from the root element.
+A sentence may be associated with several contexts-- e.g. for example, it may be used in several documents.  (A talk by a general authority, the bible, a treatise on the sermon on the mount, the topical guide, etc.)
+
+
+
+
+A Particular Sentence may map to:
+	[It may be associated with:]
+	any of several sources
+	any of several comments related to it
+	any of several cross references, footnotes, etc.
+	any of several highlights related to topical studies
+	any of several tags that have been given to it.
+	any of several citations that use it
+	any of several ratings/reviews that have been given it.
+	
+	
+A Particular Sentence originates from a particular source:
+	The source itself may be complex-- just as a verse can belong in a book, a testament, a volume (bible,bom, d&c), or the full set (of standard works)
+	The source may be actually several -- A paper written by several joint authors.  [E.g. the document belongs to a paper, but the paper belongs to several authors and the corporation that published it, etc.]
+	
+	
+Each of the above types/ideas (sources, comments, cross-references, highlights, tags, citations, ratings/reviews, etc) is a context.
+The context may be simple or complex  (representing one very clear idea and value or representing or connected to several).
+	
+=============================================	
+One of the other issues is values and categories.
+The problem is that a value may be a category itself.
+Consider the following:
+	Toyota (is a value)
+	perhaps we represent it as com.toyota
+But it also represents several industries, among which another reasonable value might
+be prius:
+	com.toyota.automotive.hybrid.prius
+
+Prius (and most models of cars) have specific versions of the car for each year:
+	com.toyota.automotive.hybrid.prius.2007
+which determines the value more specifically.
+
+However, are hybrid & 2007 necessary or optional?
+E.g. that the prius is a hybrid is not in doubt, but should it be part of the ontology
+representation?  Is the fact that a prius is a hybrid significant or not?
+[Should we ask for all cars that have the attribute of hybrid, or can we just
+ask directy for the family of cars that are hybrids?]
+
+More specifically towards our target domain, you also have 
+scriptures and similar problems:
+	com.tierlon.logicalentity.volume.bible.book.james.chapter.5.verse.15.kjv
+	com.tierlon.logicalentity.volume.book.chapter.verse.kjv
+	
+	(is kjv really necessary or not?)
+	
+
+What I think needs to happen is that everything is normalized to the most
+specific and necessary entity-- with its type and value.
+
+	com.tierlon.logicalentity.volume		Bible	
+	com.tierlon.logicalentity.book			James
+	com.tierlon.logicalentity.chapter		5
+	com.tierlon.logicalentity.verse			15
+	
+
+This then becomes the id of the object:
+	com.tierlon.logicalentity.volume#Bible
+	
+You are still left of course with the issue of multiple instances/versions of the 
+given entity:  2007 prius,   bible (KJV or NIV)   
+So the actual entity may require version information
+	com.tierlon.logicalentity.volume#Bible.kjv.lds.1968ed   (as compared with)
+	com.tierlon.logicalentity.volume#Bible.kjv.lds.1804ed   (as compared with)
+	com.tierlon.logicalentity.volume#Bible.niv.2007		    (etc.)
+	
+	com.tierlon.logicalentity.x.y.z#Value.1243742179231	 (where 12437... is the unique instance id)
+	
+	
+The name left of the hash mark, is the object that should be instantiated.
+The information to the right is the unique value identifier.
+	
+=============
+
+Now that we know that we might identify the object:
+
+com.toyota.automobile.prius.2007#justins
+
+There still are the attributes:
+com.tierlon.dimension.color#F00						-- bodyIs
+com.toyota.automobile.prius.2007.optionpackage#4	-- boughtWith  (vs currentlyHas?)
+com.tierlon.rate.mpg#justins						-- has
+ 
+ 
+============
+So what we need is an object property structure that has the following:
+
+ 	ontology_field_category 		value_for_that_field
+Ex:	com.tierlon.dimension.color		#F00	or #Fuzzy151341  (where Fuzzy might represet a range of "red")
+[represents the java object]		[is represented by the java instance]
+
+
+============
+Extra information about the object is represented as:
+	
+	<ontology_field_category/value>  	<relation>			<ontology_field_category/value>
+Ex:	com.toyota.automobile				hasAClassicationOf	com.tierlon.dimension.color
+Ex:	com.to...bile.prius.2007#justins 	isClassifiedAs		com.tierlon.dimension.color#Fuzzy151341
+	[Represented by java class instance [Java object]		[Represented by java class instance
+	 or the java instance respectively]					 	or the instance respectively]
+	 										
+
+Relationships have so many shades & aspects:
+	the object intrinsically has  ( a color, a shape, a size, a weight, etc.)
+	the object is organized into  (e.g. a collective, a co-op, a government,etc.)
+	the object shares (a behavior, a set of meta-data, an object, a resource, etc.)
+	the object owns (a slave object, ...)
+	the object delegates to (an object, ...)
+	the object uses (an object, a collection of objects, etc.)
+	the object uses in a particular manner (an object, a collection of objects, etc.)
+
+Some relations are simple:  
+	"intrinsically has", means every object should have this property, its value is either
+	static or shared or completely owned and managed and is simple to represent.
+
+Others are complex:
+	"owns"  (because behaviors very-- for how long, can ownership change, is it unique, etc.)
+	"uses in a particular manner" (in what manner)
+
+======
+In some senses I think what we wish to do is decompose the object into all its component
+parts and relationships.   However, while there is a way of representing the properties
+there is not of representing the relationships.
+
+RDF triple stores is beginning to attempt to change this, but I think maybe 	
+	
+	
+	
+
+
+
+	
+	
+		
+
+
+	
