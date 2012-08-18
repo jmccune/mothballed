@@ -1,8 +1,25 @@
 extends layout
 
+
+
+
 block content
   
+  link(rel='stylesheet', href='/javascripts/vendor/jasmine/jasmine.css')
+  script(src='/javascripts/vendor/jasmine/jasmine.js')
+  script(src='/javascripts/vendor/jasmine/jasmine-html.js')
+  
+  script(src='/javascripts/vendor/jasmine/test/Player.js')
+  script(src='/javascripts/vendor/jasmine/test/Song.js')
+  
+  script(src='/javascripts/vendor/jasmine/test/SpecHelper.js')
+  script(src='/javascripts/vendor/jasmine/test/PlayerSpec.js')
+  
+  
+  script(src='/javascripts/vendor/jasmine/test/exec.js')
   h1= title
   p Welcome to TEST!!! >> #{title}
   if optimize
     p Optimized mode.  You are getting a single RequireJS optimized JavaScript file which includes all the page dependencies.
+    
+  
