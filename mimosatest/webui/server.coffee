@@ -3,6 +3,7 @@ reloadOnChange = require 'watch-connect'
 gzip =           require 'gzippo'
 
 routes  =        require './routes'
+test   =         require './routes/test'
 
 exports.startServer = (publicPath, useReload, optimize) ->
 
@@ -32,6 +33,11 @@ exports.startServer = (publicPath, useReload, optimize) ->
     app.use express.errorHandler()
 
   app.get '/', routes.index(useReload, optimize)
-
-
-
+  
+  
+  respFn= (req, res)->
+      console.log "ROUTES"
+      console.dir routes
+      res.send('Hello World');
+  app.get '/test/', respFn
+  app.get '/test2/', test.test(useReload, optimize)
