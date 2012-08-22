@@ -1,4 +1,4 @@
-define ['vendor/backbone0_9_2','jquery'], (Backbone, $) ->
+define ['backbone','jquery'], (Backbone, $) ->
   console.log("UI_ELEMENT>>> ")
   console.dir Backbone
   console.dir $

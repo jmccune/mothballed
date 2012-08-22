@@ -1,9 +1,8 @@
-define ['jquery', 'templates','vendor/backbone0_9_2',
+define ['jquery', 'templates','backbone',
          'app/models/ui_element'
          'app/utilities/admin_util'], ($, templates,
          backbone,UiElement,AdminUtil) ->
   
-  #Backbone = require('vendor/backbone0_9_2')
   console.log("HERE @ BACKBONE")
   console.dir backbone
   console.dir templates  

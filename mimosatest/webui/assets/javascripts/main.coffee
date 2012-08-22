@@ -4,9 +4,10 @@ requirejs.config
     vendor: 'vendor'
     require: 'vendor/require'
     jquery: 'vendor/jquery'
+    backbone: 'vendor/backbone0_9_2'
     underscore: 'vendor/underscore'
   shim: 
-    'vendor/backbone0_9_2':
+    'backbone':
        #These script dependencies should be loaded before loading
        #backbone.js
        deps: ['underscore', 'jquery'],
@@ -19,7 +20,7 @@ requirejs.config
 
 requirejs [
     'app/example-view'
-    'vendor/backbone0_9_2'
+    'backbone'
     'jquery'
     'underscore'
   ]
