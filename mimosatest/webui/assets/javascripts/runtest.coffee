@@ -1,26 +1,40 @@
 requirejs.config
   urlArgs: "b=#{(new Date()).getTime()}"
   paths:
+    vendor: 'vendor'
     require: 'vendor/require'
     jquery: 'vendor/jquery'
+    backbone: 'vendor/backbone0_9_2'
     underscore: 'vendor/underscore'
   shim: 
-    'vendor/backbone0_9_2':
+    'backbone':
        #These script dependencies should be loaded before loading
        #backbone.js
-       deps: ['vendor/underscore', 'vendor/jquery'],
+       deps: ['underscore', 'jquery'],
        #Once loaded, use the global 'Backbone' as the
        #module value.
        exports: 'Backbone'
+    'underscore':
+      deps: []
+      exports: '_'
 
 requirejs [
-    'test/csplayerspec'
+    'test/main_test_control'
+    'backbone'
     'jquery'
+    'underscore'
   ]
-  , (testSpecFn,$) ->
+  , (mainTestControl,backbone,$,underscore) ->
     console.log("CALLING MAIN TEST RUNNER!")
-    console.log("JQUERY? "+$)
-    testSpecFn();
+    console.dir mainTestControl
+    console.log("JQUERY? ")
+    console.dir $
+    console.log("BACKBONE")
+    console.dir backbone
+    console.log("UNDERSCORE")
+    console.dir underscore
+    #testSpecFn();
+    mainTestControl();
     
     $(()->
       jasmineEnv = jasmine.getEnv();

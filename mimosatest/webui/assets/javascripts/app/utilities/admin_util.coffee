@@ -1,4 +1,4 @@
-define ['backbone','jquery'], (Backbone, $) ->
+define ['jquery','backbone'], ($,Backbone) ->
   
   class AdminUtil 
     
@@ -6,7 +6,7 @@ define ['backbone','jquery'], (Backbone, $) ->
       if (typeof jsonObject) isnt 'object'
         throw "jsonObject is not a valid object"
     
-      if jsonObject[_meta]?
+      if jsonObject._meta?
         return
       return @createObjectMeta(jsonObject)
     
@@ -17,15 +17,15 @@ define ['backbone','jquery'], (Backbone, $) ->
     
       #Force user to deal with whether they want to replace 
       # or not an existing meta.
-      if jsonObject['_meta']?
+      if jsonObject._meta?
         throw "Object already has meta!"
         
       
       metaObject={}
       for k,v of jsonObject
-        if ((k+"").indexOf("$")>0)
-          throw "Illegal property in jsonObject: "+k
-        
-        
+        metaObject[k] = {}
+        metaObject[k].type= typeof v
+      
+      metaObject
       
   AdminUtil

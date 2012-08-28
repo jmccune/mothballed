@@ -4,9 +4,13 @@ requirejs.config
     vendor: 'vendor'
     require: 'vendor/require'
     jquery: 'vendor/jquery'
-    backbone: 'vendor/backbone0_9_2'
     underscore: 'vendor/underscore'
-  shim: 
+    backbone: 'vendor/backbone0_9_2'
+    
+  shim:
+    'underscore':
+      deps: []
+      exports: '_' 
     'backbone':
        #These script dependencies should be loaded before loading
        #backbone.js
@@ -14,9 +18,7 @@ requirejs.config
        #Once loaded, use the global 'Backbone' as the
        #module value.
        exports: 'Backbone'
-    'underscore':
-      deps: []
-      exports: '_'
+    
 
 requirejs [
     'app/example-view'
