@@ -1,19 +1,22 @@
-define ['app/components/form_factory'
-  ,'app/components/base/container_view'
+define ['backbone'
+  ,'app/admin/form_factory'
+  ,'app/admin/views/container_view'
   ,'templates'
-  ], (FormFactory,ContainerView,templates) ->
+  ], (Backbone,FormFactory,ContainerView,templates) ->
     ()->
-      console.log("Form Factory TEST")
-      console.dir FormFactory
       describe("FormFactory Tests",()->
         formFactory=null
         testModel=null
         beforeEach(()->
           formFactory = new FormFactory();
-          testModel = 
+          testModel = new Backbone.Model(
             stringfield: 'test_string_value'
             integerfield: 5
             realfield:    10.3
+            _meta:
+              stringfield:
+                label: "Testing Stringfield"
+            );
         )
         
         it("should pass this test",()->
@@ -30,8 +33,10 @@ define ['app/components/form_factory'
           )
         
         it("should be able to create a form field for a STRING",()->
-            fieldView =formFactory.buildViewForField('stringfield',@testModel,{},{})
-            html = fieldView.render().$el.html()
-            expect(html.length > 0).toBeTruthy();
+            fieldView =formFactory.buildViewForField('stringfield',testModel,{},{})
+            htmlString = fieldView.render().$el.html()
+            expect(htmlString.length > 0).toBeTruthy();
+            
+            $('#testTarget').empty().html(htmlString);
           )
       )

@@ -12,7 +12,7 @@ define ['backbone','jquery'
       #  #TODO: Fill this out 
       #  @
       initialize:()->
-        console.log("TEMPLATES>>>>>>>>>>>>>>>>>>>")
-        console.dir @template
+        #console.log("TEMPLATES>>>>>>>>>>>>>>>>>>>")
+        #console.dir @template
     
     ContainerView

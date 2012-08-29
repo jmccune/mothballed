@@ -1,9 +1,9 @@
 define ['test/utilities/test_control'
-  ,'test/components/test_control']
-  ,(utilitiesTests,componentsTests) ->
+  ,'test/admin/test_control']
+  ,(utilitiesTests,adminTests) ->
     console.log("MAIN TEST LOADED")
+    
     ()->
-      console.log("About 2 RUNNING MAIN TEST(S)")
       #console.dir utilitiesTest
       describe("Jasmine Verification -- Up and running?",()->
         it("True == True", ()->
@@ -11,8 +11,8 @@ define ['test/utilities/test_control'
           )
         )
       describe("Main Control Suite",()->
-        console.log("RUNNING MAIN TEST()")
+        console.log("Running Main Control Suite");
         utilitiesTests();
-        componentsTests();
+        adminTests();
        
         )

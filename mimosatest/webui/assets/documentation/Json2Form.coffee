@@ -25,12 +25,14 @@ exampleData:
   # Can be passed with the object -- or inferred based on the type.
   #  (Validators obviously cannot be)
   _meta: {
-    first_name$type : "string"
-    first_name$range: "[0..35]"   #How many characters can this be?
+    first_name:
+      type : "string"
+      range: "[0..35]"   #How many characters can this be?
               #Optionally: a function that accepts...
-    first_name$validator: "function_name" # A name for a given validator
+      validator: "function_name" # A name for a given validator
              #Optionally: [ "validator1name","validator2name","etc."]
-    first_name$required: true
+      required: true
+      label: "Given name"
   }
     
     

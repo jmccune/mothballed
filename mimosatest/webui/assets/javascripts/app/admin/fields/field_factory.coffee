@@ -1,6 +1,8 @@
 define ['backbone','underscore'
-  ,'app/components/base/container_view'] 
+  ,'app/admin/fields/input'
+  ,'app/admin/views/container_view'] 
   ,(Backbone, _
+  ,InputFieldView
   ,DefaultContainerView) ->
   
     # The Form Specification includes the following:
@@ -37,7 +39,7 @@ define ['backbone','underscore'
       _defaultFieldConstructionMap:()->
         result =
           string: (fieldType, field,model,spec,options)->
-             new DefaultContainerView()
+             new InputFieldView(model: model, field: field)
         result
       
       _getFieldType: (field,model) ->

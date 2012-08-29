@@ -1,0 +1,6 @@
+<label> {{field.label}} </label> 
+{{#if read_only}}
+	<section name="{{field.name}}">{{field.value}}</section>
+{{else}} 
+	<input name="{{field.name}}" value="{{field.value}}"></input>
+{{/if}}

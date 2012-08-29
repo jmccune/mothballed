@@ -1,8 +1,7 @@
 define ['app/utilities/admin_util'], (AdminUtil) ->
   ()->
-    console.log("ADMIN_UTIL TEST")
     describe("AdminUtil CODE",()->
-      console.log("RUNNING ADMIN UTIL CODE")
+      console.log("\t\tRunning AdminUtil Tests")
       adminUtil=new AdminUtil();
       console.dir adminUtil
        

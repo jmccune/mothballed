@@ -25,15 +25,18 @@ requirejs [
     'underscore'
   ]
   , (mainTestControl,backbone,$,underscore) ->
-    console.log("CALLING MAIN TEST RUNNER!")
-    console.dir mainTestControl
-    console.log("JQUERY? ")
-    console.dir $
-    console.log("BACKBONE")
-    console.dir backbone
-    console.log("UNDERSCORE")
-    console.dir underscore
-    #testSpecFn();
+    
+    #console.log("CALLING MAIN TEST RUNNER!")
+    #console.dir mainTestControl
+    #console.log("JQUERY? ")
+    #console.dir $
+    #console.log("BACKBONE")
+    #console.dir backbone
+    #console.log("UNDERSCORE")
+    #console.dir underscore
+    
+    console.log("============= END OF TEST LOADING ==============");
+    console.log("\n\n============= STARTING TESTING ==============\n");
     mainTestControl();
     
     $(()->
