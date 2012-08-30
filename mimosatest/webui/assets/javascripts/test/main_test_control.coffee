@@ -1,6 +1,7 @@
 define ['test/utilities/test_control'
-  ,'test/admin/test_control']
-  ,(utilitiesTests,adminTests) ->
+  ,'test/admin/test_control'
+  ,'test/base/test_control']
+  ,(utilitiesTests,adminTests,baseTests) ->
     console.log("MAIN TEST LOADED")
     
     ()->
@@ -14,5 +15,5 @@ define ['test/utilities/test_control'
         console.log("Running Main Control Suite");
         utilitiesTests();
         adminTests();
-       
+        baseTests(); 
         )

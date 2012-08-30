@@ -1,6 +1,6 @@
 define ['backbone','underscore'
-  ,'app/components/base/field_factory'
-  ,'app/components/base/container_view'] 
+  ,'app/admin/fields/field_factory'
+  ,'app/admin/views/container_view'] 
   ,(Backbone, _
   ,FieldFactory
   ,DefaultContainerView) ->
@@ -13,21 +13,21 @@ define ['backbone','underscore'
     #
     class FormFactory
     
-      buildFormForModel:(model,spec, options) ->
+      buildFormForModel:(model,options) ->
         containerForm = @getDefaultAdminContainer()
-        usableFields = @_getUsableFields(model,spec,options)
+        usableFields = @_getUsableFields(model,options)
         
         for field in usableFields
-          view = @buildViewForField(field,model,spec,options)
+          view = @buildViewForField(field,model,options)
           containerForm.add(view)
         
       getDefaultAdminContainer: () ->
         new DefaultContainerView()
         
-      buildViewForField: (field,model,spec,options)->
+      buildViewForField: (field,model,options)->
         @fieldFactory = new FieldFactory() unless @fieldFactory?
         result=
-          @fieldFactory.buildViewForField(field,model,spec,options)
+          @fieldFactory.buildViewForField(field,model,options)
         console.log("*** BUILDVIEW FOR FIELD: ")
         console.dir result
         result

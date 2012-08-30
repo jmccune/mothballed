@@ -17,7 +17,7 @@ define ['backbone','underscore'
         @fieldConstructionMap = _.clone(@_defaultFieldConstructionMap());
       
       
-      buildViewForField: (field,model,spec,options)->
+      buildViewForField: (field,model,options)->
         fieldType = @_getFieldType(field,model)
         console.log("RECEIVED FIELDTYPE: "+fieldType)
         console.dir @fieldConstructionMap
@@ -27,7 +27,7 @@ define ['backbone','underscore'
           throw "Unable to build view for field: "+field+" of type: "+fieldType
         #TODO: Finish this 
         
-        result =@fieldConstructionMap[fieldType](fieldType,field,model,spec,options)
+        result =@fieldConstructionMap[fieldType](fieldType,field,model,options)
         console.dir result
         console.log("Built View")
         result
@@ -38,7 +38,7 @@ define ['backbone','underscore'
       
       _defaultFieldConstructionMap:()->
         result =
-          string: (fieldType, field,model,spec,options)->
+          string: (fieldType, field,model,options)->
              new InputFieldView(model: model, field: field)
         result
       
