@@ -40,16 +40,23 @@ define ['backbone'
             view =formFactory.getDefaultAdminContainer();
             #console.log("FORM FACTORY CREATED VIEW? "+view)
             #console.dir view.render().el
-            html = view.render().$el.html()
-            
-            expect(html.length > 0).toBeTruthy();
+            htmlString = view.render().$el.html()
+            $('#testTarget').empty().html(htmlString);
+            expect(htmlString.length > 0).toBeTruthy();
           )
         
-        it("should be able to create a form field for a STRING",()->
+        it("should be able to create a STRING field",()->
             fieldView =formFactory.buildViewForField('stringfield',testModel,{},{})
             htmlString = fieldView.render().$el.html()
             expect(htmlString.length > 0).toBeTruthy();
             
+            #$('#testTarget').empty().html(htmlString);
+          )
+          
+        it("should be able to create a form of string fields",()->
+            view = formFactory.buildFormForModel(testModel)
+            htmlString = view.render().$el.html()
             $('#testTarget').empty().html(htmlString);
+            expect(htmlString.length > 0).toBeTruthy();
           )
       )

@@ -19,7 +19,9 @@ define ['backbone','underscore'
         
         for field in usableFields
           view = @buildViewForField(field,model,options)
-          containerForm.add(view)
+          containerForm.addView(view)
+          
+        containerForm
         
       getDefaultAdminContainer: () ->
         new DefaultContainerView()
@@ -37,7 +39,9 @@ define ['backbone','underscore'
       #================================================================
       
       _getUsableFields: (model,spec,options) ->
-        @
+        if (not model?)
+          throw "No model given!"
+        fieldList =model.getSchema().getFields()
         
         
       

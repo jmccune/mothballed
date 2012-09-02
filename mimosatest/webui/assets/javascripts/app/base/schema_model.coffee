@@ -17,6 +17,9 @@ define ['backbone','underscore','jquery','templates']
       initialize:()->
         @
       
+      getFields:()->
+        _.keys(@.toJSON())
+        
       #Args:
       #   <All the Basic Args>  ## See Class Documentation
       #   max_length: <number>      # Maximum number of characters

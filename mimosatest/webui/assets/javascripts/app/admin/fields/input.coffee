@@ -9,8 +9,8 @@ define ['backbone','underscore'
       
       initialize:(options) ->
         super(options)
-        console.log("INITIALIZE OF INPUT FIELD VIEW")
-        console.dir options
-        console.dir @model
+        #console.log("INITIALIZE OF INPUT FIELD VIEW")
+        #console.dir options
+        #console.dir @model
         
     InputFieldView
