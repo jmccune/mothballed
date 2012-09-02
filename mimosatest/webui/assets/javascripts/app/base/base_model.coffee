@@ -1,6 +1,6 @@
 define ['backbone','underscore','jquery','templates'
   ,'app/base/schema_model']
-  ,(Backbone, _,$,View,template
+  ,(Backbone, _,$,template
   ,SchemaModel) ->
     
     class BaseModel extends Backbone.Model
@@ -9,7 +9,7 @@ define ['backbone','underscore','jquery','templates'
         @_schema = new SchemaModel()
         @
         
-      getSchema:()->
+      getSchema:()=>
         @_schema
         
-    SchemaModel
+    BaseModel

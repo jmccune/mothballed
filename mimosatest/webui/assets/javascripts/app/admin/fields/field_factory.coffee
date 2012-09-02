@@ -38,11 +38,21 @@ define ['backbone','underscore'
       
       _defaultFieldConstructionMap:()->
         result =
-          string: (fieldType, field,model,options)->
+          CharField: (fieldType, field,model,options)->
              new InputFieldView(model: model, field: field)
         result
       
       _getFieldType: (field,model) ->
-        #TODO: Make this return real information
-        return "string"
+        if not model.getSchema?
+          throw "Not a usable model -- no schema definition!"
+        schema =model.getSchema()
+        console.log("HAS SCHEMA???? >>>>>>>>")
+        console.dir schema
+        
+        fieldData = schema.get(field)
+        if not fieldData? 
+          throw "No data/model definition for field: "+field
+        
+        return fieldData.fieldType 
+        
     FieldFactory

@@ -1,15 +1,13 @@
 define ['backbone','underscore','jquery','templates','app/base/schema_model']
   ,(Backbone, _,$,template,SchemaModel) ->
     ()->
-      console.log("************************************")
-      console.dir(SchemaModel)
+      #console.log("************************************")
+      #console.dir(SchemaModel)
       describe("SchemaModel Tests",()->
         
         schemaModel = null;
         beforeEach(()->
           schemaModel = new SchemaModel()
-          console.log("BEFORE EACH>D>FDFSDLKFJSLDFJSD")
-          console.dir schemaModel
           )
           
         it("should pass this test",()->
@@ -25,5 +23,19 @@ define ['backbone','underscore','jquery','templates','app/base/schema_model']
           expect(result2.name).toEqual('test2')
           expect(result2.required).toBeTruthy()
           expect(result2.ignoreme?).toBeFalsy()
+          )
+          
+        it("is able to create a CharField", ()->
+          simple1 = 
+            label: 'cfield1label'
+            name: 'cfield1'
+            required: true
+            
+          schemaModel.CharField(simple1)
+          data=schemaModel.get('cfield1')
+          expect(data.name).toEqual('cfield1')
+          expect(data.required).toBeTruthy()
+          expect(data.label).toEqual('cfield1label')
+          expect(data.fieldType).toEqual('CharField')
           )
       )

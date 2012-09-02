@@ -1,6 +1,8 @@
-<label> {{field.label}} </label> 
-{{#if read_only}}
-	<section name="{{field.name}}">{{field.value}}</section>
-{{else}} 
-	<input name="{{field.name}}" value="{{field.value}}"></input>
+<div class="row">
+<label class="span2"> {{field.label}} </label> 
+{{#if field.editable}}
+	<input class="span4" name="{{field.name}}" value="{{field.value}}"></input>
+{{else}}
+	<section class="span4" name="{{field.name}}" >{{field.value}}</section> 
 {{/if}}
+</div>
