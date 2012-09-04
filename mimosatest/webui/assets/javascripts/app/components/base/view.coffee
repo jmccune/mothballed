@@ -11,7 +11,7 @@ define ['backbone','jquery'], (Backbone, $) ->
     render:()->
       super()
       if @template? 
-        @$el.append(@template(@getTemplateContext()))
+        @$el.html(@template(@getTemplateContext()))
       @
     
     getTemplateContext:()->

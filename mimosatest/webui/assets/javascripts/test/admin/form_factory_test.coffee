@@ -55,8 +55,9 @@ define ['backbone'
           
         it("should be able to create a form of string fields",()->
             view = formFactory.buildFormForModel(testModel)
-            htmlString = view.render().$el.html()
-            $('#testTarget').empty().html(htmlString);
+            htmlElement = view.render().$el;
+            $('#testTarget').empty().html(htmlElement);
+            htmlString = htmlElement.html()
             expect(htmlString.length > 0).toBeTruthy();
           )
       )

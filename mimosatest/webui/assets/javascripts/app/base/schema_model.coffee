@@ -12,7 +12,23 @@ define ['backbone','underscore','jquery','templates']
     #   default: <?>              # The default value (for UI) 
     #   editable: <boolean>|TRUE
     #
+    # ------
+    #  Validator function:
+    #     #params:
+    #          transient - <boolean> true if the user is still editing...
+    #          value - <?> the value of the data
+    #          model - undefined or a <Model> - the model of the overall
+    #                        object-- usually a Backbone Model, but other
+    #                        representations could be used.
+    #          options - undefined or {Object} -- various options. 
+    #                        (Future Capability)
     #
+    #     validate(transient, value,model,options)
+    #     returns true = valid, false= invalid, undefined (meaning not sure),
+    #             "string" meaning invalid, with explanation
+    #             { warning: "msg"}   the warning message
+    #             
+    #             { suggestion: "msg" } a suggestion to the user 
     class SchemaModel extends Backbone.Model
       initialize:()->
         @

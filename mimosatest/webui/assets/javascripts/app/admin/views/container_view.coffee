@@ -18,12 +18,19 @@ define ['backbone','jquery'
         
       render:()->
         super
+        #listDiv=@$el
         listDiv = @$el.find('.placeStuffHere')
         listDiv.empty()
         
         for view in @views
-          console.log("RENDERING SUBVIEW")
-          listDiv.append(view.render().el)
+          
+          viewEl = view.render().el
+          console.log("RENDERed SUBVIEW")
+          console.dir viewEl
+          @$el.append(viewEl)
+          
+          
+          #$(viewEl).css('background-color','blue')
         @
     
     ContainerView

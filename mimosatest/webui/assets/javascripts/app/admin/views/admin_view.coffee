@@ -14,7 +14,7 @@ define ['backbone','underscore','jquery'
       #We rescope the admin views to context on the field they support.
       getTemplateContext:()->
         context = {}
-        context.mainmodel = super();
+        context.fullmodel = super();
         
         console.log("******* ADMIN VIEW>> GETTING CONTEXT 4 TEMPLATE")
         console.dir @
