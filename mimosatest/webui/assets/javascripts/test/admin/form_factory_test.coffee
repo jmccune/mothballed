@@ -7,11 +7,24 @@ define ['backbone'
     console.log("BASE MODEL? "+BaseModel)
     ()->
       createTestModel1 = ()->
+        v1test=(transient,value,model,options) ->
+          
+          console.log("VALIDATING 1")
+          if value.length<5
+            return "too short"
+          if value.length<7
+            return { warning: "acceptable, but recommend more"}
+          return true
+          
+        v2test=(transient,value,model,options) ->
+          console.log("VALIDATING 2")
+          return value.length%2==0
+
         class TestModel1 extends BaseModel
           initialize:()->
             super
-            @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield', required:true)
-            @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield2', required:false)
+            @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield', required:true, validator: v1test)
+            @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield2', required:false, validator: v2test)
             @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield3', editable:false)
             @
             

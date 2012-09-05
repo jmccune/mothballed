@@ -12,44 +12,36 @@ define ['backbone','underscore'
       
       initialize:(options) ->
         super(options)
-        @id= "InputField"+sharedInfo.getNextUID()
-        console.log("MY ID>> "+@id)
-        #console.log("INITIALIZE OF INPUT FIELD VIEW")
-        #console.dir options
-        #console.dir @model
+        #@id= "InputField"+sharedInfo.getNextUID()
         
       events:
         "change input"  : 'validateFinal'
-      #  "keypress" : 'validateTransient'
-      #  "hover label" : 'hover'
+        "keyup" : 'validateTransient'
         
       render:()->
         super
-        #@$el.find('input').parent('div').css('background-color','red')
-        #@$el.attr('id',@id)
-        #@$el.find('label').on('hover',@hover)
-        cbFunc=()=>
-          console.log("INVOKING FIELD TIMEOUT")
-          #console.dir @el 
-          #$('#'+@id).css('background-color','green')
-          #$('#'+@id).change(@validateTransient)
-          #$('#'+@id).find('label').hover(()->
-          #  $(this).css('background-color','yellow')
-          #  )
-          #@$el.css('background-color','yellow')
-          #console.dir @$el.get(0)
-          #console.dir $('#'+@id).get(0)
-          console.log @$el.get(0) is $('#'+@id).get(0)
-          
-        setTimeout(cbFunc,150)
+        @$el.find('.warning-circle').hide();
         @
-      hover:()->
-        console.log("HOVER")
         
       validateTransient:()->
-        console.log("VALIDATE TRANSIENT")
+        @_doValidation(true)
       
       validateFinal:()->
-        console.log("VALIDATE FINAL")
+        @_doValidation(false)
+      
+      _doValidation:(transient)->
+        value = @$el.find('input').val()
+        fieldSchema = @getFieldSchema()
+        result = fieldSchema.validate(transient,value,@model,{})
+        console.log("RESULT OF VALIDATION: "+result)
+        
+        
+        if (result is true or not result?)
+          @$el.find('.warning-circle').hide();
+        else if result is false
+          @$el.find('.warning-circle').show();
+        else if typeof result is 'string'
+          console.log("MESSAGE>>> "+result)
+          @$el.find('.warning-circle').show();
         
     InputFieldView

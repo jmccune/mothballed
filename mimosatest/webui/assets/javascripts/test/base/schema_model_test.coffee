@@ -1,4 +1,4 @@
-define ['backbone','underscore','jquery','templates','app/base/schema_model']
+define ['backbone','underscore','jquery','templates','app/base/schema/schema_model']
   ,(Backbone, _,$,template,SchemaModel) ->
     ()->
       #console.log("************************************")
@@ -33,9 +33,9 @@ define ['backbone','underscore','jquery','templates','app/base/schema_model']
             
           schemaModel.CharField(simple1)
           data=schemaModel.get('cfield1')
-          expect(data.name).toEqual('cfield1')
-          expect(data.required).toBeTruthy()
-          expect(data.label).toEqual('cfield1label')
-          expect(data.fieldType).toEqual('CharField')
+          expect(data.get('name')).toEqual('cfield1')
+          expect(data.get('required')).toBeTruthy()
+          expect(data.get('label')).toEqual('cfield1label')
+          expect(data.get('fieldType')).toEqual('CharField')
           )
       )

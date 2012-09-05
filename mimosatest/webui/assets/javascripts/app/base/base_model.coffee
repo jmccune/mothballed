@@ -1,5 +1,5 @@
 define ['backbone','underscore','jquery','templates'
-  ,'app/base/schema_model']
+  ,'app/base/schema/schema_model']
   ,(Backbone, _,$,template
   ,SchemaModel) ->
     

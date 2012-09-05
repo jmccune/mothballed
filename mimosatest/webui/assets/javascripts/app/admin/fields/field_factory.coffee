@@ -46,13 +46,11 @@ define ['backbone','underscore'
         if not model.getSchema?
           throw "Not a usable model -- no schema definition!"
         schema =model.getSchema()
-        console.log("HAS SCHEMA???? >>>>>>>>")
-        console.dir schema
         
         fieldData = schema.get(field)
         if not fieldData? 
           throw "No data/model definition for field: "+field
         
-        return fieldData.fieldType 
+        return fieldData.get('fieldType') 
         
     FieldFactory

@@ -1,34 +1,10 @@
-define ['backbone','underscore','jquery','templates']
-  ,(Backbone, _,$,View,template) ->
+define ['backbone','underscore','jquery','templates'
+  ,'app/base/schema/schema_field']
+  ,(Backbone, _,$,template
+  ,SchemaField) ->
     
     # Each field type that we use will have the following arguments
     # that it can accept:
-    #   name:      <string>       # REQUIRED
-    #   required:  <boolean>      # Is the field given required in the model
-    #   label:     <string>       # Label
-    #   empty_allowed: <boolean>  # Is empty allowed? (E.g. from the user?)
-    #   null_allowed:  <boolean>  # Is null allowed?  (E.g. from the server?)
-    #   validator: <function>     # TBD
-    #   default: <?>              # The default value (for UI) 
-    #   editable: <boolean>|TRUE
-    #
-    # ------
-    #  Validator function:
-    #     #params:
-    #          transient - <boolean> true if the user is still editing...
-    #          value - <?> the value of the data
-    #          model - undefined or a <Model> - the model of the overall
-    #                        object-- usually a Backbone Model, but other
-    #                        representations could be used.
-    #          options - undefined or {Object} -- various options. 
-    #                        (Future Capability)
-    #
-    #     validate(transient, value,model,options)
-    #     returns true = valid, false= invalid, undefined (meaning not sure),
-    #             "string" meaning invalid, with explanation
-    #             { warning: "msg"}   the warning message
-    #             
-    #             { suggestion: "msg" } a suggestion to the user 
     class SchemaModel extends Backbone.Model
       initialize:()->
         @
@@ -44,7 +20,7 @@ define ['backbone','underscore','jquery','templates']
         argMap = @_processBasicArgs(args,'CharField');
         argMap = _.extend(argMap, _.pick(args,'max_length','empty_allowed'))
         
-        @set(argMap.name,argMap)
+        @set(argMap.name,new SchemaField(argMap))
         @
       
       #Args:

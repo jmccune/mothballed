@@ -16,9 +16,11 @@ define ['backbone','underscore'
       buildFormForModel:(model,options) ->
         containerForm = @getDefaultAdminContainer()
         usableFields = @_getUsableFields(model,options)
-        
+        console.log("# USABLE FIELDS? "+usableFields.length)
         for field in usableFields
           view = @buildViewForField(field,model,options)
+          console.log("BUILT VIEW?")
+          console.dir view
           containerForm.addView(view)
           
         containerForm
@@ -27,10 +29,11 @@ define ['backbone','underscore'
         new DefaultContainerView()
         
       buildViewForField: (field,model,options)->
+        console.log("*** BUILDVIEW FOR FIELD: "+field)
         @fieldFactory = new FieldFactory() unless @fieldFactory?
         result=
           @fieldFactory.buildViewForField(field,model,options)
-        console.log("*** BUILDVIEW FOR FIELD: ")
+        console.log("*** RESULT OF BUILDVIEW FOR FIELD: ")
         console.dir result
         result
         
