@@ -34,4 +34,19 @@ body {
     background-color: #EE0000;
     box-shadow: 2px 2px 2px #333333;
   }
+  
+  .warning-triangle { 
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    *margin-right: .3em;
+    line-height: 21px;
+    vertical-align: text-top;
+    background-image: url("/images/admin/oca_warning_21x21.png");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+  }
 }
+
+
+

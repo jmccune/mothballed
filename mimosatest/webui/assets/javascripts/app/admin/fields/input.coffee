@@ -20,7 +20,7 @@ define ['backbone','underscore'
         
       render:()->
         super
-        @$el.find('.warning-circle').hide();
+        @$el.find('.warning-triangle').hide();
         @
         
       validateTransient:()->
@@ -37,11 +37,11 @@ define ['backbone','underscore'
         
         
         if (result is true or not result?)
-          @$el.find('.warning-circle').hide();
+          @$el.find('.warning-triangle').hide();
         else if result is false
-          @$el.find('.warning-circle').show();
+          @$el.find('.warning-triangle').show();
         else if typeof result is 'string'
-          console.log("MESSAGE>>> "+result)
-          @$el.find('.warning-circle').show();
+          
+          @$el.find('.warning-triangle').show();
         
     InputFieldView
