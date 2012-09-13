@@ -11,9 +11,15 @@
 exports.config = {
 
   # watch:
-    # sourceDir: "assets"                            # directory location of web assets
-    # compiledDir: "public"                          # directory location of compiled web assets
-    # ignored: [".sass-cache"]                       # file extensions to not watch on file system
+    # sourceDir: "assets"                 # directory location of web assets
+    # compiledDir: "public"               # directory location of compiled web assets
+    # ignored: [".sass-cache"]            # files to not watch on file system, any file containing one of the strings listed here
+                                          # will be skipped
+    # throttle: 0                         # number of file adds the watcher handles before taking a 100 millisecond pause to let
+                                          # those files finish their processing. This helps avoid EMFILE issues for projects
+                                          # containing large numbers of files that all get copied at once. If the throttle is
+                                          # set to 0, no throttling is performed. Recommended to leave this set at 0, the
+                                          # default, until you start encountering EMFILE problems.
 
   # compilers:
     # javascript:
@@ -26,7 +32,7 @@ exports.config = {
       # extensions: ["coffee"]                # list of extensions to compile
 
     # template:
-      # compileWith: "handlebars"                                    # Other ops: "dust", "jade", "hogan", "underscore", "lodash", "none".
+      # compileWith: "handlebars"                                    # Other ops:"dust","jade","hogan","underscore","lodash","html","none".
                                                                      # "none" assumes you aren't using any micro-templating solution.
       # extensions: ["hbs", "handlebars"]                            # list of extensions to compile
       # outputFileName: "javascripts/templates"                      # the file all templates are compiled into
@@ -35,45 +41,51 @@ exports.config = {
                                                                      # to exist
 
     # css:
-      # compileWith: "sass"                   # Other options: "none", "less", "stylus".  "none" assumes you are coding pure CSS and
-                                              # the copy config will move that over for you.  More compilers to come.
-      # extensions: ["scss", "sass"]          # list of extensions to compile
+      # compileWith: "stylus"              # Other options: "none", "less", "sass".  "none" assumes you are coding pure CSS and
+                                           # the copy config will move that over for you.
+      # extensions: ["styl"]               # list of extensions to compile
 
   ###
   # the extensions of files to simply copy from sourceDir to compiledDir.  vendor js/css, images, etc.
   ###
   # copy:
-    # extensions: ["js","css","png","jpg","jpeg","gif","html","eot","svg","ttf","woff","otf"]
+    # extensions: ["js","css","png","jpg","jpeg","gif","html","eot","svg","ttf","woff","otf","yaml","kml"]
 
   # server:                               # configuration for server when server option is enabled via CLI
-    # useDefaultServer: false             # whether or not mimosa starts a default server for you,
-                                          # when true, mimosa starts its own on the port below
-                                          # when false, mimosa will use server provided by path below
-    # useReload: true                     # valid for both default and custom server, when true, browser will be
-                                          # reloaded when asset is compiled.  This adds a few javascript files to
-                                          # the layout of the dev version of the app
-    # path: 'server.coffee'               # valid when useDefaultServer: false, path to file for provided server
-                                          # which must contain a start() method
-    # port: 3000                          # valid when useDefaultServer: true, port the default server will start on
-    # base: '/app'                        # valid when useDefaultServer: true, base of the app in default mode
+    # useDefaultServer: false             # whether or not mimosa starts a default server for you, when true, mimosa starts its
+                                          # own on the port below, when false, mimosa will use server provided by path below
+    # useReload: true                     # valid for both default and custom server, when true, browser will be reloaded when
+                                          # asset is compiled.  This adds a few javascript files to the layout of the dev
+                                          # version of the app
+    # path: 'server.coffee'               # valid when useDefaultServer: false, path to file for provided server which must contain
+                                          # export startServer method that takes an enriched mimosa-config object
+    # port: 3000                          # port to start server on
+    # base: ''                            # base of the app in default mode
+    # views:                              # configuration for the view layer of your application
+      # compileWith: 'jade'               # Other valid options: "hogan", "html". The compiler for your views.
+      # extension: 'jade'                 # extension of your server views
+      # path: 'views'                     # path from the root of your project to your views
 
   # require:                              # configuration for requirejs options.
     # verify:                             # settings for requirejs path verification
       # enabled: true                     # Whether or not to perform verification
-    # optimize :                          # Optimization configuration.  You can uncomment and change the configuration here
-                                          # and you can also append any new or different r.js configuration (http://requirejs.org/docs/optimization.html#options
-                                          # as new paramters inside this require option. for example any shims, additional modules.
-                                          # The require 'baseUrl' is set by combining the compiledDir with the compilers.javascript.directory
-      # name: 'main'                        # names of the module, this matches the name of the Mimosa default require.js script tag
-                                            # 'data-main' (see views/layout.jade), which then points to the require.js configuration
-                                            # javascript file: main.js (see javascripts/main.coffee).
-      # out: 'main-built.js'                # name of the compiled file.  This is placed at the root of the
-                                            # {compiledDir}/{compilers.javascript.directory} directory.
-      # paths:                              # paths to files aliased in your {require.name}.js file.
-        # jquery: 'vendor/jquery'           # path to jquery which by default lives in the vendor folder
+    # optimize :
+      # inferConfig:true                  # Mimosa figures out all you'd need for a simple r.js optimizer run. If you rather Mimosa
+                                          # not do that, set inferConfig to false and provide your config in the overrides section.
+                                          # See here https://github.com/dbashford/mimosa#requirejs-optimizer-defaults to see what
+                                          # the defaults are.
+      # overrides:                        # Optimization configuration and Mimosa overrides. If you need to make tweaks uncomment
+                                          # this line and add the r.js config (http://requirejs.org/docs/optimization.html#options)
+                                          # as newparamters inside the overrides ojbect. To unset Mimosa's defaults, set a property
+                                          # to null
+
+  # minify:                               # Configuration for non-require minification/compression via uglify using the --minify flag.
+    # exclude:["\.min\."]                 # List of regexes to exclude files when running minification.  Any path with ".min." in its
+                                          # name, like jquery.min.js, is assumed to already be minified and is ignored by default.
+                                          # Override this property if you have other files that you'd like to exempt from minification
 
   # growl:
-    # onStartup: false                    # Controls whether or not to Growl when aseets successfully compile/copy on startup,
+    # onStartup: false                    # Controls whether or not to Growl when assets successfully compile/copy on startup,
                                           # If you've got 100 CoffeeScript files, and you do a clean and then start watching,
                                           # you'll get 100 Growl notifications.  This is set to false be default to prevent that.
     # onSuccess:                          # Controls whether or not to Growl when assets successfully compile/copy
@@ -82,9 +94,8 @@ exports.config = {
       # template: true                    # send growl notification on successful compilation? will always send on failure
       # copy: true                        # send growl notification on successful copy?
 
-  # lint:                                 # settings for coffee, js, css linting/hinting
+  # lint:                                 # settings for js, css linting/hinting
     # compiled:                           # settings for compiled files
-      # coffee:true                       # fire coffeelint before compiling coffeescript files
       # javascript:true                   # fire jshint on successful compile of meta-language to javascript
       # css:true                          # fire csslint on successful compile of meta-language to css
     # copied:                             # settings for copied files, files already in .css and .js files
@@ -96,10 +107,6 @@ exports.config = {
     # rules:                              # All hints/lints come with defaults built in.  Here is where you'd override those defaults.
                                           # Below is listed an example of an overridden default for each lint type, also listed, next
                                           # to the lint types is the url to find the settings for overriding.
-      # coffee:                           # Settings: http://www.coffeelint.org/#options
-        # max_line_length:                # This is an example override, this is not a default
-        #   value: 80,
-        #   level: "error"
       # javascript:                       # Settings: http://www.jshint.com/options/
         # plusplus: true                  # This is an example override, this is not a default
       # css:                              # Settings: https://github.com/stubbornella/csslint/wiki/Rules

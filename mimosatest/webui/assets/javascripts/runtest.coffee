@@ -4,9 +4,13 @@ requirejs.config
     vendor: 'vendor'
     require: 'vendor/require'
     jquery: 'vendor/jquery'
+    jquery_ui: 'vendor/jquery_ui/jquery-ui-1.8.23-min'
     backbone: 'vendor/backbone0_9_2'
     underscore: 'vendor/underscore'
   shim: 
+    'jquery_ui':
+      deps: ['jquery']
+      exports: 'jQuery'
     'backbone':
        #These script dependencies should be loaded before loading
        #backbone.js

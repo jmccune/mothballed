@@ -1,43 +1,46 @@
 express =        require 'express'
 reloadOnChange = require 'watch-connect'
 gzip =           require 'gzippo'
+engines =        require 'consolidate'
 
 routes  =        require './routes'
 test   =         require './routes/test'
 
-exports.startServer = (publicPath, useReload, optimize) ->
+exports.startServer = (config) ->
+
+  publicPath = config.watch.compiledDir
 
   app = express()
-  server = app.listen 3000, ->
-     console.log "Express server listening on port %d in %s mode", server.address().port, app.settings.env
+  server = app.listen config.server.port, ->
+    console.log "Express server listening on port %d in %s mode", server.address().port, app.settings.env
 
-  app.configure ->
-    app.set 'port', process.env.PORT || 3000
-    app.set 'views', "#{__dirname}/views"
-    app.set 'view engine', 'jade'
-    app.use express.favicon()
-    app.use express.bodyParser()
-    app.use express.methodOverride()
-    if useReload
-      options =
-        server:server
-        watchdir:publicPath
-        verbose: false
-        skipAdding:true
-        exclude:["almond.js"]
-      app.use reloadOnChange(options)
-    app.use app.router
-    app.use gzip.staticGzip(publicPath)
-
-  app.configure 'development', ->
-    app.use express.errorHandler()
-
-  app.get '/', routes.index(useReload, optimize)
-  
-  
+  app.get '/', routes.index(config)
+  app.get '/test2/', test.test(config)
   respFn= (req, res)->
       console.log "ROUTES"
       console.dir routes
       res.send('Hello World');
   app.get '/test/', respFn
-  app.get '/test2/', test.test(useReload, optimize)
+  
+  app.configure ->
+    app.set 'port', config.server.port
+    app.set 'views', config.server.views.path
+    app.engine config.server.views.extension, engines[config.server.views.compileWith]
+    app.set 'view engine', config.server.views.extension
+    app.use express.favicon()
+    app.use express.bodyParser()
+    app.use express.methodOverride()
+    if config.server.useReload
+      options =
+        server:server
+        basedir: config.server.views.path
+        watchdir:publicPath
+        skipAdding: !config.server.views.html
+        exclude:["almond\.js"]
+        additionaldirs:[config.server.views.path]
+      app.use reloadOnChange(options)
+    app.use config.server.base, app.router
+    app.use gzip.staticGzip(publicPath)
+
+  app.configure 'development', ->
+    app.use express.errorHandler()

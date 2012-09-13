@@ -14,8 +14,9 @@
   "private": true,
   "dependencies": {
     "express": "3.0.0beta4",
-    "jade": ">= 0.0.1",
-    "watch-connect":"git://github.com/Filirom1/watch-connect.git",
-    "gzippo": "git://github.com/dbashford/gzippo.git"
+    "jade": "0.26.3",
+    "watch-connect": "0.3.4",
+    "gzippo": "git://github.com/dbashford/gzippo.git",
+    "consolidate": "0.4.0"
   }
 }

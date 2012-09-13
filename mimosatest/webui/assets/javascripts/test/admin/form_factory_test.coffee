@@ -1,10 +1,11 @@
-define ['backbone'
+define ['backbone','jquery_ui'
   ,'app/admin/form_factory'
   ,'app/admin/views/container_view'
   ,'app/base/base_model'
   ,'templates'
-  ], (Backbone,FormFactory,ContainerView,BaseModel,templates) ->
+  ], (Backbone,$,FormFactory,ContainerView,BaseModel,templates) ->
     console.log("BASE MODEL? "+BaseModel)
+    console.log("JQUERY UI??? "+$)
     ()->
       createTestModel1 = ()->
         v1test=(transient,value,model,options) ->
@@ -73,4 +74,8 @@ define ['backbone'
             htmlString = htmlElement.html()
             expect(htmlString.length > 0).toBeTruthy();
           )
+          
+        $( ".datepicker" ).datepicker();
+        console.log("DATE PICKER LENGTH: "+$(".datepicker").length) 
+        console.log("DATE PICKER FUNCTION: "+$(".datepicker").datepicker)  
       )

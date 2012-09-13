@@ -1,4 +1,4 @@
-define ['test/components/form_factory_test'], (formFactoryTests) ->
+define ['test/admin/form_factory_test'], (formFactoryTests) ->
     console.log("LOADED COMPONENTS TEST _CONTROL")
     ()->
       console.log("RUNNING COMPONENTS TEST(S)")
