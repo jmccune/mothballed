@@ -25,8 +25,6 @@ define ['backbone','jquery'
         for view in @views
           
           viewEl = view.render().el
-          console.log("RENDERed SUBVIEW")
-          console.dir viewEl
           @$el.append(viewEl)
           
           

@@ -19,8 +19,8 @@ define ['backbone','underscore'
       
       buildViewForField: (field,model,options)->
         fieldType = @_getFieldType(field,model)
-        console.log("RECEIVED FIELDTYPE: "+fieldType)
-        console.dir @fieldConstructionMap
+        #console.log("RECEIVED FIELDTYPE: "+fieldType)
+        #console.dir @fieldConstructionMap
         if (not fieldType?)
           throw "Unable to determine field type for: "+field
         if not @fieldConstructionMap[fieldType]?
@@ -28,8 +28,8 @@ define ['backbone','underscore'
         #TODO: Finish this 
         
         result =@fieldConstructionMap[fieldType](fieldType,field,model,options)
-        console.dir result
-        console.log("Built View")
+        #console.dir result
+        #console.log("Built View")
         result
         
       #================================================================

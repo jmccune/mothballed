@@ -4,8 +4,8 @@ define ['backbone','jquery_ui'
   ,'app/base/base_model'
   ,'templates'
   ], (Backbone,$,FormFactory,ContainerView,BaseModel,templates) ->
-    console.log("BASE MODEL? "+BaseModel)
-    console.log("JQUERY UI??? "+$)
+    #console.log("BASE MODEL? "+BaseModel)
+    #console.log("JQUERY UI??? "+$)
     ()->
       createTestModel1 = ()->
         v1test=(transient,value,model,options) ->
@@ -76,6 +76,4 @@ define ['backbone','jquery_ui'
           )
           
         $( ".datepicker" ).datepicker();
-        console.log("DATE PICKER LENGTH: "+$(".datepicker").length) 
-        console.log("DATE PICKER FUNCTION: "+$(".datepicker").datepicker)  
       )
