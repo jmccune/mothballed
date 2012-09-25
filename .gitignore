@@ -19,6 +19,8 @@
 old/
 public/
 target/
+node_modules/
+
 
 # Packages #
 ############
