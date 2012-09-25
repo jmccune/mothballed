@@ -23,7 +23,6 @@ import org.hibernate.annotations.Cascade;
 public class EntityObject {
 
 	@Id
-	@GeneratedValue
 	@Column
 	/** The unique ID for this entity 
 	 * REQUIRED
@@ -55,7 +54,7 @@ public class EntityObject {
 	 * The ROOT node is one that points to itself.
 	 */
 	 @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL, optional = true)
-	 @JoinColumn(name = "CREATOR_ID", nullable = false)
+	 @JoinColumn(name = "CREATOR_ID", nullable = true)
 	 @Fetch(FetchMode.SELECT)
 	 @Cascade({ org.hibernate.annotations.CascadeType.ALL,
 	            org.hibernate.annotations.CascadeType.SAVE_UPDATE,
@@ -98,6 +97,26 @@ public class EntityObject {
 	@Lob
 	private String  propertyMap;
 
+	/** Hibernate Constructor */
+	private EntityObject(){}
+	// ==============================================================
+	// Construction
+	// ==============================================================
+	public EntityObject(String label, String description, String type,
+			EntityObject creator, Date startDate, Date startTime, Date endDate,
+			Date endTime, String propertyMap) {
+		super();
+		this.UUID = "UUID"+new Date().getTime(); 
+		this.label = label;
+		this.description = description;
+		this.type = type;
+		this.creator = creator;
+		this.startDate = startDate;
+		this.startTime = startTime;
+		this.endDate = endDate;
+		this.endTime = endTime;
+		this.propertyMap = propertyMap;
+	}
 	
 	// ==============================================================
 	// Getters & Setters
@@ -106,6 +125,8 @@ public class EntityObject {
 	public String getUUID() {
 		return UUID;
 	}
+
+
 
 	public void setUUID(String uUID) {
 		UUID = uUID;

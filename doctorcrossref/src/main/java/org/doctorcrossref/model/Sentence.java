@@ -38,17 +38,6 @@ public class Sentence {
 	 */
 	private String sha1HashCode;
 
-	/**
-	 * The first four words of the sentence.
-	 * These are in the normative (computerized, no punctuation) form.
-	 */
-	private String firstFourWords;
-	
-	
-	/** The last four words of the sentence.
-	 *These are in the normative (computerized, no punctuation) form. 
-	 */
-	private String lastFourWords;
 	
 	// ==============================================================
 	// Getters & Setters
@@ -90,24 +79,6 @@ public class Sentence {
 
 	public void setSha1HashCode(String sha1HashCode) {
 		this.sha1HashCode = sha1HashCode;
-	}
-
-	@Column
-	public String getFirstFourWords() {
-		return firstFourWords;
-	}
-
-	public void setFirstFourWords(String firstFourWords) {
-		this.firstFourWords = firstFourWords;
-	}
-
-	@Column
-	public String getLastFourWords() {
-		return lastFourWords;
-	}
-
-	public void setLastFourWords(String lastFourWords) {
-		this.lastFourWords = lastFourWords;
 	}
 
 }
