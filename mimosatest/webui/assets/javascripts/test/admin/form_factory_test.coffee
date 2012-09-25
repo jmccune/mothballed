@@ -20,13 +20,18 @@ define ['backbone','jquery_ui'
         v2test=(transient,value,model,options) ->
           console.log("VALIDATING 2")
           return value.length%2==0
-
+          
+        dateValidator=(transient,value,model,options) ->
+          console.log("DATE VALUE>> "+value)
+      
         class TestModel1 extends BaseModel
           initialize:()->
             super
             @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield', required:true, validator: v1test)
             @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield2', required:false, validator: v2test)
             @getSchema().CharField( label:'stringfieldLABEL', name: 'stringfield3', editable:false)
+            @getSchema().DateField( label:'dateField>>', name: 'startdate', editable:true, validator: dateValidator)
+            @getSchema().DateField( label:'dateField>>', name: 'enddate', editable:false)
             @
             
         result =new TestModel1(
@@ -35,6 +40,8 @@ define ['backbone','jquery_ui'
             stringfield3: 'not_editable...'
             integerfield: 5
             realfield:    10.3
+            startdate: new Date()
+            enddate: new Date("Sep 14,2013")
             );
         result
       
@@ -75,5 +82,5 @@ define ['backbone','jquery_ui'
             expect(htmlString.length > 0).toBeTruthy();
           )
           
-        $( ".datepicker" ).datepicker();
+        #$( ".datepicker" ).datepicker();
       )

@@ -6,7 +6,7 @@ define ['backbone','underscore'
   ,sharedInfo
   ,AdminView
   ,templates) ->
-    idCount=0;
+    
     class InputFieldView extends AdminView
       template: templates.admin_field_input
       
@@ -33,15 +33,12 @@ define ['backbone','underscore'
         value = @$el.find('input').val()
         fieldSchema = @getFieldSchema()
         result = fieldSchema.validate(transient,value,@model,{})
-        console.log("RESULT OF VALIDATION: "+result)
-        
         
         if (result is true or not result?)
           @$el.find('.warning-triangle').hide();
         else if result is false
           @$el.find('.warning-triangle').show();
-        else if typeof result is 'string'
-          
+        else if typeof result is 'string'          
           @$el.find('.warning-triangle').show();
         
     InputFieldView

@@ -27,13 +27,16 @@ define ['backbone','underscore','jquery','templates'
       #   <All the Basic Args>  ## See Class Documentation
       #   auto_now: <boolean>   # Default to the current date
       DateField:(args)->
-        argMap = _processBasicArgs(args,'DateField')
+        argMap = @_processBasicArgs(args,'DateField')
         argMap = _.extend(argMap, _.pick(args,'date_format'))
-        @set(argMap.name,argMap)
+        argMap.date_format = 'yy-mm-dd' unless argMap.date_format?
+        @set(argMap.name,new SchemaField(argMap))
+        @
       
       BooleanField:(args)->
         argMap = _processBasicArgs(args,'BooleanField');
-        @set(argMap.name,argMap)
+        @set(argMap.name,new SchemaField(argMap))
+        @
       
       # =============================================================
       # PRIVATE  

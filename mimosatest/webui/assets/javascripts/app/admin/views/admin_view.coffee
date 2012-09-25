@@ -28,12 +28,15 @@ define ['backbone','underscore','jquery'
         context = {}
         context.fullmodel = super();        
         context.field={}
-        context.field.value = @model.get(@options.field)
+        context.field.value = @getFieldValue()
         
         fieldData = @getFieldSchema()
         if fieldData?
            context.field = _.extend(fieldData.toJSON(),context.field)
            
         context
+      
+      getFieldValue:()->
+        @model.get(@options.field)
         
     AdminFieldView
