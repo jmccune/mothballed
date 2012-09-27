@@ -40,12 +40,12 @@
 		<beans:property name="dataSource" ref="myDataSource" />
 		<beans:property name="annotatedClasses">
                 <beans:list>
-                    <beans:value>org.universaldataengine.webui.testmodel.TestModel</beans:value>
-                    <beans:value>org.doctorcrossref.model.Sentence</beans:value>
-                    <beans:value>org.doctorcrossref.model.SentenceReference</beans:value>
-                    <beans:value>org.doctorcrossref.model.EntityObject</beans:value>
-                    <beans:value>org.doctorcrossref.model.EntityRelationship</beans:value>
-                    <beans:value>org.doctorcrossref.model.SentenceAssociation</beans:value>
+                    <!-- <beans:value>org.universaldataengine.webui.testmodel.TestModel</beans:value> -->
+                    <beans:value>org.doctorcrossref.model.domain.EntityObject</beans:value>
+                    <beans:value>org.doctorcrossref.model.domain.support.EntityProperty</beans:value>
+                    <beans:value>org.doctorcrossref.model.domain.Sentence</beans:value>
+                    <beans:value>org.doctorcrossref.model.domain.EntityRelationship</beans:value>
+                    <beans:value>org.doctorcrossref.model.domain.SentenceAssociation</beans:value>
                 </beans:list>
         </beans:property>
 		<beans:property name="hibernateProperties">

@@ -1,4 +1,4 @@
-package org.doctorcrossref.model;
+package org.doctorcrossref.model.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

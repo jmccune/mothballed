@@ -2,7 +2,7 @@ package org.doctorcrossref.dao;
 
 import java.util.List;
 
-import org.doctorcrossref.model.EntityObject;
+import org.doctorcrossref.model.domain.EntityObject;
 
 public interface IEntityDao {
 

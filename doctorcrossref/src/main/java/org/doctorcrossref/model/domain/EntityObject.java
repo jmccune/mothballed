@@ -1,13 +1,15 @@
-package org.doctorcrossref.model;
+package org.doctorcrossref.model.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +19,8 @@ import javax.persistence.CascadeType;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Cascade;
+
+import org.doctorcrossref.model.domain.support.EntityProperty;
 
 @Entity
 @Table(name="Entity")
@@ -94,17 +98,22 @@ public class EntityObject {
 	 * The Property Map for this entity
 	 * OPTIONAL
 	 */
-	@Lob
-	private String  propertyMap;
+	@OneToMany(fetch= FetchType.LAZY, mappedBy = "entity")
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL,
+        	   org.hibernate.annotations.CascadeType.SAVE_UPDATE,
+       })
+	private Set<EntityProperty> propertySet = new HashSet<EntityProperty>(0);
 
 	/** Hibernate Constructor */
+	@SuppressWarnings("unused")
 	private EntityObject(){}
+	
 	// ==============================================================
 	// Construction
 	// ==============================================================
 	public EntityObject(String label, String description, String type,
 			EntityObject creator, Date startDate, Date startTime, Date endDate,
-			Date endTime, String propertyMap) {
+			Date endTime) {
 		super();
 		this.UUID = "UUID"+new Date().getTime(); 
 		this.label = label;
@@ -115,7 +124,14 @@ public class EntityObject {
 		this.startTime = startTime;
 		this.endDate = endDate;
 		this.endTime = endTime;
-		this.propertyMap = propertyMap;
+		
+	}
+	
+	// ==============================================================
+	// Methods
+	// ==============================================================
+	public void addProperty(String key, String value) {
+		this.getPropertySet().add(new EntityProperty(this,key,value));
 	}
 	
 	// ==============================================================
@@ -204,11 +220,15 @@ public class EntityObject {
 	}
 
 	
-	public String getPropertyMap() {
-		return propertyMap;
+	/** For Hibernate Only */
+	public Set<EntityProperty> getPropertySet() {
+		return propertySet;
 	}
 
-	public void setPropertyMap(String propertyMap) {
-		this.propertyMap = propertyMap;
-	}	
+	/** For Hibernate Only */
+	public void setPropertySet(Set<EntityProperty> propertySet) {
+		this.propertySet = propertySet;
+	}
+
+	
 }

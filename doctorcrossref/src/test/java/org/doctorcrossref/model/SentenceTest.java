@@ -2,6 +2,8 @@ package org.doctorcrossref.model;
 
 
 import junit.framework.Assert;
+
+import org.doctorcrossref.model.domain.Sentence;
 import org.junit.Test;
 
 public class SentenceTest {

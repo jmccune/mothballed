@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.doctorcrossref.dao.IEntityDao;
-import org.doctorcrossref.model.EntityObject;
+import org.doctorcrossref.model.domain.EntityObject;
+import org.doctorcrossref.model.domain.support.EntityProperty;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,11 @@ public class EntityController {
 		logger.info("Welcome to entity");
 		
 		EntityObject obj = new EntityObject("TestObj","Testing","faketype",null,
-				new Date(),null,null,null,"");
+				new Date(),null,null,null);
+		
+		EntityProperty property = new EntityProperty(obj,"TestKey","TestValue");
+		obj.getPropertySet().add(property);
+		
 		dao.saveEntity(obj);
 		List<EntityObject> entityObjectList = dao.getEntities();
 		return "EntityList"+ entityObjectList.size();
