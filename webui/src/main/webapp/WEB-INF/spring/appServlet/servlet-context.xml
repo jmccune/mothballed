@@ -60,6 +60,10 @@
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
     	<beans:property name="sessionFactory" ref="mySessionFactory" />
 	</beans:bean>
+	
+	<beans:bean id="applicationContextProvider" class="org.tierlon.system.helper.SpringHelper"></beans:bean>
+	
+	
 	<beans:bean id="entityDao" class="org.doctorcrossref.dao.EntityDaoImpl">
 		<beans:property name="sessionFactory" ref="mySessionFactory"/>
 	</beans:bean>

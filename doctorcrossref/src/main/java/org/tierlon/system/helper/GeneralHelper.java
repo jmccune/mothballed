@@ -1,4 +1,4 @@
-package org.tierlon.util;
+package org.tierlon.system.helper;
 
 public class GeneralHelper {
 

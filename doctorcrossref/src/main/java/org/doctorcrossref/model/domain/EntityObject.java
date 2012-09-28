@@ -19,6 +19,7 @@ import javax.persistence.CascadeType;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Cascade;
+import org.tierlon.system.helper.StringHelper;
 
 import org.doctorcrossref.model.domain.support.EntityProperty;
 
@@ -134,6 +135,25 @@ public class EntityObject {
 		this.getPropertySet().add(new EntityProperty(this,key,value));
 	}
 	
+	
+	// ==============================================================
+	// Object Methods
+	// ==============================================================
+	public String toString() {
+		
+		String creatorValue= (creator!=null) ?
+				creator.getLabel() : "null";
+
+		
+		return StringHelper.objectToString("EntityObject",
+				"UUID",UUID,
+				"label",label,
+				"type",type,
+				"startDate",""+startDate,
+				"endDate",""+endDate,
+				"creator",creatorValue);
+				
+	}
 	// ==============================================================
 	// Getters & Setters
 	// ==============================================================

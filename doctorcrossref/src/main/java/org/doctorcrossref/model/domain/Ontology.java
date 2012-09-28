@@ -20,6 +20,8 @@ public class Ontology {
 			"Specification>Time>Date>End | " +
 			"Method>Measure>Time>Instant";
 	
+	final static public String AUTHOR = "Entity>Person>Author";
+	final static public String ORGANIZATION = "Entity>Organization";
 	
 	//ROOT ENTITY_TYPES
 	final static public String[] ROOTS={

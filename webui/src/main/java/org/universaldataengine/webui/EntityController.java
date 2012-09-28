@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.doctorcrossref.dao.IEntityDao;
 import org.doctorcrossref.model.domain.EntityObject;
+import org.doctorcrossref.model.domain.support.EntityFactory;
 import org.doctorcrossref.model.domain.support.EntityProperty;
 
 import org.slf4j.Logger;
@@ -48,7 +49,11 @@ public class EntityController {
 		
 		dao.saveEntity(obj);
 		List<EntityObject> entityObjectList = dao.getEntities();
-		return "EntityList"+ entityObjectList.size();
+		
+		EntityFactory factory = new EntityFactory();
+		EntityObject systemAuthor = factory.obtainSystemAuthor();
+		
+		return "EntityList"+ entityObjectList.size()+" SysAuhtor: "+systemAuthor;
 	}
 	
 }

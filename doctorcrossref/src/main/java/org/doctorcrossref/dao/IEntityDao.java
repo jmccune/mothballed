@@ -9,4 +9,7 @@ public interface IEntityDao {
 	void         deleteEntity(EntityObject obj);
 	EntityObject saveEntity(EntityObject obj);
 	List<EntityObject> getEntities();
+	List<EntityObject> getEntitiesBy(String label,String type,
+									 EntityObject creator);
+	
 }
