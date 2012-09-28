@@ -22,7 +22,9 @@ public class EntityDaoImpl implements IEntityDao {
 	@Override
 	public List<EntityObject> getEntities() {
 		Session s =this.sessionFactory.getCurrentSession();
-		return s.createCriteria(EntityObject.class).list();
+		Criteria criteria =s.createCriteria(EntityObject.class);
+		criteria=criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return criteria.list();
 	}
 
 	@Override
@@ -50,6 +52,10 @@ public class EntityDaoImpl implements IEntityDao {
 			criteria = criteria.add(Restrictions.eq("type", type));
 		if (creator!=null)
 			criteria = criteria.add(Restrictions.eq("creator", creator));
+		
+		// Ignore the fact that we are returning multiple property sets via
+		// a join...
+		criteria=criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 

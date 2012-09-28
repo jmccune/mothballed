@@ -18,6 +18,16 @@ public class GeneralHelper {
 		}
 	}
 	
+	public static void assertObjectsOfType(Class<? extends Object> type,
+			Object...objects) {
+		for (Object obj : objects) {
+			if (obj==null)
+				throw new NullPointerException();
+			if (!type.isInstance(obj)) 
+				throw new IllegalArgumentException("Expected type: "+type+
+						" but argument: "+obj+" is of type: "+obj.getClass());
+		}
+	}
 	
 	public static Date parseDate(String dateString) {
 		try {

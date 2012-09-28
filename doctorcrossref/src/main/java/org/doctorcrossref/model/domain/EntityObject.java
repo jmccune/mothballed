@@ -21,11 +21,14 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Cascade;
 import org.tierlon.system.helper.StringHelper;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.doctorcrossref.model.domain.support.Entity2JsonBehavior;
 import org.doctorcrossref.model.domain.support.EntityProperty;
+import org.doctorcrossref.system.behavior.BehaviorableObject;
 
 @Entity
 @Table(name="Entity")
-public class EntityObject {
+public class EntityObject extends BehaviorableObject {
 
 	@Id
 	@Column
@@ -58,6 +61,7 @@ public class EntityObject {
 	 * REQUIRED
 	 * The ROOT node is one that points to itself.
 	 */
+	 @JsonIgnore
 	 @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL, optional = true)
 	 @JoinColumn(name = "CREATOR_ID", nullable = true)
 	 @Fetch(FetchMode.SELECT)
@@ -99,7 +103,7 @@ public class EntityObject {
 	 * The Property Map for this entity
 	 * OPTIONAL
 	 */
-	@OneToMany(fetch= FetchType.LAZY, mappedBy = "entity")
+	@OneToMany(fetch= FetchType.EAGER, mappedBy = "entity")
 	@Cascade({ org.hibernate.annotations.CascadeType.ALL,
         	   org.hibernate.annotations.CascadeType.SAVE_UPDATE,
        })
@@ -107,7 +111,9 @@ public class EntityObject {
 
 	/** Hibernate Constructor */
 	@SuppressWarnings("unused")
-	private EntityObject(){}
+	private EntityObject(){
+		this.addBehavior(new Entity2JsonBehavior());
+	}
 	
 	// ==============================================================
 	// Construction
@@ -125,6 +131,8 @@ public class EntityObject {
 		this.startTime = startTime;
 		this.endDate = endDate;
 		this.endTime = endTime;
+		
+		this.addBehavior(new Entity2JsonBehavior());
 		
 	}
 	
@@ -251,6 +259,6 @@ public class EntityObject {
 	}
 
 	
-	public void addBehavior(IBehavior)
+	
 	
 }

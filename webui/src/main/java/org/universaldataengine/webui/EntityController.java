@@ -15,6 +15,8 @@ import org.doctorcrossref.model.domain.EntityObject;
 import org.doctorcrossref.model.domain.Ontology;
 import org.doctorcrossref.model.domain.support.EntityFactory;
 import org.doctorcrossref.model.domain.support.EntityProperty;
+import org.doctorcrossref.system.behavior.IBehavior;
+import org.doctorcrossref.system.standard.BehaviorNames;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,22 +84,37 @@ public class EntityController {
 		List<EntityObject> authorList = 
 				dao.getEntitiesBy(null, Ontology.AUTHOR,null);
 		
+		System.out.println("AUTHORLIST SIZE: "+authorList.size());
+		
 		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		int count=0;
 		for (EntityObject author: authorList) {
-			sb.append(author.toString());
-			sb.append("\n<br>");
+			IBehavior<String> serializer=
+					author.getBehavior(BehaviorNames.JSON_SERIALIZATION);
+			
+			if (serializer!=null && 
+				serializer.canRunBehavior().isAcceptable()) {
+				if (count++>0) {
+					sb.append(",");
+				}
+				sb.append(serializer.runBehavior(author));
+			}
 		}
+		sb.append("]");
 		
-		StringWriter writer = new StringWriter();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			mapper.writeValue(writer, authorList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return " { exception: "+e.getMessage()+"}";
-		}
+//		StringWriter writer = new StringWriter();
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			mapper.writeValue(writer, authorList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return " { exception: "+e.getMessage()+"}";
+//		}
 		
-		return "AUTHORS:>> "+writer.toString();
+		
+		
+		return "AUTHORS:>> "+sb.toString();
 		
 	}
 	

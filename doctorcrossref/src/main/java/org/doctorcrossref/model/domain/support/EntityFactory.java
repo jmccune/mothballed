@@ -41,6 +41,12 @@ public class EntityFactory {
 				Ontology.AUTHOR, systemAuthor, birthDate, null, deathDate,
 				null);
 		
+		object.addProperty("name_first", firstName);
+		object.addProperty("name_last", lastName);
+		if (middle!=null) 
+			object.addProperty("name_middle", middle);
+		if (suffix!=null)
+			object.addProperty("name_suffix", suffix);
 		return object;
 	}
 	
