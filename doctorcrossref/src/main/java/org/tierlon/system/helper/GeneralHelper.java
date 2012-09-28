@@ -1,7 +1,14 @@
 package org.tierlon.system.helper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class GeneralHelper {
 
+	static SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy.MM.dd");
+	static SimpleDateFormat dateFormat2 = new SimpleDateFormat("MM/dd/yy");
+	
 	public static void assertNonNull(Object... args) {
 		int nth=0;
 		for (Object arg : args) {			
@@ -10,4 +17,24 @@ public class GeneralHelper {
 			nth=nth+1;
 		}
 	}
+	
+	
+	public static Date parseDate(String dateString) {
+		try {
+			if (dateString.contains(".")) {
+				return dateFormat1.parse(dateString);
+			}
+			else if (dateString.contains("/")) {
+				return dateFormat2.parse(dateString);
+			}
+		}
+		catch (ParseException x) {
+			System.err.println(">>Error parsing: "+dateString);
+			x.printStackTrace();
+		}
+	
+		throw new IllegalArgumentException("Argument: "+dateString+
+				" isn't in one of the expected date formats!");
+	}
+	
 }

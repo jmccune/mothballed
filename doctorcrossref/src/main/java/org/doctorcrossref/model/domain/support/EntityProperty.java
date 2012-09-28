@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.doctorcrossref.model.domain.EntityObject;
 
 @Entity
-@Table(name = "EntityProperty")
+@Table(name = "Entity_Property")
 public class EntityProperty {
 
 	@Id

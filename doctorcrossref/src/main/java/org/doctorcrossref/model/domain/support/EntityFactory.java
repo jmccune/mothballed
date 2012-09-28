@@ -7,8 +7,8 @@ import org.doctorcrossref.dao.IEntityDao;
 import org.doctorcrossref.model.domain.EntityObject;
 import org.doctorcrossref.model.domain.Ontology;
 //import org.doctorcrossref.model.domain.context.EntityContext;
-import org.doctorcrossref.model.system.standard.PersonName;
-import org.doctorcrossref.model.system.standard.StandardProperty;
+import org.doctorcrossref.system.standard.PersonName;
+import org.doctorcrossref.system.standard.StandardProperty;
 import org.springframework.context.ApplicationContext;
 import org.tierlon.system.helper.GeneralHelper;
 import org.tierlon.system.helper.SpringHelper;
@@ -28,7 +28,7 @@ public class EntityFactory {
 	// ----------------------
 	// Author
 	// ----------------------
-	EntityObject createAuthor(String lastName,String firstName,String middle,
+	public EntityObject createAuthor(String lastName,String firstName,String middle,
 			String suffix,
 			String description, Date birthDate, Date deathDate) {
 
@@ -47,7 +47,7 @@ public class EntityFactory {
 	// ----------------------
 	// Excerpt
 	// ----------------------
-	EntityObject createExcerpt(EntityObject author,
+	public EntityObject createExcerpt(EntityObject author,
 			String label, String description,
 			Date publicationDate) {
 		
@@ -63,7 +63,7 @@ public class EntityFactory {
 	//            or to an informal volume -- the volume of all the works of
 	//                      CS Lewis)
 	// ----------------------
-	EntityObject createVolume(EntityObject author,
+	public EntityObject createVolume(EntityObject author,
 			String label, String description,
 			Date startDate, Date endDate) {
 		
@@ -74,7 +74,7 @@ public class EntityFactory {
 	// ----------------------
 	// Article
 	// ----------------------
-	EntityObject createArticle(EntityObject author,
+	public EntityObject createArticle(EntityObject author,
 			String label, String description,
 			Date publicationDate) {
 		
@@ -85,7 +85,7 @@ public class EntityFactory {
 	// ----------------------
 	// Book
 	// ----------------------
-	EntityObject createBook(EntityObject author,
+	public EntityObject createBook(EntityObject author,
 			String label, String description,
 			Date publicationDate) {
 		GeneralHelper
@@ -99,7 +99,7 @@ public class EntityFactory {
 	// ----------------------
 	// WebPage
 	// ----------------------
-	EntityObject createWebPage(EntityObject author,
+	public EntityObject createWebPage(EntityObject author,
 			String label, String description,
 			Date pageCreationDate, String webpageUrl) {
 		EntityObject object = new EntityObject(label, description,

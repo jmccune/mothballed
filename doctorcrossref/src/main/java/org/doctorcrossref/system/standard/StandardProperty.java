@@ -1,4 +1,4 @@
-package org.doctorcrossref.model.system.standard;
+package org.doctorcrossref.system.standard;
 
 
 /**

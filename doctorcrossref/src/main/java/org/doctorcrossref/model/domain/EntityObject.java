@@ -251,4 +251,6 @@ public class EntityObject {
 	}
 
 	
+	public void addBehavior(IBehavior)
+	
 }
