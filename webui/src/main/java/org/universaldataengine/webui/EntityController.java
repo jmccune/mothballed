@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tierlon.system.helper.GeneralHelper;
 
@@ -74,6 +76,26 @@ public class EntityController {
 		dao.saveEntity(jmccune);
 		dao.saveEntity(edgarAllenPoe);
 		return "EntityList"+ entityObjectList.size()+" SysAuhtor: "+systemAuthor;
+	}
+	
+	
+	@RequestMapping(value = "/entity/author", method = RequestMethod.POST)
+	@ResponseBody
+	public String setAuthor(@RequestParam Map<String,String> parameters, Model model) {
+		System.out.println("HERE>>>>");
+		for (String key: parameters.keySet()) {
+			System.out.println("KEY: "+key+"   VALUE>> "+parameters.get(key));
+		}
+		
+		// NEW PARADIGM I'M MOVING TOWARDS>>
+		// 
+		// 1. Get ModelSchema based on TYPE value (type is always required)
+		// 2. Validate Map<String,String> Against that Schema 
+		// 3. Apply Map<String,String> to EntityObject
+		// 4. (Search to see if this entity object already exists)
+		// 5. If not, then create the sucker...
+		//    If it does, then let the user know that (with an error).
+		return "SUCCESS";
 	}
 	
 	@RequestMapping(value = "/entity/author", method = RequestMethod.GET)
