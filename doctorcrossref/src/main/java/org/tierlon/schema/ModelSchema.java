@@ -1,5 +1,6 @@
 package org.tierlon.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +14,11 @@ import org.tierlon.schema.support.FieldSchema;
  * ojbect that will validate the information.)
  *
 	Entity:
-		Label:String:(length>0 & length<128)
-		Description:String
-		CreatedDate:Date
-		Type:String:org.tierlon.etc.TypeValidator
-		[Creator]:Entity:(Type=Entity>Person or Type=Entity>Organization)
+		Label:string@(length>0 & length<128)
+		Description:string#"No Description Given"
+		CreatedDate:date
+		Type:String@(org.tierlon.etc.TypeValidator)#"NONE"
+		[Creator]:Entity@(Type=Entity>Person || Type=Entity>Organization)
 		[EndDate]:Date
 	
 	Entity>Person:
@@ -27,13 +28,37 @@ import org.tierlon.schema.support.FieldSchema;
 		[suffix]:String
 	
 	
+	
 */
 public class ModelSchema implements IValidate<Map<String,String>>{
 
+	/** Which models are the immediate parents of this one? */
+	private List<String>	  parentNames;
+	
+	/** What is the name of this model? */
+	private String            modelName;
+	private String			  namespace;
+	
+	/** What fields does this model have? */
 	private List<FieldSchema> modelFields;
+	
+	/** What validator (if any) validates this model as a whole?
+	 *  Note: Fields may have their own validators. */
 	private IValidate<ModelSchema> modelValidator;
+	
+	
 	// ==============================================================
-	// Methods
+	// CONSTRUCTION
+	// ==============================================================
+	public ModelSchema(String namespace, String modelName) {
+		this.namespace = namespace;
+		this.modelName = modelName;
+	}
+	
+	
+	
+	// ==============================================================
+	// INTERFACE IMPLEMENTATION 
 	// ==============================================================
 	@Override
 	public IAcceptanceResult evaluate(Map<String, String> object,
@@ -41,7 +66,66 @@ public class ModelSchema implements IValidate<Map<String,String>>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	// ==============================================================
+	// Getters & Setters
+	// ==============================================================
+	public List<String> getParentNames() {
+		return new ArrayList<String>(parentNames);
+	}
+
+
+	public void setParentNames(List<String> parentNames) {
+		this.parentNames = parentNames;
+	}
+
+
+
+	public String getModelName() {
+		return modelName;
+	}
+
+
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+
+
+	public String getNamespace() {
+		return namespace;
+	}
+
+
+
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
+
+
+
+	public List<FieldSchema> getModelFields() {
+		return new ArrayList<FieldSchema>(modelFields);
+	}
+
+
+
+	public void setModelFields(List<FieldSchema> modelFields) {
+		this.modelFields = modelFields;
+	}
+
+
+
+	public IValidate<ModelSchema> getModelValidator() {
+		return modelValidator;
+	}
+
+
+
+	public void setModelValidator(IValidate<ModelSchema> modelValidator) {
+		this.modelValidator = modelValidator;
+	}
 	
 	
 }
