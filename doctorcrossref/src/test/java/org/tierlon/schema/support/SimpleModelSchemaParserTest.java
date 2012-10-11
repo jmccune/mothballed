@@ -85,7 +85,10 @@ public class SimpleModelSchemaParserTest {
 	public void testModelParser() throws IOException {
 		Object testCases[] = {
 				"alpha > bravo : \n"+
-				"    label:string@($length>0 && $length<128)",true
+				"    label:string@($length>0 && $length<128)\n"+
+				"    description:string\n"+
+				"    createdDate:date\n"+
+				"    type:string@(org.tierlon.etc.TypeValidator)#\"NONE\"",true
 		};
 		
 		for (int i=0; i<testCases.length; i+=2)

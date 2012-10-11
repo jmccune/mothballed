@@ -1,6 +1,7 @@
 package org.tierlon.schema;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,7 @@ public class ModelSchema implements IValidate<Map<String,String>>{
 	public ModelSchema(String namespace, String modelName) {
 		this.namespace = namespace;
 		this.modelName = modelName;
+		modelFields = Collections.emptyList();
 	}
 	
 	
