@@ -11,6 +11,19 @@ public class AcceptanceResult implements IAcceptanceResult {
 	// ==============================================================
 	// CONSTRUCTION
 	// ==============================================================
+	static public AcceptanceResult negate(IAcceptanceResult original) {
+		if (original==null) {
+			throw new NullPointerException();
+		}
+		
+		double value = original.asNumber();
+		value = -value;
+		String reason = "Negated Logically("+ original.getReason()+")";
+		
+		return new AcceptanceResult(value,reason);		
+	}
+	
+	
 	public AcceptanceResult(boolean success ,String reason) {
 		acceptanceValue=(success ? 1.0 : -1.0);
 		this.reason = reason;

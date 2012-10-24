@@ -4,11 +4,19 @@ import java.io.IOException;
 
 import junit.framework.Assert;
 
+import org.apache.log4j.BasicConfigurator;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tierlon.schema.ModelSchema;
 
 public class SimpleModelSchemaParserTest {
 
+	@BeforeClass
+	public static void beforeTest() {
+		BasicConfigurator.configure();
+	}
+	
 	@Test
 	public void testLexer() throws IOException {
  

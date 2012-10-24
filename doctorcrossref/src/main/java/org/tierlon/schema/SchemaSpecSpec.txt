@@ -105,8 +105,47 @@ The Schema Schema Spec:
 	<FIELDNAME>:<LABEL>
 	<NAMESPACE>:<LABEL>
 	<LABEL>: [A-Za-z][0-9_-A-Za-z]*
-	<MARKER>:          ": "   ## Note Trailing Space is important
-	<OR_MARKER>:       " | "  ## Note Preceding & Trailing Space important
-	<PARENT_MARKER>:   "> "   ## Note Trailing Space is important
+	<MARKER>:          ": "   	  ## Note Trailing Space is important
+	<OR_MARKER>:       " | " 	  ## Note Preceding & Trailing Space important
+	<PARENT_MARKER>:   "> "  	  ## Note Trailing Space is important
 	<INDENT>: "\t" | "  " {3,5}   ## Indent or 3-5 spaces
 	
+================================
+EXAMPLES:
+
+Entity:
+		Label:string@($length>0 && $length<128)
+		Description:string#"No Description Given"
+		CreatedDate:date
+		EndDate:date@($value>@CreatedDate)
+		Type:String@(org.tierlon.etc.TypeValidator)#"NONE"
+		[Creator]:Entity@(Type=Entity>Person || Type=Entity>Organization)
+		[EndDate]:Date
+
+
+================================
+VALIDATION RULES:
+
+ -- $<label> rules:
+	$<label>   is equivalent to saying:
+						 <fieldtype>.<label>()
+						 or
+						 <fieldtype>.get<label>()
+						 
+	Example:
+		string:@($length   means effectively:
+							String.length() is invoked for the given string
+	
+	RESERVED:
+	$value  is a reserved label that gets the value of the given object
+	
+	string:$value      would return something like "foo"
+	date:$value 	   would return something like "2012-10-22..."
+	
+ -- @<label>  rules:
+	@<label>   is equivalent to saying:
+						<thisModel>.get<label>()
+						or 
+						<thisModel>.<label>
+	Example:	
+		endDate:@($value>@StartDate)	

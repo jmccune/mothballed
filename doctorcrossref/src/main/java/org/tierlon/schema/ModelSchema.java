@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.IValidate;
-import org.tierlon.system.transform.ITransformData;
+import org.tierlon.system.evaluation.IEvaluate;
 import org.tierlon.schema.support.FieldSchema;
 
 /*	(For each type, you have the property, its type, and optionally any 
@@ -20,7 +19,7 @@ import org.tierlon.schema.support.FieldSchema;
 		CreatedDate:date
 		Type:String@(org.tierlon.etc.TypeValidator)#"NONE"
 		[Creator]:Entity@(Type=Entity>Person || Type=Entity>Organization)
-		[EndDate]:Date
+		[EndDate]:Date@($value>=@CreatedDate)
 	
 	Entity>Person:
 		firstName:String
@@ -31,7 +30,7 @@ import org.tierlon.schema.support.FieldSchema;
 	
 	
 */
-public class ModelSchema implements IValidate<Map<String,String>>{
+public class ModelSchema implements IEvaluate<Map<String,String>>{
 
 	/** Which models are the immediate parents of this one? */
 	private List<String>	  parentNames;
@@ -45,7 +44,7 @@ public class ModelSchema implements IValidate<Map<String,String>>{
 	
 	/** What validator (if any) validates this model as a whole?
 	 *  Note: Fields may have their own validators. */
-	private IValidate<ModelSchema> modelValidator;
+	private IEvaluate<ModelSchema> modelValidator;
 	
 	
 	// ==============================================================
@@ -119,13 +118,13 @@ public class ModelSchema implements IValidate<Map<String,String>>{
 
 
 
-	public IValidate<ModelSchema> getModelValidator() {
+	public IEvaluate<ModelSchema> getModelValidator() {
 		return modelValidator;
 	}
 
 
 
-	public void setModelValidator(IValidate<ModelSchema> modelValidator) {
+	public void setModelValidator(IEvaluate<ModelSchema> modelValidator) {
 		this.modelValidator = modelValidator;
 	}
 	

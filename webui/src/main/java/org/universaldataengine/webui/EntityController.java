@@ -1,16 +1,11 @@
 package org.universaldataengine.webui;
 
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.doctorcrossref.dao.IEntityDao;
 import org.doctorcrossref.model.domain.EntityObject;
 import org.doctorcrossref.model.domain.Ontology;

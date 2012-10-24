@@ -1,6 +1,6 @@
 package org.tierlon.system.evaluation;
 
-public interface IValidate<ObjectTYPE> {
+public interface IEvaluate<ObjectTYPE> {
 
 	IAcceptanceResult evaluate(ObjectTYPE object, Object... contextualInfo);
 }

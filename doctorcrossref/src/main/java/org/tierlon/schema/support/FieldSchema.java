@@ -1,7 +1,7 @@
 package org.tierlon.schema.support;
 
 import org.tierlon.schema.support.FieldData;
-import org.tierlon.system.evaluation.IValidate;
+import org.tierlon.system.evaluation.IEvaluate;
 import org.tierlon.system.transform.ITransformData;
 
 public class FieldSchema {
@@ -12,7 +12,7 @@ public class FieldSchema {
 	private PropertyType propertyType;
 	
 	private ITransformData<FieldData,Object> fieldTransform;
-	private IValidate<FieldData> fieldValidator;
+	private IEvaluate<FieldData> fieldValidator;
 	private boolean required;
 
 	// ==============================================================
@@ -51,10 +51,10 @@ public class FieldSchema {
 	public void setFieldTransform(ITransformData<FieldData, Object> fieldTransform) {
 		this.fieldTransform = fieldTransform;
 	}
-	public IValidate<FieldData> getFieldValidator() {
+	public IEvaluate<FieldData> getFieldValidator() {
 		return fieldValidator;
 	}
-	public void setFieldValidator(IValidate<FieldData> fieldValidator) {
+	public void setFieldValidator(IEvaluate<FieldData> fieldValidator) {
 		this.fieldValidator = fieldValidator;
 	}
 

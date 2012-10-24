@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import org.tierlon.schema.IModelSchemaParser;
 import org.tierlon.schema.ModelSchema;
+import org.tierlon.schema.support.fields.FieldSchemaFactory;
 
 public class SimpleModelSchemaParser implements IModelSchemaParser {
 
@@ -37,7 +38,9 @@ class ModelParser {
 	private static final String LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*";
 	private static final String NSLABEL_REGEX = "("+LABEL_REGEX+"\\:)?"+LABEL_REGEX;
 	private static final Pattern fieldTypeEnd = Pattern.compile("[@#]"); 
-			
+	private static final FieldSchemaFactory fieldFactory = 
+			new FieldSchemaFactory();
+	
 	public static final String ENTITY_REGEX = 
 			"\\s{0,2}("+NSLABEL_REGEX+")"+
 			"(\\s+\\|\\s+"+NSLABEL_REGEX+")*"+
@@ -88,17 +91,25 @@ class ModelParser {
 		Matcher m = fieldTypeEnd.matcher(remainder);
 		if (m.find()) {
 			fieldType = remainder.substring(0,m.start());
+			remainder = remainder.substring(m.start());
 		} else {
 			fieldType = remainder;
+			remainder = "";
 		}
+		
+		System.out.println("DATA>>"+data);
+		System.out.println("fieldType: "+fieldType);
+		System.out.println("remainder: "+remainder);
 		
 		if (fieldType.isEmpty()) {
 			throw new IllegalStateException("Must have type specification!");
 		}
+	
+		FieldSchema schema = fieldFactory.createField(fieldName,fieldType,remainder);
 		
 		System.out.println("Parsed field: "+fieldName+" fieldType: "+fieldType);
-		this.fieldSchemaList.add(new FieldSchema(fieldName,fieldType));
-		
+		//this.fieldSchemaList.add(new FieldSchema(fieldName,fieldType));
+		this.fieldSchemaList.add(schema);
 	}
 	
 	
@@ -188,6 +199,8 @@ class ModelParser {
 		}
 	}
 }
+
+
 
 
 
