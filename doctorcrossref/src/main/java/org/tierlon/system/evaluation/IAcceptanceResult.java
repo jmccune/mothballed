@@ -35,12 +35,17 @@ import java.util.List;
  */
 public interface IAcceptanceResult {
 
-	/** Note:  Covnetion is that indeterminate results are NOT acceptable.
+	/** Note:  Convention is that indeterminate results are NOT acceptable.
 	 * Therefore !isAcceptable includes both failure and indeterminate ranges.
 	 * @return true iff the asNumber() representation is >=1 indicating 
 	 * success.
 	 */
 	public boolean 		isAcceptable();
+	
+	public boolean      isIndeterminate();
+	
+	public boolean      isUnacceptable();
+	
 	
 	/** Get a human readable reason/explanation of the result. */
 	public String 		getReason();

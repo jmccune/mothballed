@@ -3,6 +3,8 @@ package org.tierlon.system.evaluation;
 import java.util.Collections;
 import java.util.List;
 
+import org.tierlon.system.helper.StringHelper;
+
 public class AcceptanceResult implements IAcceptanceResult {
 
 	private double acceptanceValue;
@@ -11,6 +13,10 @@ public class AcceptanceResult implements IAcceptanceResult {
 	// ==============================================================
 	// CONSTRUCTION
 	// ==============================================================
+	static public AcceptanceResult indeterminate(String reason) {
+		return new AcceptanceResult(0,reason);
+	}
+	
 	static public AcceptanceResult negate(IAcceptanceResult original) {
 		if (original==null) {
 			throw new NullPointerException();
@@ -34,6 +40,21 @@ public class AcceptanceResult implements IAcceptanceResult {
 		this.reason = reason;
 	}
 	// ==============================================================
+	// OBJECT
+	// ==============================================================
+	public String toString() {
+		
+		String meaning = "indeterminate";
+		if (isAcceptable()) {
+			meaning = "acceptable";
+		}
+		if (isUnacceptable()) {
+			meaning = "unacceptable";
+		}
+		return StringHelper.objectToString("AcceptanceResult", 
+				"value",acceptanceValue,"means",meaning,"reason",reason);
+	}
+	// ==============================================================
 	// IMPLEMENTATION 
 	// ==============================================================
 	@Override
@@ -41,6 +62,17 @@ public class AcceptanceResult implements IAcceptanceResult {
 		return acceptanceValue>=1.0;
 	}
 
+	
+	@Override
+	public boolean isUnacceptable() {
+		return acceptanceValue<=-1.0;
+	}
+	
+	@Override
+	public boolean isIndeterminate() {
+		return -1.0<acceptanceValue && acceptanceValue<1.0;
+	}
+	
 	@Override
 	public String getReason() {
 		return reason;

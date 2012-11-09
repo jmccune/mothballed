@@ -2,7 +2,7 @@ package org.tierlon.system.helper;
 
 public class StringHelper {
 
-	static public String objectToString(String objectName,String... kvArgs) {
+	static public String objectToString(String objectName,Object... kvArgs) {
 		if (kvArgs == null) 
 			return objectName;
 		
