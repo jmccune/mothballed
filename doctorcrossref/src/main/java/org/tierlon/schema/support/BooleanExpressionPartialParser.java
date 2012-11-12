@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.tierlon.evaluation.expression.IExpression;
-import org.tierlon.system.transform.ITransformData;
+import org.tierlon.transform.ITransformData;
 
 public class BooleanExpressionPartialParser {
 

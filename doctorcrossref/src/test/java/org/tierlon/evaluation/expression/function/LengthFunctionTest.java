@@ -1,6 +1,5 @@
 package org.tierlon.evaluation.expression.function;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import junit.framework.Assert;

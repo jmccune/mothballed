@@ -108,7 +108,8 @@ public class SimpleModelSchemaParserTest {
 			ModelParser parser = new ModelParser();
 			
 			try {
-				ModelSchema schema = parser.parseData(lexer);
+				//ModelSchema schema = 
+				parser.parseData(lexer);
 				Assert.assertEquals(expectedResult,true);
 			}
 			catch (Exception x) {

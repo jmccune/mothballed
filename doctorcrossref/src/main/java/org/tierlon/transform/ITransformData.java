@@ -1,4 +1,4 @@
-package org.tierlon.system.transform;
+package org.tierlon.transform;
 
 public interface ITransformData<Object1TYPE,ResultTYPE> {
 

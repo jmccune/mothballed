@@ -2,7 +2,7 @@ package org.tierlon.schema.support;
 
 import org.tierlon.evaluation.IEvaluate;
 import org.tierlon.schema.support.FieldData;
-import org.tierlon.system.transform.ITransformData;
+import org.tierlon.transform.ITransformData;
 
 public class FieldSchema {
 	public enum PropertyType {string,date,number,num_float,num_int,
