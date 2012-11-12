@@ -1,11 +1,11 @@
-package org.tierlon.system.evaluation.expression.logic;
+package org.tierlon.evaluation.expression.logic;
 
 import java.util.List;
 
-import org.tierlon.system.evaluation.AcceptanceResult;
-import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.expression.IllegalEvaluationTypeException;
-import org.tierlon.system.evaluation.expression.base.AcceptanceBooleanExpression;
+import org.tierlon.evaluation.AcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
+import org.tierlon.evaluation.expression.base.AcceptanceBooleanExpression;
 
 public class BooleanAndExpression<Context> 
 	extends AcceptanceBooleanExpression<Context> {

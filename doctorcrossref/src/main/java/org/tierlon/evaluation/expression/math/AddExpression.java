@@ -1,9 +1,9 @@
-package org.tierlon.system.evaluation.expression.math;
+package org.tierlon.evaluation.expression.math;
 
 import java.util.List;
 
-import org.tierlon.system.evaluation.expression.IllegalEvaluationTypeException;
-import org.tierlon.system.evaluation.expression.base.SingleTypeExpression;
+import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
+import org.tierlon.evaluation.expression.base.SingleTypeExpression;
 
 public class AddExpression<Context> extends SingleTypeExpression<Context> {
 

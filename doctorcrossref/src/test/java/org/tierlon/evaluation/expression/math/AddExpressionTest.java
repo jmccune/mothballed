@@ -3,8 +3,6 @@ package org.tierlon.evaluation.expression.math;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.tierlon.system.evaluation.expression.math.AddExpression;
-import org.tierlon.system.evaluation.expression.math.ConstantExpression;
 
 public class AddExpressionTest {
 

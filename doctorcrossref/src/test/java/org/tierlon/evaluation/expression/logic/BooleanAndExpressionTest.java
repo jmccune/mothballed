@@ -3,10 +3,9 @@ package org.tierlon.evaluation.expression.logic;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.tierlon.system.evaluation.AcceptanceResult;
-import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.expression.logic.BooleanAndExpression;
-import org.tierlon.system.evaluation.expression.math.ConstantExpression;
+import org.tierlon.evaluation.AcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.expression.math.ConstantExpression;
 
 public class BooleanAndExpressionTest {
 

@@ -1,4 +1,4 @@
-package org.tierlon.system.evaluation;
+package org.tierlon.evaluation;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.tierlon.system.evaluation.expression;
+package org.tierlon.evaluation.expression;
 
 @SuppressWarnings("serial")
 public class IllegalEvaluationTypeException extends RuntimeException {

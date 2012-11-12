@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.IEvaluate;
+import org.tierlon.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.IEvaluate;
 import org.tierlon.schema.support.FieldSchema;
 
 /*	(For each type, you have the property, its type, and optionally any 

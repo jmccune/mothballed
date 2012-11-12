@@ -1,6 +1,6 @@
-package org.tierlon.system.evaluation.expression;
+package org.tierlon.evaluation.expression;
 
-import org.tierlon.system.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
 
 
 /** 

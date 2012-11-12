@@ -1,14 +1,14 @@
-package org.tierlon.system.evaluation.expression.base;
+package org.tierlon.evaluation.expression.base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.tierlon.system.evaluation.AcceptanceResult;
-import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.expression.IExpression;
-import org.tierlon.system.evaluation.expression.IllegalEvaluationTypeException;
-import org.tierlon.system.evaluation.expression.IllegalOperandTypeException;
+import org.tierlon.evaluation.AcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.expression.IExpression;
+import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
+import org.tierlon.evaluation.expression.IllegalOperandTypeException;
 
 public abstract class SingleTypeExpression<Context> 
 	implements IExpression<Context> {

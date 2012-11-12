@@ -1,6 +1,6 @@
 package org.doctorcrossref.system.behavior;
 
-import org.tierlon.system.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
 
 public interface IBehavior<ResultTYPE> {
 

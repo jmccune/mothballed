@@ -1,7 +1,7 @@
 package org.doctorcrossref.system.behavior;
 
-import org.tierlon.system.evaluation.AcceptanceResult;
-import org.tierlon.system.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.AcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
 
 public abstract class AbstractBehaviorBase<ResultTYPE> 
 	implements IBehavior<ResultTYPE> {

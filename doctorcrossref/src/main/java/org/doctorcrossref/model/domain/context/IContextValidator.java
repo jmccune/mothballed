@@ -1,6 +1,6 @@
 package org.doctorcrossref.model.domain.context;
 
-import org.tierlon.system.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
 
 public interface IContextValidator {
 

@@ -1,9 +1,9 @@
-package org.tierlon.system.evaluation.expression.math;
+package org.tierlon.evaluation.expression.math;
 
-import org.tierlon.system.evaluation.AcceptanceResult;
-import org.tierlon.system.evaluation.IAcceptanceResult;
-import org.tierlon.system.evaluation.expression.IExpression;
-import org.tierlon.system.evaluation.expression.IllegalEvaluationTypeException;
+import org.tierlon.evaluation.AcceptanceResult;
+import org.tierlon.evaluation.IAcceptanceResult;
+import org.tierlon.evaluation.expression.IExpression;
+import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
 
 public class ConstantExpression<Context> implements IExpression<Context> {
 

@@ -6,8 +6,7 @@ import java.util.Arrays;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.tierlon.system.evaluation.expression.function.LengthFunction;
-import org.tierlon.system.evaluation.expression.math.ConstantExpression;
+import org.tierlon.evaluation.expression.math.ConstantExpression;
 
 public class LengthFunctionTest {
 
