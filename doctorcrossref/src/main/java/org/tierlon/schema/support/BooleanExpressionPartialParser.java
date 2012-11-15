@@ -1,69 +1,59 @@
 package org.tierlon.schema.support;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.tierlon.evaluation.expression.IExpression;
-import org.tierlon.transform.ITransformData;
+import org.tierlon.transform.process.IString2TokenProcessor;
+import org.tierlon.transform.process.RegexBasedStringProcessor;
+import org.tierlon.transform.process.String2TokenContext;
 
 public class BooleanExpressionPartialParser {
 
+	public static final String NOT_REGEX = "NOT\\s*__Token[0-9]+__";
+	
+	// Simply || but escaped for strings+regex
+	private static final String OR_TKN="\\|\\|";
+	private static final String AND_TKN="&&";
+	
+	public static final String OR_REGEX = 
+		".*?"+OR_TKN+"\\s*\\S.*?"+
+		"("+OR_TKN+"\\s*\\S.*?)*";
+	public static final String AND_REGEX=
+			".*?"+AND_TKN+"\\s*\\S.*?"+
+			"("+AND_TKN+"\\s*\\S.*?)*";
 	
 	public void parse(String string) {
 		
 	}
-}
 
 
-/**
- * 
- * 
- * @author justinanddiana
- *
- */
-class ExpressionTreeBuilder<ContextTYPE> {
-	
-	Map<String,String> subexpressionMap = new HashMap<String,String>();
-	
-	public IExpression<ContextTYPE> buildExpression(String expression,
-			ITransformData<String,IExpression<ContextTYPE>> leafParser) {
-		
-		subexpressionMap.put("__ROOT__",expression);
-		while (buildTree());
-		return null;
-		
+
+	class BooleanRuleProcessor extends RegexBasedStringProcessor {
+
+		public BooleanRuleProcessor() {
+
+			super();
+
+			super.addRegexProcessor(NOT_REGEX, new NegationProcessor());
+
+			super.addRegexProcessor(OR_REGEX, new OrProcessor());
+		}
 	}
-	
-	boolean buildTree()
-	{
-		String rootExpression = subexpressionMap.get("__ROOT__");
-		//Extract a sub-expression...
-		
-		
-		
-		
-		return true;
-	}
-}
 
+	class NegationProcessor implements IString2TokenProcessor {
 
+		@Override
+		public Object processString2Token(String2TokenContext context) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
+	}
 
-class TreeNode {
-	private List<Object> children;
-	enum TYPE { OR, AND, NOT};
-	
-	TreeNode(TYPE operationType) {
-		
+	class OrProcessor implements IString2TokenProcessor {
+
+		@Override
+		public Object processString2Token(String2TokenContext context) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
-	
-	public void add(String subExpression) {
-		children.add(subExpression);
-	}
-	
-	public void add(TreeNode node) {
-		children.add(node);
-	}
-	
 }

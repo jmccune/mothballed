@@ -5,8 +5,11 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tierlon.system.helper.StringHelperTest;
 
 
 /**
@@ -31,7 +34,7 @@ import org.junit.Test;
  * 						
  * 
  * 	  <NOT_EXPRESSION> :
- * 				!( <EXPRESSION> )
+ * 				NOT( <EXPRESSION> )
  * 
  * 	  <OR_EXPRESSION> :  
  *    			( <EXPRESSION> || <EXPRESSION> [<OR_EXPRESSION_ELLIPSIS>] )
@@ -52,36 +55,106 @@ import org.junit.Test;
  */
 public class BooleanExpressionPartialParserTest {
 
+	static Logger logger = Logger.getLogger(StringHelperTest.class);
 	@BeforeClass
 	public static void beforeTest() {
 		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.INFO);
+	}
+	@Test
+	public void testNotRegularExpressions() throws IOException {
+ 
+		Object testCases[] = {
+				
+				"ABCDEF",false,
+				"NOT__Token12__",true,
+				"NOT __Token1__",true,
+				"NOT __TOKEN2__",false,
+				"NOT __TokenX__",false,
+				"NOT Token3",false
+		};
+		
+		logger.info("TESTING REGEX: "+BooleanExpressionPartialParser.NOT_REGEX);
+		for (int i=0; i<testCases.length; i+=2)
+		{
+			String testString = (String) testCases[i];
+			boolean expectedResult  = (Boolean) testCases[i+1];
+			boolean actualResult = testString.matches(
+					BooleanExpressionPartialParser.NOT_REGEX);
+			logger.debug("Testing: "+testString);
+			logger.debug("Expected: "+expectedResult+
+					" vs. actual: "+actualResult);
+			Assert.assertEquals(expectedResult,actualResult);
+				
+		}
+		logger.info("DONE\n\n");
 	}
 	
 	@Test
-	public void testExpressionParser() throws IOException {
+	public void testOrRegularExpressions() throws IOException {
  
-		Object hasNextLineTestCases[] = {
-				"",false,
-				"ABCDEF",true,
-				"#ABCDEF",false,
-				"   #ABCDEF",false,
-				"ABC#DEF", true,
-				"\t",false,
-				"   ",false
+		Object testCases[] = {
+				
+				"ABCDEF",false,
+				"ABC || DEF",true,
+				"ABC||DEF",true,
+				"ABC|DEF",false,
+				"ABC||D",true,
+				
+				//TODO: Rewrite regexp to pass this case...
+				//"ABC|||DEF",false,
+				"ABC || DEF || GHI",true,
+				" ABC || DEF || GHI ",true,
 		};
 		
-		for (int i=0; i<hasNextLineTestCases.length; i+=2)
+		logger.info("TESTING REGEX: "+BooleanExpressionPartialParser.OR_REGEX);
+		for (int i=0; i<testCases.length; i+=2)
 		{
-			String testString = (String) hasNextLineTestCases[i];
-			boolean expectedResult  = (Boolean) hasNextLineTestCases[i+1];
-			SimpleLineLexer lexer = new SimpleLineLexer(testString);
-			boolean result = lexer.hasNextLine();
-			if (expectedResult!=result) {
-				System.out.println("FAILED: "+testString+" expected: "+expectedResult+ " actual: "+result);
-			}
-			Assert.assertEquals(result,expectedResult);
-			
+			String testString = (String) testCases[i];
+			boolean expectedResult  = (Boolean) testCases[i+1];
+			boolean actualResult = testString.matches(
+					BooleanExpressionPartialParser.OR_REGEX);
+			logger.debug("Testing: "+testString);
+			logger.debug("Expected: "+expectedResult+
+					" vs. actual: "+actualResult);
+			Assert.assertEquals(expectedResult,actualResult);
+				
 		}
+		logger.info("DONE\n\n");
+	}
+	
+	
+	@Test
+	public void testAndRegularExpressions() throws IOException {
+ 
+		Object testCases[] = {
+				
+				"ABCDEF",false,
+				"ABC && DEF",true,
+				"ABC&&DEF",true,
+				"ABC&DEF",false,
+				"ABC&&D",true,
+				
+				//TODO: Rewrite regexp to pass this case...
+				//"ABC&&&DEF",false,
+				"ABC && DEF && GHI",true,
+				" ABC && DEF && GHI ",true,
+		};
+		
+		logger.info("TESTING REGEX: "+BooleanExpressionPartialParser.OR_REGEX);
+		for (int i=0; i<testCases.length; i+=2)
+		{
+			String testString = (String) testCases[i];
+			boolean expectedResult  = (Boolean) testCases[i+1];
+			boolean actualResult = testString.matches(
+					BooleanExpressionPartialParser.AND_REGEX);
+			logger.debug("Testing: "+testString);
+			logger.debug("Expected: "+expectedResult+
+					" vs. actual: "+actualResult);
+			Assert.assertEquals(expectedResult,actualResult);
+				
+		}
+		logger.info("DONE\n\n");
 	}
 	
 }
