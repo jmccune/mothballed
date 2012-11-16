@@ -1,4 +1,4 @@
-package org.tierlon.schema.support;
+package org.tierlon.schema.support.parser;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import org.tierlon.schema.IModelSchemaParser;
 import org.tierlon.schema.ModelSchema;
+import org.tierlon.schema.support.FieldSchema;
 import org.tierlon.schema.support.fields.FieldSchemaFactory;
 
 public class SimpleModelSchemaParser implements IModelSchemaParser {

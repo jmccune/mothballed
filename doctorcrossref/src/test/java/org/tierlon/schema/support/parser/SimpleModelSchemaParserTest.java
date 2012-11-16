@@ -1,4 +1,4 @@
-package org.tierlon.schema.support;
+package org.tierlon.schema.support.parser;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import org.apache.log4j.BasicConfigurator;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tierlon.schema.support.parser.ModelParser;
+import org.tierlon.schema.support.parser.SimpleLineLexer;
 
 public class SimpleModelSchemaParserTest {
 

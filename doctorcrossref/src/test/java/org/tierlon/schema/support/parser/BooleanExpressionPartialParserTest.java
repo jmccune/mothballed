@@ -1,4 +1,4 @@
-package org.tierlon.schema.support;
+package org.tierlon.schema.support.parser;
 
 import java.io.IOException;
 
@@ -9,7 +9,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tierlon.evaluation.expression.IExpression;
+import org.tierlon.schema.support.parser.BooleanExpressionPartialParser;
 import org.tierlon.system.helper.StringHelperTest;
+import org.tierlon.transform.process.IString2TokenProcessor;
+import org.tierlon.transform.process.String2TokenContext;
 
 
 /**
@@ -59,7 +63,7 @@ public class BooleanExpressionPartialParserTest {
 	@BeforeClass
 	public static void beforeTest() {
 		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.INFO);
+		Logger.getRootLogger().setLevel(Level.DEBUG);
 	}
 	@Test
 	public void testNotRegularExpressions() throws IOException {
@@ -155,6 +159,71 @@ public class BooleanExpressionPartialParserTest {
 				
 		}
 		logger.info("DONE\n\n");
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
+	public void testPartialParserExpression() {
+		
+		Object testCases[] = {
+				//Test String					//Test Result
+				"True"							,true,
+				"False"							,false,
+				"NOT(True)"						,false,
+				"NOT(False)"					,true,
+				"(NOT(True))"					,false,
+				"(NOT(False))"					,true,
+		};
+		
+		PartialParserTestHelper1 testHelper =new PartialParserTestHelper1();
+		BooleanExpressionPartialParser boolParser = 
+				new BooleanExpressionPartialParser(testHelper);
+		
+		for (int i=0; i<testCases.length; i+=2) {
+			String testCase = (String) testCases[i];
+			Boolean expectedResult = (Boolean) testCases[i+1];
+		
+			//String2TokenContext context = new String2TokenContext(testCase);
+			//Object actualResult = testHelper.processString2Token(context);
+			Object actualResult = boolParser.parse(testCase);
+			if (actualResult instanceof IExpression) {
+				actualResult = ((IExpression)actualResult).evaluateForType(Boolean.class, null);
+			}
+			logger.debug("Testing: "+testCase);
+			logger.debug("Expected: "+expectedResult+
+					" vs. actual: "+actualResult);
+			Assert.assertEquals(expectedResult,actualResult);
+		
+		}		
+		logger.info("DONE\n\n");
+	
+	}
+	
+}
+
+
+
+
+
+class PartialParserTestHelper1 implements IString2TokenProcessor {
+
+	static Logger logger = Logger.getLogger(PartialParserTestHelper1.class);
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object processString2Token(String2TokenContext context) {
+		
+		String string = context.getCurrentState();
+		logger.debug("Received: "+string);
+		if (string.trim().startsWith("__Token")) {			
+			Object value = context.getToken(string.trim());
+			logger.debug("    which By Context is : "+value);
+			if (value instanceof IExpression) {
+				value = ((IExpression)value).evaluateForType(Boolean.class, null);
+				logger.debug("   evaluating to: "+value);
+				return value;
+			}
+		}
+		return Boolean.valueOf(string);
 	}
 	
 }
