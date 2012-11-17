@@ -1,8 +1,10 @@
 package org.tierlon.schema.support.parser;
 
-import org.tierlon.evaluation.expression.IExpression;
+import org.apache.log4j.Logger;
 import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
+import org.tierlon.evaluation.expression.logic.BooleanAndExpression;
 import org.tierlon.evaluation.expression.logic.BooleanNotExpression;
+import org.tierlon.evaluation.expression.logic.BooleanOrExpression;
 import org.tierlon.transform.process.IString2TokenProcessor;
 import org.tierlon.transform.process.RegexBasedStringProcessor;
 import org.tierlon.transform.process.String2TokenContext;
@@ -10,7 +12,8 @@ import org.tierlon.transform.process.StringProcessParens2Tokens;
 
 public class BooleanExpressionPartialParser<ExpressionContext> {
 
-	public static final String NOT_REGEX = "NOT\\s*__Token[0-9]+__";
+	public static final String TOKEN_REGEX = "\\s*__Token[0-9]+__\\s*";
+	public static final String NOT_REGEX = "\\s*NOT\\s*__Token[0-9]+__\\s*";
 	
 	// Simply || but escaped for strings+regex
 	private static final String OR_TKN="\\|\\|";
@@ -38,10 +41,11 @@ public class BooleanExpressionPartialParser<ExpressionContext> {
 	public Object parse(String string) {
 		String2TokenContext s2Tcontext = new String2TokenContext(string);
 		
-		BooleanRuleProcessor<ExpressionContext> expressionProcessor= 
-				new BooleanRuleProcessor<ExpressionContext>();
+		BooleanRuleProcessor expressionProcessor= 
+				new BooleanRuleProcessor();
 		
-		expressionProcessor.setDefaultProcessor(defaultProcessor);		
+		expressionProcessor.setDefaultProcessor(defaultProcessor);	
+		s2Tcontext.setRootProcessor(expressionProcessor);
 		
 		StringProcessParens2Tokens parensProcessor = 
 				new StringProcessParens2Tokens(expressionProcessor);
@@ -60,23 +64,32 @@ public class BooleanExpressionPartialParser<ExpressionContext> {
 	 * @author justinanddiana
 	 *
 	 */
-	class BooleanRuleProcessor<ExpressionContext>
+	class BooleanRuleProcessor
 		extends RegexBasedStringProcessor {
 
 		public BooleanRuleProcessor() {
 
 			super();
 
+			super.addRegexProcessor(TOKEN_REGEX, new TokenProcessor<ExpressionContext>());
 			super.addRegexProcessor(NOT_REGEX, new NegationProcessor<ExpressionContext>());
-			super.addRegexProcessor(OR_REGEX, new OrProcessor());
+			super.addRegexProcessor(OR_REGEX, new OrProcessor<ExpressionContext>());
 			super.addRegexProcessor(AND_REGEX, new AndProcessor());
 		}
 	}
 }
 
-class NegationProcessor<ExpressionContext> implements IString2TokenProcessor {
 
-	@SuppressWarnings("rawtypes")
+class TokenProcessor<ExpressionContext> implements IString2TokenProcessor {
+	@Override
+	public Object processString2Token(String2TokenContext context) {
+		String tokenName = context.getCurrentState().trim();
+		return context.getToken(tokenName);
+	}
+}
+
+class NegationProcessor<ExpressionContext> implements IString2TokenProcessor {
+	static Logger logger = Logger.getLogger(NegationProcessor.class);
 	@Override
 	public Object processString2Token(String2TokenContext context) {
 		String mytoken = context.getCurrentState();
@@ -84,7 +97,9 @@ class NegationProcessor<ExpressionContext> implements IString2TokenProcessor {
 		Object data = context.getToken(mytoken);
 		if (data instanceof String) {
 			context.pushStringContext((String)data);
+			logger.debug("RECEIVED>> "+data);
 			data=context.getRootProcessor().processString2Token(context);
+			logger.debug("PROCESSED TO>> "+data);
 			context.popState();			
 		}
 		
@@ -96,22 +111,61 @@ class NegationProcessor<ExpressionContext> implements IString2TokenProcessor {
 
 }
 
-class OrProcessor implements IString2TokenProcessor {
+
+
+class OrProcessor<ExpressionContext> implements IString2TokenProcessor {
 
 	@Override
 	public Object processString2Token(String2TokenContext context) {
 		
-		return null;
-	}
-
+		String orExpressionString = context.getCurrentState();
+		
+		if (!orExpressionString.contains("||")) {
+			throw new IllegalEvaluationTypeException(
+			  "Not sure how this happened-- expecting a string with: || in it. "
+			  +" Received: "+orExpressionString);
+		}
+		String[] terms = orExpressionString.split("\\|\\|");
+		BooleanOrExpression<ExpressionContext> orExpression = 
+				new BooleanOrExpression<ExpressionContext>();
+		
+		for (String term : terms) {
+			term = term.trim();
+			context.pushStringContext(term);
+			Object operand = context.getRootProcessor().processString2Token(context);
+			context.popState();			
+			
+			orExpression.addOperands(operand);
+		}
+		return orExpression;
+	}	
 }
 
-class AndProcessor implements IString2TokenProcessor {
+class AndProcessor<ExpressionContext> implements IString2TokenProcessor {
 
 	@Override
 	public Object processString2Token(String2TokenContext context) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		String andExpressionString = context.getCurrentState();
+		
+		if (!andExpressionString.contains("&&")) {
+			throw new IllegalEvaluationTypeException(
+			  "Not sure how this happened-- expecting a string with: && in it. "
+			  +" Received: "+andExpressionString);
+		}
+		String[] terms = andExpressionString.split("\\&\\&");
+		BooleanAndExpression<ExpressionContext> andExpression = 
+				new BooleanAndExpression<ExpressionContext>();
+		
+		for (String term : terms) {
+			term = term.trim();
+			context.pushStringContext(term);
+			Object operand = context.getRootProcessor().processString2Token(context);
+			context.popState();			
+			
+			andExpression.addOperands(operand);
+		}
+		return andExpression;
+	}	
 
 }

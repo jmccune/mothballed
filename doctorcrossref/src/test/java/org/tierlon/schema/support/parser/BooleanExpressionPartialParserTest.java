@@ -173,6 +173,38 @@ public class BooleanExpressionPartialParserTest {
 				"NOT(False)"					,true,
 				"(NOT(True))"					,false,
 				"(NOT(False))"					,true,
+				"True || False"					,true,
+				"False || False"				,false,
+				"(True || False)"				,true,
+				"(False || False)"				,false,
+				"(False || True || False)"		,true,
+				"(False || False || False)"		,false,
+				"NOT(False || True)"			,false,
+				"(False || NOT(True))"			,false,
+				"(NOT(False) || False)"			,true,
+				"(NOT(False) || NOT(False))"	,true,
+				"NOT(False || False)"			,true,
+				"NOT(False || True)"			,false,
+				"NOT(True || False)"			,false,
+				"NOT(True || True)"				,false,
+				"NOT(True || True || False)"	,false,
+				"NOT(False || False || False)"	,true,
+				"True && True"					,true,
+				"True && False"					,false,
+				"False && False"				,false,
+				"False && True"					,false,
+				"NOT(True && True)"				,false,
+				"NOT(True && False)"			,true,
+				"(NOT(False && False))"			,true,
+				"(NOT(False && True))"			,true,
+				"(NOT(NOT(False) && True))"		,false,
+				"(NOT(NOT(False) && NOT(True)))",true,
+				"((NOT(True) || NOT(False) || NOT(True)) &&"+
+				"(True || False) && " +
+				"NOT(False || False ||False))", true,
+				"((NOT(True) || NOT(False) || NOT(True)) &&"+
+				"(True || False) && " +
+				"NOT(False || NOT(False) ||False))", false,
 		};
 		
 		PartialParserTestHelper1 testHelper =new PartialParserTestHelper1();

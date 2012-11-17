@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
+
 public class RegexBasedStringProcessor implements IString2TokenProcessor {
 
+	static Logger logger = Logger.getLogger(RegexBasedStringProcessor.class);
 	private IString2TokenProcessor defaultProcessor =null;
 	private List<RegexEntry> processorList = new ArrayList<RegexEntry>();
 	
@@ -25,8 +29,11 @@ public class RegexBasedStringProcessor implements IString2TokenProcessor {
 		
 		String processtext = context.getCurrentState();
 		for (RegexEntry entry : processorList) {
+			
+			//logger.info("ENTRY REGEX: "+entry.getRegex());
+			//logger.info("MATCHES? "+processtext);
 			if (entry.matches(processtext)) {
-				
+				//logger.info("MATCHED!");
 				context.pushStringContext(entry.getMostRecentMatch());
 				Object result =
 						entry.getProcessor().processString2Token(context);
