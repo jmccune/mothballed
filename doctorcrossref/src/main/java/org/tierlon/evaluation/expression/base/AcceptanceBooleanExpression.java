@@ -180,6 +180,8 @@ public abstract class AcceptanceBooleanExpression<Context>
 					continue;
 				result= ((IExpression<Context>) operand).canGetResultAs(context, 
 							IAcceptanceResult.class);
+				if (result.isAcceptable())
+					continue;
 				return result;
 			}
 			else {

@@ -74,7 +74,7 @@ public class BooleanExpressionPartialParser<ExpressionContext> {
 			super.addRegexProcessor(TOKEN_REGEX, new TokenProcessor<ExpressionContext>());
 			super.addRegexProcessor(NOT_REGEX, new NegationProcessor<ExpressionContext>());
 			super.addRegexProcessor(OR_REGEX, new OrProcessor<ExpressionContext>());
-			super.addRegexProcessor(AND_REGEX, new AndProcessor());
+			super.addRegexProcessor(AND_REGEX, new AndProcessor<ExpressionContext>());
 		}
 	}
 }

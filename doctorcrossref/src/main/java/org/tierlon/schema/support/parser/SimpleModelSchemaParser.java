@@ -33,7 +33,7 @@ public class SimpleModelSchemaParser implements IModelSchemaParser {
 
 
 //******************************************************************
-//SimpleLineLexer
+//ModelParser
 //******************************************************************
 class ModelParser {
 	private static final String LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*";

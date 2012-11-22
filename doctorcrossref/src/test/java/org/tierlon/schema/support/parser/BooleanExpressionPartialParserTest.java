@@ -240,7 +240,7 @@ public class BooleanExpressionPartialParserTest {
 class PartialParserTestHelper1 implements IString2TokenProcessor {
 
 	static Logger logger = Logger.getLogger(PartialParserTestHelper1.class);
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Object processString2Token(String2TokenContext context) {
 		

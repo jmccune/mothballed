@@ -7,7 +7,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tierlon.evaluation.AcceptanceResult;
 import org.tierlon.evaluation.IAcceptanceResult;
 import org.tierlon.evaluation.expression.math.ConstantExpression;
 import org.tierlon.system.helper.StringHelperTest;
