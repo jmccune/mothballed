@@ -33,7 +33,10 @@ public class ComparisonExpressionTest {
 		{2.0001,2.0},
 		{2.0,2.0001},	
 		{5,5,4,4,3,3},
-		{3,3,4,4,5,5}
+		{3,3,4,4,5,5},
+		
+		//NOTE: != (3,4,5,4,3)   means there are no two elements that match!
+		{3,4,5,4,3}
 	};
 	
 	//NOTE: The Not EQUAL operator is a funny one when operating
@@ -45,14 +48,14 @@ public class ComparisonExpressionTest {
 		{
 		 true,false,true,false,true,   true,false,true,false,true,
 		 true,true,false,false,true,false,
-		 false,true,false,true
+		 false,true,false,true,false
 		};
 	
 	static Object[] LtAnswers=
 		{
 		 true,false,false,false,true,   true,false,false,false,true,
 		 true,true,false,false,false,false,
-		 false,true,false,false
+		 false,true,false,false,false
 		};
 	
 	
@@ -60,28 +63,28 @@ public class ComparisonExpressionTest {
 		{
 		 false,false,true,false,false,   false,false,true,false,false,
 		 false,false,false,false, true, false,
-		 false,false,false,false,		 
+		 false,false,false,false, false	 
 		};
 	
 	static Object[] NotEqAnswers=
 		{
 		 true,true,false,true,true,     true,true,false,true,true,
 		 true,true,true,true,false,false,   //Note: The last one here
-		 true,true,false,false  //Note: These last 2		 
+		 true,true,false,false, false //Note: These last 3		 
 		};
 	
 	static Object[] GtAnswers=
 		{
 		  false,true,false,true,false,   false,true,false,true,false,
 		  false,false,true,true,false,false,
-		  true,false,false,false
+		  true,false,false,false, false
 		};
 	
 	static Object[] GtEqAnswers=
 		{
 		  false,true,true,true,false,   false,true,true,true,false,
 		  false,false,true,true,true,false,
-		  true,false,true,false
+		  true,false,true,false, false
 		};
 	
 	static Logger logger = Logger.getLogger(ComparisonExpressionTest.class);
@@ -122,7 +125,7 @@ public class ComparisonExpressionTest {
 	@Test
 	public void testComparisonNotEqualExpression2() {
 		ComparisonExpression<Object,Number> expression =
-				new ComparisonExpression<Object,Number>(Number.class,"!=");
+				new NotEqualComparisonExpression<Object>();
 		
 		expression.addOperands(1.0);
 		expression.addOperands(2.0);
@@ -131,8 +134,8 @@ public class ComparisonExpressionTest {
 		Boolean result =expression.evaluateForType(Boolean.class,null);	
 		logger.debug("Testing: 1,2,1,2 >>> CUSTOM");
 		logger.info("PRESET *Comparison(!=)*>> CALCULATED ANSWER: "+result+ 
-				" vs expected: true");
-		Assert.assertEquals(result,(Boolean)true);
+				" vs expected: false");
+		Assert.assertEquals(result,(Boolean)false);
 	}
 	
 	
@@ -146,6 +149,8 @@ public class ComparisonExpressionTest {
 	public void testOperation(String comparatorType, Object[] answers) {
 		for (int testNum =0; testNum<testCases.length; testNum++) {
 			ComparisonExpression<Object,Number> expression =
+					(comparatorType.equals("!=")) ?
+					new NotEqualComparisonExpression<Object>() : 
 					new ComparisonExpression<Object,Number>(Number.class,comparatorType);
 			
 			Object[] operandArray = testCases[testNum];

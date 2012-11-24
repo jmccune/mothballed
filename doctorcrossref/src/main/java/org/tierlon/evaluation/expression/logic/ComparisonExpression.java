@@ -27,9 +27,7 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 		GreaterThanOrEqual(">="),
 		Equal("=="),
 		LessThanOrEqual("<="),
-		LessThan("<"),
-		/** Use with extreme caution! */
-		NotEqual("!=");
+		LessThan("<");
 		
 		private String stringRepresentation;
 		NumericalComparison(String value) {
@@ -159,11 +157,11 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 	}
 
 	// ==============================================================
-	// PRIVATE METHODS
+	// PROTECTED METHODS
 	// ==============================================================
 
 	
-	private List<Object> getStraightOperands(Context context,
+	protected List<Object> getStraightOperands(Context context,
 			Object... additionalOperands) {
 		
 		validateOperands(context,additionalOperands);
@@ -269,9 +267,6 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 				return -1;
 			case Equal:
 				if (diff==0) return 1;
-				return -1;
-			case NotEqual:
-				if (diff!=0) return 1;
 				return -1;
 			
 			default:
