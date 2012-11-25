@@ -1,10 +1,11 @@
-package org.tierlon.transform.process;
+package org.tierlon.transform.process.String2Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 
 /**
@@ -26,6 +27,9 @@ public class String2TokenContext {
 	private Map<String,Object> tokenMap;
 	
 	
+	static public String getTokenRegex() {
+		return "__Token[0-9]+__";
+	}
 	public IString2TokenProcessor getRootProcessor() {
 		return rootProcessor;
 	}

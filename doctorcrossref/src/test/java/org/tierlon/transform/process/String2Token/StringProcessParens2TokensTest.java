@@ -1,4 +1,4 @@
-package org.tierlon.transform.process;
+package org.tierlon.transform.process.String2Token;
 
 import junit.framework.Assert;
 
@@ -7,6 +7,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.tierlon.transform.process.String2Token.IString2TokenProcessor;
+import org.tierlon.transform.process.String2Token.String2TokenContext;
+import org.tierlon.transform.process.String2Token.StringProcessParens2Tokens;
 
 public class StringProcessParens2TokensTest {
 

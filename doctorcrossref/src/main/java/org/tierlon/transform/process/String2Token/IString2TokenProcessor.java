@@ -1,4 +1,5 @@
-package org.tierlon.transform.process;
+package org.tierlon.transform.process.String2Token;
+
 
 public interface IString2TokenProcessor {
 	

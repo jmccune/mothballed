@@ -21,6 +21,7 @@ public class NotEqualComparisonExpression<Context>
 	 * as the other comparison types, as they can compare the current
 	 * value only to the previous value.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public <TYPE> TYPE evaluateForType(Class<TYPE> resultType, Context context,
 			Object... operands) {

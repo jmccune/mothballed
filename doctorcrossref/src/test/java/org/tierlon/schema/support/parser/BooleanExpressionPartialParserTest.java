@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.tierlon.evaluation.expression.IExpression;
 import org.tierlon.schema.support.parser.BooleanExpressionPartialParser;
 import org.tierlon.system.helper.StringHelperTest;
-import org.tierlon.transform.process.IString2TokenProcessor;
-import org.tierlon.transform.process.String2TokenContext;
+import org.tierlon.transform.process.String2Token.IString2TokenProcessor;
+import org.tierlon.transform.process.String2Token.String2TokenContext;
 
 
 /**

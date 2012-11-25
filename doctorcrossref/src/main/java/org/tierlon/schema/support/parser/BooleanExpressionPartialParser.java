@@ -5,10 +5,10 @@ import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
 import org.tierlon.evaluation.expression.logic.BooleanAndExpression;
 import org.tierlon.evaluation.expression.logic.BooleanNotExpression;
 import org.tierlon.evaluation.expression.logic.BooleanOrExpression;
-import org.tierlon.transform.process.IString2TokenProcessor;
-import org.tierlon.transform.process.RegexBasedStringProcessor;
-import org.tierlon.transform.process.String2TokenContext;
-import org.tierlon.transform.process.StringProcessParens2Tokens;
+import org.tierlon.transform.process.String2Token.IString2TokenProcessor;
+import org.tierlon.transform.process.String2Token.RegexBasedStringProcessor;
+import org.tierlon.transform.process.String2Token.String2TokenContext;
+import org.tierlon.transform.process.String2Token.StringProcessParens2Tokens;
 
 public class BooleanExpressionPartialParser<ExpressionContext> {
 
