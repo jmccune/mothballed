@@ -12,8 +12,9 @@ import org.tierlon.evaluation.expression.IllegalEvaluationTypeException;
 public class NotEqualComparisonExpression<Context>
 	extends ComparisonExpression<Context, Number> {
 
-	public NotEqualComparisonExpression() {
-		super(Number.class,"==");
+	public NotEqualComparisonExpression() {		
+		super(Number.class,
+			ComparisonExpression.generateComparator("!="));
 	}
 
 	/**

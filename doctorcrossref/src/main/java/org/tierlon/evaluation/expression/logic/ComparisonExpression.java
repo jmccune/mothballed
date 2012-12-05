@@ -27,7 +27,8 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 		GreaterThanOrEqual(">="),
 		Equal("=="),
 		LessThanOrEqual("<="),
-		LessThan("<");
+		LessThan("<"),
+		NotEqual("!=");
 		
 		private String stringRepresentation;
 		NumericalComparison(String value) {
@@ -57,19 +58,26 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 	
 	
 	
+	
 	// ==============================================================
 	// CONSTRUCTION
 	// ==============================================================
-	@SuppressWarnings("unchecked")
-	public ComparisonExpression(Class<CompTYPE> comparatorType,
-			String numericalComparator) {
-		this.comparatorType= comparatorType;
-		this.comparator = (Comparator<CompTYPE>) 
+	static public <CONTEXT> ComparisonExpression<CONTEXT,Number>	
+		generateNumericalComparison(String numericalComparator) {		
+		Comparator<Number> comparator = (Comparator<Number>) 
 				generateComparator(numericalComparator);		
 		
+		if ("!=".equals(numericalComparator)) {
+			return new NotEqualComparisonExpression<CONTEXT>();
+		}
+		return new ComparisonExpression<CONTEXT,Number>(Number.class,comparator);
 	}
+	
+	
+	
+	
 	public ComparisonExpression(Class<CompTYPE> comparatorType,
-									   Comparator<CompTYPE> comp) {
+							    Comparator<CompTYPE> comp) {
 		
 		if (comparatorType==null || comp==null) {
 			throw new NullPointerException();
@@ -265,6 +273,8 @@ public class ComparisonExpression<Context,CompTYPE> implements IExpression<Conte
 			case LessThanOrEqual:
 				if (diff<=0) return 1;
 				return -1;
+			case NotEqual: //Fall through-
+					//comparator is actually not used.
 			case Equal:
 				if (diff==0) return 1;
 				return -1;

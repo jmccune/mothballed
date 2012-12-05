@@ -149,9 +149,11 @@ public class ComparisonExpressionTest {
 	public void testOperation(String comparatorType, Object[] answers) {
 		for (int testNum =0; testNum<testCases.length; testNum++) {
 			ComparisonExpression<Object,Number> expression =
-					(comparatorType.equals("!=")) ?
-					new NotEqualComparisonExpression<Object>() : 
-					new ComparisonExpression<Object,Number>(Number.class,comparatorType);
+					//(comparatorType.equals("!=")) ?
+					//new NotEqualComparisonExpression<Object>() : 
+					//new ComparisonExpression<Object,Number>(Number.class,comparatorType);
+				ComparisonExpression.generateNumericalComparison(comparatorType);	
+				
 			
 			Object[] operandArray = testCases[testNum];
 			expression.addOperands(operandArray);
