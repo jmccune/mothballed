@@ -28,6 +28,16 @@ public class MultiRegexParser<ExpressionContext> {
 	// ==============================================================
 	// CONFIGURATION
 	// ==============================================================
+	public void addRegexProcessorFamily(String familyName,
+			Map<String,IString2TokenProcessor> familyRegexProcessors) {
+		
+		for (Map.Entry<String,IString2TokenProcessor> proc :
+			familyRegexProcessors.entrySet()) {
+			addRegexProcessor(familyName,proc.getKey(),proc.getValue());
+		}
+		
+	}
+	
 	public void addRegexProcessor(String familyName,String regex, 
 			IString2TokenProcessor proc4regex) {
 		

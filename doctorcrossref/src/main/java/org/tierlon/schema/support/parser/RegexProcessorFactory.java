@@ -1,7 +1,7 @@
 package org.tierlon.schema.support.parser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,28 +22,56 @@ public class RegexProcessorFactory<ExpContextTYPE> {
 	}
 	
 	
-	private final String CHAR_REGEX="[\\sA-Za-z_-0-9!@#$%^*()~\".,?/\\\\{}\\[\\]']*?";
+	//private final String CHAR_REGEX="[\\sA-Za-z_-0-9!@#$%^*()~\".,?/\\\\{}\\[\\]']*?";
 	private final String LT_REGEX=".*?<.*?";
+	private final String LTE_REGEX=".*?<=.*?";
+	private final String EQ_REGEX=".*?==.*?";
+	private final String NOTEQ_REGEX=".*?!=.*?";
 	private final String GT_REGEX=".*?>.*?";	
-	
+	private final String GTE_REGEX=".*?>=.*?";
 	// ORDER MATTERS TO THESE THINGS...  Need to fix the hash map.
 	public Map<String,IString2TokenProcessor> generateComparisonParsers() {
 		Map<String,IString2TokenProcessor> contextMap = 
-				new HashMap<String,IString2TokenProcessor>();
+				new LinkedHashMap<String,IString2TokenProcessor>();
 		
 		contextMap.put(String2TokenContext.getTokenRegex(),
 				new TokenProcessor2());
 		
-		NumericalComparisonProcessor comparisonProcessor=
+		NumericalComparisonProcessor<ExpContextTYPE> comparisonProcessor=
 				new NumericalComparisonProcessor<ExpContextTYPE>();
 		
+		contextMap.put(LTE_REGEX,comparisonProcessor);
 		contextMap.put(LT_REGEX,comparisonProcessor);
 		contextMap.put(GT_REGEX,comparisonProcessor);
+		contextMap.put(EQ_REGEX,comparisonProcessor);
+		contextMap.put(NOTEQ_REGEX,comparisonProcessor);
+		contextMap.put(GTE_REGEX,comparisonProcessor);
 		
 		return contextMap;
 	}
 	
+	public Map<String,IString2TokenProcessor> generateBooleanParsers() {
+		Map<String,IString2TokenProcessor> contextMap = 
+				new LinkedHashMap<String,IString2TokenProcessor>();
+		
+		contextMap.put(String2TokenContext.getTokenRegex(),
+				new TokenProcessor2());
+		
+		contextMap.put(BooleanExpressionPartialParser.NOT_REGEX, new NegationProcessor<ExpContextTYPE>());
+		contextMap.put(BooleanExpressionPartialParser.OR_REGEX, new OrProcessor<ExpContextTYPE>());
+		contextMap.put(BooleanExpressionPartialParser.AND_REGEX, new AndProcessor<ExpContextTYPE>());
+		
+		return contextMap;
+			
+	}
+	
+	
 }
+
+
+
+
+
 
 class TokenProcessor2 implements IString2TokenProcessor {
 	@Override
