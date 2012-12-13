@@ -3,6 +3,8 @@ package org.tierlon.schema.support;
 public class FieldData {
 	
 	private String propertyName;
+	
+	// This represents the property default Value???  
 	private String propertyStringValue;
 	private Object propertyObjectValue;
 	

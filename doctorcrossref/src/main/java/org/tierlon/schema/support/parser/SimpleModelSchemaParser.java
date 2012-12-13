@@ -1,16 +1,15 @@
 package org.tierlon.schema.support.parser;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.tierlon.parsing.lexer.SimpleLineLexer;
 import org.tierlon.schema.IModelSchemaParser;
 import org.tierlon.schema.ModelSchema;
 import org.tierlon.schema.support.FieldSchema;
@@ -58,12 +57,18 @@ class ModelParser {
 			throw new IllegalStateException("Error parsing data>> "+
 					"Expected ModelHeader, received: "+data);
 		}
+		
+		//Create the basic model here...
 		extractModelInformation(data);
 		
+
 		System.out.println("PROCESSED: "+data);
+		//For each field that is part of the current model,
+		// add the field specification...
 		while (lexer.hasNextLine()) {
 			data = lexer.getLineData();
 			System.out.println("NEXT LINE: "+data);
+			
 			if (data.matches(ENTITY_REGEX)) {
 				//TODO:  END ENTITY 1, START ENTITY 2...
 				//       OR NEED TO CHANGE LEXER TO ADVANCE ONLY WHEN DIRECTED
@@ -79,6 +84,9 @@ class ModelParser {
 	// ==============================================================
 	// PRIVATE Methods
 	// ==============================================================
+	
+	// Process the field spec:
+	//    <name>:<type>[@(<validation_spec>)][#<default_value>]
 	private void addFieldSpec(String data) {
 	
 		int indx = data.indexOf(':');
@@ -204,72 +212,3 @@ class ModelParser {
 
 
 
-
-
-// ******************************************************************
-//  SimpleLineLexer
-// ******************************************************************
-class SimpleLineLexer {
-	
-	private static String COMMENT_REGEX = "\\s*#.*";
-	private BufferedReader inputReader;
-	private boolean hasNextDataLine;
-	private String dataLine="";
-	
-	// ==============================================================
-	// Constructor
-	// ==============================================================
-	public SimpleLineLexer(InputStream input) throws IOException {
-		inputReader
-    		= new BufferedReader(
-    				new InputStreamReader(input));
-		//Assume true:
-		hasNextDataLine =true;
-		scanForNextDataLine(); 
-	}
-	
-	public SimpleLineLexer(String string) throws IOException {
-		this(new ByteArrayInputStream(string.getBytes()));
-	}
-
-	// ==============================================================
-	// Public Methods
-	// ==============================================================
-	public boolean hasNextLine() {
-		return hasNextDataLine;
-	}
-	
-	public String getLineData() throws IOException {
-		String result = dataLine;
-		scanForNextDataLine();
-		return result;
-	}
-	
-	// ==============================================================
-	// Private Methods
-	// ==============================================================
-	private void scanForNextDataLine() throws IOException {
-		if (!hasNextDataLine)
-			return;
-		
-		boolean done=false;
-		String lineRead="";
-		while (!done) {
-			lineRead = inputReader.readLine();
-			if (lineRead==null) {
-				hasNextDataLine=false;
-				dataLine="";
-				return;
-			}
-			
-			//Skip comment lines and blanklines.
-			if (lineRead.matches(COMMENT_REGEX))
-				//Keep going...
-				continue;
-			if (lineRead.trim().isEmpty())
-				continue;
-			done=true;
-		}
-		dataLine = lineRead;
-	}
-}

@@ -9,7 +9,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tierlon.schema.support.parser.ModelParser;
-import org.tierlon.schema.support.parser.SimpleLineLexer;
+import org.tierlon.parsing.lexer.SimpleLineLexer;
 
 public class SimpleModelSchemaParserTest {
 

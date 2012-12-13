@@ -2,7 +2,9 @@ package org.tierlon.schema.support.fields;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tierlon.evaluation.IEvaluate;
 import org.tierlon.schema.support.FieldSchema;
+import org.tierlon.schema.support.FieldData;
 
 public class StringFieldGenerator extends AbstractFieldGenerator {
 
@@ -26,7 +28,11 @@ public class StringFieldGenerator extends AbstractFieldGenerator {
 		log.info("FIELDNAME: "+fieldName);
 		log.info(" VALIDATION>> "+validationSpec);
 		log.info(" DEFAULT VALUE>>> "+defaultValue);
-		return new FieldSchema(fieldName,fieldType);
+		FieldSchema schema= new FieldSchema(fieldName,fieldType);
+		
+		IEvaluate<FieldData> fieldValidator = null;
+		schema.setFieldValidator(fieldValidator);
+		return schema;
 	}
 
 	@Override

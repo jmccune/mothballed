@@ -37,6 +37,9 @@ public class MultiRegexParserTest {
 			"10<9 && 9<8", false,
 			"10<9 && 9>8", false,
 			"10<9 || 9>8", true,
+			"10<9 || 9<8 || 8<7", false,
+			"10<9 || 9<8 || 8>7", true,
+			"10 < 9 ||  9 < 8 ||  8> 7", true,
 			
 		};
 		

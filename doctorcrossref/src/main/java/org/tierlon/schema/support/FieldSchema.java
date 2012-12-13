@@ -51,6 +51,8 @@ public class FieldSchema {
 	public void setFieldTransform(ITransformData<FieldData, Object> fieldTransform) {
 		this.fieldTransform = fieldTransform;
 	}
+	
+	//TODO:  Change return type IValidateSchemaFields ????????!!!*******
 	public IEvaluate<FieldData> getFieldValidator() {
 		return fieldValidator;
 	}
