@@ -14,13 +14,28 @@ public class FieldSchemaFactory<ModelTYPE,ContextTYPE> {
 	private List<IFieldGenerator<ModelTYPE,ContextTYPE>> fieldGenerators;
 	
 	// ==============================================================
-	// PUBLIC Methods
+	// CONSTRUCTION 
 	// ==============================================================
 	public FieldSchemaFactory() {
 		fieldGenerators= new ArrayList<IFieldGenerator<ModelTYPE,ContextTYPE>>();
-		fieldGenerators.add(new StringFieldGenerator<ModelTYPE,ContextTYPE>());
+		//fieldGenerators.add(new StringFieldGenerator<ModelTYPE,ContextTYPE>());
+	}
+	// ==============================================================
+	// Configuration
+	// ==============================================================
+	
+	public void addFieldGenerators(IFieldGenerator<ModelTYPE,ContextTYPE>... fgs) {
+		for (IFieldGenerator<ModelTYPE,ContextTYPE> fg : fgs)
+			fieldGenerators.add(fg);
 	}
 	
+	public boolean removeFieldGenerator(IFieldGenerator<ModelTYPE,ContextTYPE> fg) {
+		return fieldGenerators.remove(fg);
+	}
+	
+	// ==============================================================
+	// PUBLIC Methods
+	// ==============================================================
 	
 	public FieldSchema<ModelTYPE,ContextTYPE> createField(String fieldName, String fieldType,
 			String remainder) {

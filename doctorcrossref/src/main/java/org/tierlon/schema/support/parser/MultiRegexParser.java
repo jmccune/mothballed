@@ -18,6 +18,10 @@ public class MultiRegexParser<ExpressionContext> {
 	// ==============================================================
 	// CONSTRUCTION
 	// ==============================================================
+	/**
+	 * 
+	 * @param defaultProc (null allowed)
+	 */
 	public MultiRegexParser(IString2TokenProcessor defaultProc) {
 		regexProcessor = new RegexBasedStringProcessor();
 		if (defaultProc!=null) {

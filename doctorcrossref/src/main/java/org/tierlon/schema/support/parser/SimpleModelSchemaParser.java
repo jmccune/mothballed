@@ -1,45 +1,22 @@
 package org.tierlon.schema.support.parser;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.tierlon.parsing.lexer.SimpleLineLexer;
-import org.tierlon.schema.IModelSchemaParser;
 import org.tierlon.schema.ModelSchema;
 import org.tierlon.schema.support.FieldSchema;
 import org.tierlon.schema.support.fields.FieldSchemaFactory;
 
 public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
-	implements IModelSchemaParser<ModelTYPE,ContextTYPE> {
-
-	@Override
-	public Map<String, ModelSchema<ModelTYPE,ContextTYPE>> parseModels(InputStream input) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Map<String, ModelSchema<ModelTYPE,ContextTYPE>> parseModels(String input) {
-		return parseModels(new ByteArrayInputStream(input.getBytes()));
-	}
-
-}
-
-
-//******************************************************************
-//ModelParser
-//******************************************************************
-class ModelParser<ModelTYPE,ContextTYPE> {
+{
 	private static final String LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*";
 	private static final String NSLABEL_REGEX = "("+LABEL_REGEX+"\\:)?"+LABEL_REGEX;
 	private static final Pattern fieldTypeEnd = Pattern.compile("[@#]"); 
-	private final FieldSchemaFactory<ModelTYPE,ContextTYPE> fieldFactory = 
+	private  FieldSchemaFactory<ModelTYPE,ContextTYPE> fieldFactory = 
 			new FieldSchemaFactory<ModelTYPE,ContextTYPE>();
 	
 	public static final String ENTITY_REGEX = 
@@ -49,6 +26,15 @@ class ModelParser<ModelTYPE,ContextTYPE> {
 	
 	private ModelSchema<ModelTYPE,ContextTYPE> buildModel;
 	private List<FieldSchema<ModelTYPE,ContextTYPE>> fieldSchemaList;
+	
+	// ==============================================================
+	// CONFIGURATION Methods
+	// ==============================================================
+	public FieldSchemaFactory<ModelTYPE,ContextTYPE> getFieldSchemaFactory() {
+		return fieldFactory;
+	}
+	
+	
 	// ==============================================================
 	// PUBLIC Methods
 	// ==============================================================

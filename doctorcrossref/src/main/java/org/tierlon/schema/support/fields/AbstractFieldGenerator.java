@@ -12,6 +12,11 @@ abstract public class  AbstractFieldGenerator<ModelTYPE,ContextTYPE>
 	// ==============================================================
 	// CONSTRUCTION 
 	// ==============================================================	
+	/**
+	 * 
+	 * @param fieldType - the string "class" or "type" name of the 
+	 * 	field.  E.g. "date", "string", "number", etc.
+	 */
 	public AbstractFieldGenerator(String fieldType) {
 		this.fieldType = fieldType;
 	}

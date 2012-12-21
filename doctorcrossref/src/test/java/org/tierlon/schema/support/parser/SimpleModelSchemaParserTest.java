@@ -8,7 +8,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.tierlon.schema.support.parser.ModelParser;
+import org.tierlon.schema.support.parser.SimpleModelSchemaParser;
 import org.tierlon.parsing.lexer.SimpleLineLexer;
 
 public class SimpleModelSchemaParserTest {
@@ -80,7 +80,7 @@ public class SimpleModelSchemaParserTest {
 		{
 			String testString = (String) testCases[i];
 			boolean expectedResult  = (Boolean) testCases[i+1];
-			boolean result = testString.matches(ModelParser.ENTITY_REGEX);
+			boolean result = testString.matches(SimpleModelSchemaParser.ENTITY_REGEX);
 			if (expectedResult!=result) {
 				System.out.println("FAILED: >>>>"+testString+"<<<< expected: "+expectedResult+ " actual: "+result);
 			}
@@ -106,7 +106,7 @@ public class SimpleModelSchemaParserTest {
 			boolean expectedResult  = (Boolean) testCases[i+1];
 			
 			SimpleLineLexer lexer = new SimpleLineLexer(testString);
-			ModelParser<Object,Object> parser = new ModelParser<Object,Object>();
+			SimpleModelSchemaParser<Object,Object> parser = new SimpleModelSchemaParser<Object,Object>();
 			
 			try {
 				//ModelSchema schema = 
