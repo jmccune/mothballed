@@ -7,27 +7,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tierlon.schema.support.FieldSchema;
 
-public class FieldSchemaFactory {
+public class FieldSchemaFactory<ModelTYPE,ContextTYPE> {
 
 	static private Logger log = 
 			LoggerFactory.getLogger(FieldSchemaFactory.class);
-	private List<IFieldGenerator> fieldGenerators;
+	private List<IFieldGenerator<ModelTYPE,ContextTYPE>> fieldGenerators;
 	
 	// ==============================================================
 	// PUBLIC Methods
 	// ==============================================================
 	public FieldSchemaFactory() {
-		fieldGenerators= new ArrayList<IFieldGenerator>();
-		fieldGenerators.add(new StringFieldGenerator());
+		fieldGenerators= new ArrayList<IFieldGenerator<ModelTYPE,ContextTYPE>>();
+		fieldGenerators.add(new StringFieldGenerator<ModelTYPE,ContextTYPE>());
 	}
 	
 	
-	public FieldSchema createField(String fieldName, String fieldType,
+	public FieldSchema<ModelTYPE,ContextTYPE> createField(String fieldName, String fieldType,
 			String remainder) {
 	
 		validateFieldName(fieldName);
 		
-		for (IFieldGenerator generator: fieldGenerators) {			
+		for (IFieldGenerator<ModelTYPE,ContextTYPE> generator: fieldGenerators) {			
 			if (!generator.canGenerate(fieldName, fieldType, remainder))
 				continue;
 			
@@ -40,7 +40,7 @@ public class FieldSchemaFactory {
 			}
 		}
 			
-		return new FieldSchema(fieldName,fieldType);
+		return new FieldSchema<ModelTYPE,ContextTYPE>(fieldName,fieldType);
 		
 		//return fieldGenerator.generateFieldSchema(fieldName,fieldType);
 		//return new FieldSchema(fieldName,fieldType);

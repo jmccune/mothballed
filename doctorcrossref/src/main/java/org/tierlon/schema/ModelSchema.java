@@ -30,7 +30,8 @@ import org.tierlon.schema.support.FieldSchema;
 	
 	
 */
-public class ModelSchema implements IEvaluate<Map<String,String>>{
+public class ModelSchema<ModelTYPE,ContextTYPE>
+	implements IEvaluate<Map<String,String>>{
 
 	/** Which models are the immediate parents of this one? */
 	private List<String>	  parentNames;
@@ -40,11 +41,11 @@ public class ModelSchema implements IEvaluate<Map<String,String>>{
 	private String			  namespace;
 	
 	/** What fields does this model have? */
-	private List<FieldSchema> modelFields;
+	private List<FieldSchema<ModelTYPE,ContextTYPE>> modelFields;
 	
 	/** What validator (if any) validates this model as a whole?
 	 *  Note: Fields may have their own validators. */
-	private IEvaluate<ModelSchema> modelValidator;
+	private IEvaluate<ModelSchema<ModelTYPE,ContextTYPE>> modelValidator;
 	
 	
 	// ==============================================================
@@ -106,25 +107,25 @@ public class ModelSchema implements IEvaluate<Map<String,String>>{
 
 
 
-	public List<FieldSchema> getModelFields() {
-		return new ArrayList<FieldSchema>(modelFields);
+	public List<FieldSchema<ModelTYPE,ContextTYPE>> getModelFields() {
+		return new ArrayList<FieldSchema<ModelTYPE,ContextTYPE>>(modelFields);
 	}
 
 
 
-	public void setModelFields(List<FieldSchema> modelFields) {
+	public void setModelFields(List<FieldSchema<ModelTYPE,ContextTYPE>> modelFields) {
 		this.modelFields = modelFields;
 	}
 
 
 
-	public IEvaluate<ModelSchema> getModelValidator() {
+	public IEvaluate<ModelSchema<ModelTYPE,ContextTYPE>> getModelValidator() {
 		return modelValidator;
 	}
 
 
 
-	public void setModelValidator(IEvaluate<ModelSchema> modelValidator) {
+	public void setModelValidator(IEvaluate<ModelSchema<ModelTYPE,ContextTYPE>> modelValidator) {
 		this.modelValidator = modelValidator;
 	}
 	

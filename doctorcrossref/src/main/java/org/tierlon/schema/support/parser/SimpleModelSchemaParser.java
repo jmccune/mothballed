@@ -15,16 +15,17 @@ import org.tierlon.schema.ModelSchema;
 import org.tierlon.schema.support.FieldSchema;
 import org.tierlon.schema.support.fields.FieldSchemaFactory;
 
-public class SimpleModelSchemaParser implements IModelSchemaParser {
+public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
+	implements IModelSchemaParser<ModelTYPE,ContextTYPE> {
 
 	@Override
-	public Map<String, ModelSchema> parseModels(InputStream input) {
+	public Map<String, ModelSchema<ModelTYPE,ContextTYPE>> parseModels(InputStream input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Map<String, ModelSchema> parseModels(String input) {
+	public Map<String, ModelSchema<ModelTYPE,ContextTYPE>> parseModels(String input) {
 		return parseModels(new ByteArrayInputStream(input.getBytes()));
 	}
 
@@ -34,24 +35,24 @@ public class SimpleModelSchemaParser implements IModelSchemaParser {
 //******************************************************************
 //ModelParser
 //******************************************************************
-class ModelParser {
+class ModelParser<ModelTYPE,ContextTYPE> {
 	private static final String LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*";
 	private static final String NSLABEL_REGEX = "("+LABEL_REGEX+"\\:)?"+LABEL_REGEX;
 	private static final Pattern fieldTypeEnd = Pattern.compile("[@#]"); 
-	private static final FieldSchemaFactory fieldFactory = 
-			new FieldSchemaFactory();
+	private final FieldSchemaFactory<ModelTYPE,ContextTYPE> fieldFactory = 
+			new FieldSchemaFactory<ModelTYPE,ContextTYPE>();
 	
 	public static final String ENTITY_REGEX = 
 			"\\s{0,2}("+NSLABEL_REGEX+")"+
 			"(\\s+\\|\\s+"+NSLABEL_REGEX+")*"+
 			"(\\s*\\>\\s*"+NSLABEL_REGEX+")?\\s*:\\s*";
 	
-	private ModelSchema buildModel;
-	private List<FieldSchema> fieldSchemaList;
+	private ModelSchema<ModelTYPE,ContextTYPE> buildModel;
+	private List<FieldSchema<ModelTYPE,ContextTYPE>> fieldSchemaList;
 	// ==============================================================
 	// PUBLIC Methods
 	// ==============================================================
-	public ModelSchema parseData(SimpleLineLexer lexer) throws IOException {
+	public ModelSchema<ModelTYPE,ContextTYPE> parseData(SimpleLineLexer lexer) throws IOException {
 		String data = lexer.getLineData();
 		if (!data.matches(ENTITY_REGEX)) {
 			throw new IllegalStateException("Error parsing data>> "+
@@ -114,7 +115,8 @@ class ModelParser {
 			throw new IllegalStateException("Must have type specification!");
 		}
 	
-		FieldSchema schema = fieldFactory.createField(fieldName,fieldType,remainder);
+		FieldSchema<ModelTYPE,ContextTYPE> schema = 
+				fieldFactory.createField(fieldName,fieldType,remainder);
 		
 		System.out.println("Parsed field: "+fieldName+" fieldType: "+fieldType);
 		//this.fieldSchemaList.add(new FieldSchema(fieldName,fieldType));
@@ -181,7 +183,7 @@ class ModelParser {
 		validateLabel(entityName);
 		if (!nameSpace.isEmpty()) validateLabel(nameSpace);
 		
-		buildModel = new ModelSchema(nameSpace,entityName);
+		buildModel = new ModelSchema<ModelTYPE,ContextTYPE>(nameSpace,entityName);
 
 		// Parent Spec
 		if (!parentSpec.isEmpty()) {
@@ -196,7 +198,7 @@ class ModelParser {
 		}
 
 		
-		fieldSchemaList = new ArrayList<FieldSchema>();
+		fieldSchemaList = new ArrayList<FieldSchema<ModelTYPE,ContextTYPE>>();
 		
 	}
 	

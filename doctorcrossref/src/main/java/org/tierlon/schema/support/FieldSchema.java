@@ -1,10 +1,10 @@
 package org.tierlon.schema.support;
 
-import org.tierlon.evaluation.IEvaluate;
 import org.tierlon.schema.support.FieldData;
+import org.tierlon.schema.support.fields.IValidateSchemaFields;
 import org.tierlon.transform.ITransformData;
 
-public class FieldSchema {
+public class FieldSchema<ModelTYPE,ContextTYPE> {
 	public enum PropertyType {string,date,number,num_float,num_int,
 		object,ref,list};
 	private String propertyName;
@@ -12,7 +12,7 @@ public class FieldSchema {
 	private PropertyType propertyType;
 	
 	private ITransformData<FieldData,Object> fieldTransform;
-	private IEvaluate<FieldData> fieldValidator;
+	private IValidateSchemaFields<ModelTYPE,ContextTYPE> fieldValidator;
 	private boolean required;
 
 	// ==============================================================
@@ -53,10 +53,11 @@ public class FieldSchema {
 	}
 	
 	//TODO:  Change return type IValidateSchemaFields ????????!!!*******
-	public IEvaluate<FieldData> getFieldValidator() {
+	public  IValidateSchemaFields<ModelTYPE,ContextTYPE> getFieldValidator() {
 		return fieldValidator;
 	}
-	public void setFieldValidator(IEvaluate<FieldData> fieldValidator) {
+	
+	public void setFieldValidator(IValidateSchemaFields<ModelTYPE,ContextTYPE> fieldValidator) {
 		this.fieldValidator = fieldValidator;
 	}
 
