@@ -42,6 +42,8 @@ public class StringFieldGenerator
 					regexProcFactory.generateBooleanParsers());
 			regexParser.addRegexProcessorFamily("comparison",
 					regexProcFactory.generateComparisonParsers());
+			regexParser.addRegexProcessorFamily("string",
+					regexProcFactory.generateStringParsers());
 			
 			Object parseResult = regexParser.parse(validationSpec);
 			IExpression<Object> resultExpression = (IExpression<Object>)parseResult;

@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.tierlon.evaluation.expression.logic.ComparisonExpression;
+import org.tierlon.schema.support.parser.fieldfunc.StringFieldFuncParser;
 import org.tierlon.transform.process.String2Token.IString2TokenProcessor;
 import org.tierlon.transform.process.String2Token.String2TokenContext;
 
@@ -62,6 +63,22 @@ public class RegexProcessorFactory<ExpContextTYPE> {
 		
 		return contextMap;
 			
+	}
+	
+	public Map<String,IString2TokenProcessor> generateStringParsers() {
+		
+		Map<String,IString2TokenProcessor> contextMap = 
+				new LinkedHashMap<String,IString2TokenProcessor>();
+		
+		contextMap.put(String2TokenContext.getTokenRegex(),
+				new TokenProcessor2());
+		
+		StringFieldFuncParser<ExpContextTYPE> stringParser = 
+				new StringFieldFuncParser<ExpContextTYPE>();
+		
+		contextMap.put(stringParser.getRegexPatternString(), stringParser);
+		
+		return contextMap;
 	}
 	
 	
