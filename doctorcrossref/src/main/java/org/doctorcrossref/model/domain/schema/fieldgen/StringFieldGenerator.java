@@ -47,7 +47,7 @@ public class StringFieldGenerator
 			
 			Object parseResult = regexParser.parse(validationSpec);
 			IExpression<Object> resultExpression = (IExpression<Object>)parseResult;
-			//***** WORKING HERE ****
+			//***** WORKING HERE ****(1)
 		}
 		
 		return null;
