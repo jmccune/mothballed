@@ -8,7 +8,7 @@ import org.tierlon.schema.support.parser.MultiRegexParser;
 import org.tierlon.schema.support.parser.RegexProcessorFactory;
 
 public class StringFieldGenerator 
-	extends AbstractFieldGenerator<EntityObject,Object>{
+	extends AbstractFieldGenerator<EntityObject>{
 
 	// ==============================================================
 	// CONSTRUCTION
@@ -21,7 +21,7 @@ public class StringFieldGenerator
 	// PROTECTED IMPLEMENTATION 
 	// ==============================================================
 	@Override
-	protected FieldSchema<EntityObject, Object> generateImplementation(
+	protected FieldSchema<EntityObject> generateImplementation(
 			String fieldName, String fieldType, String validationSpec,
 			String defaultValue) {
 		

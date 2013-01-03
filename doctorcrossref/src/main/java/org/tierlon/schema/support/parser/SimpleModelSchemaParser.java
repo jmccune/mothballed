@@ -11,26 +11,26 @@ import org.tierlon.schema.ModelSchema;
 import org.tierlon.schema.support.FieldSchema;
 import org.tierlon.schema.support.fields.FieldSchemaFactory;
 
-public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
+public class SimpleModelSchemaParser<ModelTYPE>
 {
 	private static final String LABEL_REGEX = "[A-Za-z][A-Za-z0-9_-]*";
 	private static final String NSLABEL_REGEX = "("+LABEL_REGEX+"\\:)?"+LABEL_REGEX;
 	private static final Pattern fieldTypeEnd = Pattern.compile("[@#]"); 
-	private  FieldSchemaFactory<ModelTYPE,ContextTYPE> fieldFactory = 
-			new FieldSchemaFactory<ModelTYPE,ContextTYPE>();
+	private  FieldSchemaFactory<ModelTYPE> fieldFactory = 
+			new FieldSchemaFactory<ModelTYPE>();
 	
 	public static final String ENTITY_REGEX = 
 			"\\s{0,2}("+NSLABEL_REGEX+")"+
 			"(\\s+\\|\\s+"+NSLABEL_REGEX+")*"+
 			"(\\s*\\>\\s*"+NSLABEL_REGEX+")?\\s*:\\s*";
 	
-	private ModelSchema<ModelTYPE,ContextTYPE> buildModel;
-	private List<FieldSchema<ModelTYPE,ContextTYPE>> fieldSchemaList;
+	private ModelSchema<ModelTYPE> buildModel;
+	private List<FieldSchema<ModelTYPE>> fieldSchemaList;
 	
 	// ==============================================================
 	// CONFIGURATION Methods
 	// ==============================================================
-	public FieldSchemaFactory<ModelTYPE,ContextTYPE> getFieldSchemaFactory() {
+	public FieldSchemaFactory<ModelTYPE> getFieldSchemaFactory() {
 		return fieldFactory;
 	}
 	
@@ -38,7 +38,7 @@ public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
 	// ==============================================================
 	// PUBLIC Methods
 	// ==============================================================
-	public ModelSchema<ModelTYPE,ContextTYPE> parseData(SimpleLineLexer lexer) throws IOException {
+	public ModelSchema<ModelTYPE> parseData(SimpleLineLexer lexer) throws IOException {
 		String data = lexer.getLineData();
 		if (!data.matches(ENTITY_REGEX)) {
 			throw new IllegalStateException("Error parsing data>> "+
@@ -101,7 +101,7 @@ public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
 			throw new IllegalStateException("Must have type specification!");
 		}
 	
-		FieldSchema<ModelTYPE,ContextTYPE> schema = 
+		FieldSchema<ModelTYPE> schema = 
 				fieldFactory.createField(fieldName,fieldType,remainder);
 		
 		System.out.println("Parsed field: "+fieldName+" fieldType: "+fieldType);
@@ -169,7 +169,7 @@ public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
 		validateLabel(entityName);
 		if (!nameSpace.isEmpty()) validateLabel(nameSpace);
 		
-		buildModel = new ModelSchema<ModelTYPE,ContextTYPE>(nameSpace,entityName);
+		buildModel = new ModelSchema<ModelTYPE>(nameSpace,entityName);
 
 		// Parent Spec
 		if (!parentSpec.isEmpty()) {
@@ -184,7 +184,7 @@ public class SimpleModelSchemaParser<ModelTYPE,ContextTYPE>
 		}
 
 		
-		fieldSchemaList = new ArrayList<FieldSchema<ModelTYPE,ContextTYPE>>();
+		fieldSchemaList = new ArrayList<FieldSchema<ModelTYPE>>();
 		
 	}
 	

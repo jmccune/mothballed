@@ -13,16 +13,16 @@ import org.tierlon.schema.ModelSchema;
 import org.tierlon.schema.support.fields.FieldSchemaFactory;
 import org.tierlon.schema.support.parser.SimpleModelSchemaParser;
 
-public class DomainModelSchemaParser implements IModelSchemaParser<EntityObject,Object> {
+public class DomainModelSchemaParser implements IModelSchemaParser<EntityObject> {
 
 	// ==============================================================
 	// PUBLIC Methods
 	// ==============================================================
 	@Override
-	public Map<String, ModelSchema<EntityObject,Object>> parseModels(InputStream input) {
+	public Map<String, ModelSchema<EntityObject>> parseModels(InputStream input) {
 		
-		SimpleModelSchemaParser<EntityObject,Object> simpleParser = 
-				new SimpleModelSchemaParser<EntityObject,Object>();
+		SimpleModelSchemaParser<EntityObject> simpleParser = 
+				new SimpleModelSchemaParser<EntityObject>();
 		
 		configureFactory(simpleParser);
 		
@@ -42,7 +42,7 @@ public class DomainModelSchemaParser implements IModelSchemaParser<EntityObject,
 	
 
 	@Override
-	public Map<String, ModelSchema<EntityObject,Object>> parseModels(String input) {
+	public Map<String, ModelSchema<EntityObject>> parseModels(String input) {
 		return parseModels(new ByteArrayInputStream(input.getBytes()));
 	}
 	
@@ -51,9 +51,9 @@ public class DomainModelSchemaParser implements IModelSchemaParser<EntityObject,
 	// ==============================================================	
 	@SuppressWarnings("unchecked")
 	private void configureFactory(
-			SimpleModelSchemaParser<EntityObject, Object> simpleParser) {
+			SimpleModelSchemaParser<EntityObject> simpleParser) {
 		
-		FieldSchemaFactory<EntityObject, Object> factory = 
+		FieldSchemaFactory<EntityObject> factory = 
 				simpleParser.getFieldSchemaFactory();
 		
 		factory.addFieldGenerators(new StringFieldGenerator());

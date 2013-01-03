@@ -106,7 +106,7 @@ public class SimpleModelSchemaParserTest {
 			boolean expectedResult  = (Boolean) testCases[i+1];
 			
 			SimpleLineLexer lexer = new SimpleLineLexer(testString);
-			SimpleModelSchemaParser<Object,Object> parser = new SimpleModelSchemaParser<Object,Object>();
+			SimpleModelSchemaParser<Object> parser = new SimpleModelSchemaParser<Object>();
 			
 			try {
 				//ModelSchema schema = 

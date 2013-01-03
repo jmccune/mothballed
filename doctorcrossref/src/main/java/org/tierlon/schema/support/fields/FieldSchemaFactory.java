@@ -7,29 +7,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tierlon.schema.support.FieldSchema;
 
-public class FieldSchemaFactory<ModelTYPE,ContextTYPE> {
+public class FieldSchemaFactory<ModelTYPE> {
 
 	static private Logger log = 
 			LoggerFactory.getLogger(FieldSchemaFactory.class);
-	private List<IFieldGenerator<ModelTYPE,ContextTYPE>> fieldGenerators;
+	private List<IFieldGenerator<ModelTYPE>> fieldGenerators;
 	
 	// ==============================================================
 	// CONSTRUCTION 
 	// ==============================================================
 	public FieldSchemaFactory() {
-		fieldGenerators= new ArrayList<IFieldGenerator<ModelTYPE,ContextTYPE>>();
+		fieldGenerators= new ArrayList<IFieldGenerator<ModelTYPE>>();
 		//fieldGenerators.add(new StringFieldGenerator<ModelTYPE,ContextTYPE>());
 	}
 	// ==============================================================
 	// Configuration
 	// ==============================================================
 	
-	public void addFieldGenerators(IFieldGenerator<ModelTYPE,ContextTYPE>... fgs) {
-		for (IFieldGenerator<ModelTYPE,ContextTYPE> fg : fgs)
+	public void addFieldGenerators(IFieldGenerator<ModelTYPE>... fgs) {
+		for (IFieldGenerator<ModelTYPE> fg : fgs)
 			fieldGenerators.add(fg);
 	}
 	
-	public boolean removeFieldGenerator(IFieldGenerator<ModelTYPE,ContextTYPE> fg) {
+	public boolean removeFieldGenerator(IFieldGenerator<ModelTYPE> fg) {
 		return fieldGenerators.remove(fg);
 	}
 	
@@ -37,12 +37,12 @@ public class FieldSchemaFactory<ModelTYPE,ContextTYPE> {
 	// PUBLIC Methods
 	// ==============================================================
 	
-	public FieldSchema<ModelTYPE,ContextTYPE> createField(String fieldName, String fieldType,
+	public FieldSchema<ModelTYPE> createField(String fieldName, String fieldType,
 			String remainder) {
 	
 		validateFieldName(fieldName);
 		
-		for (IFieldGenerator<ModelTYPE,ContextTYPE> generator: fieldGenerators) {			
+		for (IFieldGenerator<ModelTYPE> generator: fieldGenerators) {			
 			if (!generator.canGenerate(fieldName, fieldType, remainder))
 				continue;
 			
@@ -55,7 +55,7 @@ public class FieldSchemaFactory<ModelTYPE,ContextTYPE> {
 			}
 		}
 			
-		return new FieldSchema<ModelTYPE,ContextTYPE>(fieldName,fieldType);
+		return new FieldSchema<ModelTYPE>(fieldName,fieldType);
 		
 		//return fieldGenerator.generateFieldSchema(fieldName,fieldType);
 		//return new FieldSchema(fieldName,fieldType);

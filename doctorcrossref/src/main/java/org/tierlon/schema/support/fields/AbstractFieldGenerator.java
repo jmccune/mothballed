@@ -3,8 +3,8 @@ package org.tierlon.schema.support.fields;
 import org.tierlon.schema.support.FieldSchema;
 
 
-abstract public class  AbstractFieldGenerator<ModelTYPE,ContextTYPE>
-	implements IFieldGenerator<ModelTYPE,ContextTYPE> {
+abstract public class  AbstractFieldGenerator<ModelTYPE>
+	implements IFieldGenerator<ModelTYPE> {
 
 	private String fieldType;
 
@@ -41,7 +41,7 @@ abstract public class  AbstractFieldGenerator<ModelTYPE,ContextTYPE>
 	}
 
 	@Override
-	public FieldSchema<ModelTYPE,ContextTYPE> generate(String fieldName, String fieldType,
+	public FieldSchema<ModelTYPE> generate(String fieldName, String fieldType,
 			String remainder) {
 		
 		if (!matchesFieldType(fieldType)) {
@@ -62,7 +62,7 @@ abstract public class  AbstractFieldGenerator<ModelTYPE,ContextTYPE>
 		return fieldType.equals(this.fieldType);
 	}
 	
-	abstract protected FieldSchema<ModelTYPE,ContextTYPE> generateImplementation(String fieldName, 
+	abstract protected FieldSchema<ModelTYPE> generateImplementation(String fieldName, 
 			String fieldType,
 			String validationSpec, String defaultValue);
 	

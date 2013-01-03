@@ -3,8 +3,9 @@ package org.tierlon.schema.support.fields;
 import org.tierlon.evaluation.IAcceptanceResult;
 import org.tierlon.schema.support.FieldData;
 import org.tierlon.schema.support.FieldSchema;
+import org.tierlon.system.context.IContext;
 
-public interface IValidateSchemaFields<ModelTYPE,ContextTYPE> {
+public interface IValidateSchemaFields<ModelTYPE> {
 
 	/**
 	 * @motivation schema -- ?? I believe this is in relation to how
@@ -19,8 +20,8 @@ public interface IValidateSchemaFields<ModelTYPE,ContextTYPE> {
 	 * @return
 	 * 
 	 */
-	IAcceptanceResult evaluate(FieldSchema<ModelTYPE,ContextTYPE> schema, 
+	IAcceptanceResult evaluate(FieldSchema<ModelTYPE> schema, 
 							FieldData field, ModelTYPE model, 
-							ContextTYPE context);
+							IContext context);
 	
 }
