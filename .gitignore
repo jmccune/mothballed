@@ -1,0 +1,18 @@
+#java specific
+*.class
+
+#Build stuff
+.gradle
+/build
+/target
+
+#IDE stuff
+.idea
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+

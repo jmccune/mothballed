@@ -1,0 +1,31 @@
+# Spring Specific Configuration
+spring:
+    # Application Contexts to Load.
+    applicationContext: ['conf/applicationContext.xml']
+
+    useSpringSecurity: false
+
+    propertyPlaceholderConfigurer:
+         ignoreUnresolvablePlaceholders: true
+         order: 123
+         properties:
+             "property.key": "my magic key"
+             "property.value": "my magic box"
+             "encrytped.passwd" : "<my encrypted password>"
+             "some.other.property" : "with its magic value"
+             "etc" : "etc value!"
+
+
+########## Everything else is basic Dropwizard ###################
+
+logging:
+    level: INFO
+    console:
+        enabled: true
+        threshold: DEBUG
+
+http:
+    port: 8080
+    adminUsername: admin
+    adminPassword: admin
+    rootPath: /service/*
