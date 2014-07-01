@@ -3,7 +3,7 @@ package org.tierlon.xreffed;
 
 import com.bericotech.fallwizard.FallwizardService;
 import com.bericotech.fallwizard.configuration.FallwizardConfiguration;
-import com.yammer.dropwizard.config.Bootstrap;
+import io.dropwizard.setup.Bootstrap;
 
 /**
  * Created by justinanddiana on 6/24/14.

@@ -1,6 +1,7 @@
 // 0.9 version
 import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
 import com.github.jengelman.gradle.plugins.shadow.transformers.ManifestResourceTransformer
+import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransformer
 
 description = 'XReffed Service'
 
@@ -8,6 +9,8 @@ description = 'XReffed Service'
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile "com.bericotech:fallwizard:${fallwizardVersion}"
+
+    compile "org.springframework.data:spring-data-mongodb:${springDataMongoDbVersion}"
 
 }
 
@@ -20,6 +23,7 @@ shadow {
         exclude 'org.slf4j:slf4j-log4j12'
     }
 
+    transformer(ServiceFileTransformer)
     transformer(ManifestResourceTransformer) {
         mainClass = 'org.tierlon.xreffed.XReffedService'
     }

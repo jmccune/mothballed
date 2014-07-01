@@ -19,13 +19,16 @@ spring:
 ########## Everything else is basic Dropwizard ###################
 
 logging:
-    level: INFO
-    console:
-        enabled: true
-        threshold: DEBUG
+  level: INFO
+  loggers:
+        io.dropwizard: INFO
+  #appenders:
+  #  - type: console
 
-http:
+server:
+  type: simple
+  applicationContextPath: /service
+  adminContextPath: /admin
+  connector:
+    type: http
     port: 8080
-    adminUsername: admin
-    adminPassword: admin
-    rootPath: /service/*

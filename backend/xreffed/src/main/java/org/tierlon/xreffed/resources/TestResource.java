@@ -1,7 +1,7 @@
 package org.tierlon.xreffed.resources;
 
-import com.yammer.dropwizard.jersey.params.IntParam;
-import com.yammer.dropwizard.jersey.params.LongParam;
+import io.dropwizard.jersey.params.IntParam;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
