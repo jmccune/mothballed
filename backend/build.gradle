@@ -34,6 +34,9 @@ ext {
     // -- Spring Versions --
     springDataMongoDbVersion = '1.5.1.RELEASE'
 
+    // -- Google Library Versions --
+    guavaVersion = '17.0'
+
     // --- Logging Versions --
     slf4jVersion = '1.6.4'
     logbackVersion = '1.0.10'
@@ -76,6 +79,8 @@ subprojects {
 
     //common deps
     dependencies {
+        compile "com.google.guava:guava:${guavaVersion}"
+
         compile "org.slf4j:slf4j-api:${slf4jVersion}"
         compile "ch.qos.logback:logback-core:${logbackVersion}"
         compile "ch.qos.logback:logback-classic:${logbackVersion}"
