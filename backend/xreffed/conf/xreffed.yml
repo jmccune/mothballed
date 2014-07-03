@@ -27,7 +27,7 @@ logging:
 
 server:
   type: simple
-  applicationContextPath: /service
+  applicationContextPath: /
   adminContextPath: /admin
   connector:
     type: http

@@ -15,13 +15,6 @@ buildscript {
     }
 }
 
-// Import the transformers needed for the DEFAULT GatewayService
-// ShadowConfig ( see ext block below, DeafultGatewayService_ShadowConfig )
-import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
-import com.github.jengelman.gradle.plugins.shadow.transformers.ManifestResourceTransformer
-
-
-
 
 // ====================================================
 // VERSION INFORMATION

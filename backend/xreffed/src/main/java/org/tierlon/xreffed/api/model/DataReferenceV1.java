@@ -1,11 +1,9 @@
 package org.tierlon.xreffed.api.model;
 
-import com.google.common.base.Strings;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by justinanddiana on 7/3/14.
@@ -34,6 +32,8 @@ public class DataReferenceV1 {
     // ==============================================================
     // CONSTRUCTION
     // ==============================================================
+    DataReferenceV1() {}
+    
     public DataReferenceV1(DataReferenceV1Builder builder) {
         this.id = builder.id;
         this.referenceText = builder.referenceText;
@@ -82,6 +82,39 @@ public class DataReferenceV1 {
         return links;
     }
 
+    // ==============================================================
+    // SETTERS
+    // ==============================================================
 
+     void setId(String id) {
+        this.id = id;
+    }
 
+    void setReferenceText(String referenceText) {
+        this.referenceText = referenceText;
+    }
+
+    void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    void setLocationReferences(List<String> locationReferences) {
+        this.locationReferences = locationReferences;
+    }
+
+    void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    void setComments(List<String> comments) {
+        this.comments = comments;
+    }
+
+    void setPropertyMap(Map<String, Object> propertyMap) {
+        this.propertyMap = propertyMap;
+    }
+
+    void setLinks(List<String> links) {
+        this.links = links;
+    }
 }
