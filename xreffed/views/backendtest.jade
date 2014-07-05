@@ -1,0 +1,16 @@
+extends layouts/default
+
+block title
+	title Backend Test &rsaquo; #{page}
+
+block nav
+	include blocks/nav
+
+block content
+	div.content.container
+		H1 This is the backend test
+
+		This is data from the controller: {{ testdata }}
+
+block foot
+	include blocks/foot
