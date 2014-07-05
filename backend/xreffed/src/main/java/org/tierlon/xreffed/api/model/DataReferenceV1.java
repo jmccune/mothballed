@@ -1,5 +1,7 @@
 package org.tierlon.xreffed.api.model;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -45,6 +47,25 @@ public class DataReferenceV1 {
         this.links = builder.links;
     }
 
+
+    // ==============================================================
+    // OBJECT Methods
+    // ==============================================================
+    public String toString() {
+
+        String text = this.referenceText;
+        int textLength = text.length();
+        if (textLength>30) {
+            text = this.referenceText.substring(0,20)+" ... "+
+                    this.referenceText.substring(textLength-10,textLength);
+        }
+
+        return Objects.toStringHelper(this)
+                .add("id",this.id)
+                .add("referenceText",text)
+                .add("authors", Joiner.on(",").join(this.authors))
+                .toString();
+    }
 
     // ==============================================================
     // PUBLIC -- GETTERS

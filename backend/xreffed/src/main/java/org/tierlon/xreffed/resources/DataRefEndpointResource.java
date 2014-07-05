@@ -5,10 +5,7 @@ import org.tierlon.xreffed.api.model.DataReferenceV1;
 import org.tierlon.xreffed.api.model.DataReferenceV1Builder;
 import org.tierlon.xreffed.api.repositories.IDataReferenceRepository;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +33,14 @@ public class DataRefEndpointResource {
         return dataRepo.findAll();
     }
 
+
+    @PUT
+    @Path("add/xref")
+    public String addXRef(DataReferenceV1 dataRef) {
+
+        System.out.println("Received DataRef: "+dataRef);
+        return "Successfully added dataref";
+    }
 
     @GET
     @Path("add/newdata")
