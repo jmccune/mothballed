@@ -11,11 +11,13 @@ TestinfoModel.reopenClass({
   {
     id: "1",
     title: 'test link 1',
-    link: "http://link1"
+    link: "http://localhost:8080/xref/list/all",
+    postData: null
   }, {
     id: "2",
     title: 'install additional dependencies',
-    link: "http://link2"
+    link: "http://localhost:8080/xref/list/all",
+    postData: "test"
   }
 ]});
 
