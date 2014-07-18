@@ -3,14 +3,16 @@ package org.tierlon.xreffed.resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tierlon.xreffed.api.model.DataReferenceV1;
 import org.tierlon.xreffed.api.model.DataReferenceV1Builder;
+import org.tierlon.xreffed.api.model.wrappers.EmberXRefsResponse;
 import org.tierlon.xreffed.api.repositories.IDataReferenceRepository;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.UUID;
 
-@Path("/xref")
+@Path("/xrefs")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 /**
@@ -28,15 +30,21 @@ public class DataRefEndpointResource {
     }
 
     @GET
-    @Path("list/all")
-    public List<DataReferenceV1> listAll() {
-        return dataRepo.findAll();
+    public  EmberXRefsResponse listAll() {
+
+        List<DataReferenceV1> answers =  dataRepo.findAll();
+        return new EmberXRefsResponse(answers);
     }
 
 
-    @PUT
-    @Path("add/xref")
-    public String addXRef(DataReferenceV1 dataRef) {
+    @GET
+    @Path("{id}")
+    public DataReferenceV1 getById(@PathParam("id") String xrefId) {
+        return dataRepo.findById(xrefId);
+    }
+
+    @POST
+    public String addXRef(@Valid DataReferenceV1 dataRef) {
 
         System.out.println("Received DataRef: "+dataRef);
         return "Successfully added dataref";

@@ -79,29 +79,29 @@ public class DataReferenceV1 {
         return referenceText;
     }
 
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public List<String> getLocationReferences() {
-        return locationReferences;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public List<String> getComments() {
-        return comments;
-    }
-
-    public Map<String, Object> getPropertyMap() {
-        return propertyMap;
-    }
-
-    public List<String> getLinks() {
-        return links;
-    }
+//    public List<String> getAuthors() {
+//        return authors;
+//    }
+//
+//    public List<String> getLocationReferences() {
+//        return locationReferences;
+//    }
+//
+//    public List<String> getTags() {
+//        return tags;
+//    }
+//
+//    public List<String> getComments() {
+//        return comments;
+//    }
+//
+//    public Map<String, Object> getPropertyMap() {
+//        return propertyMap;
+//    }
+//
+//    public List<String> getLinks() {
+//        return links;
+//    }
 
     // ==============================================================
     // SETTERS
@@ -115,27 +115,27 @@ public class DataReferenceV1 {
         this.referenceText = referenceText;
     }
 
-    void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    void setLocationReferences(List<String> locationReferences) {
-        this.locationReferences = locationReferences;
-    }
-
-    void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    void setComments(List<String> comments) {
-        this.comments = comments;
-    }
-
-    void setPropertyMap(Map<String, Object> propertyMap) {
-        this.propertyMap = propertyMap;
-    }
-
-    void setLinks(List<String> links) {
-        this.links = links;
-    }
+//    void setAuthors(List<String> authors) {
+//        this.authors = authors;
+//    }
+//
+//    void setLocationReferences(List<String> locationReferences) {
+//        this.locationReferences = locationReferences;
+//    }
+//
+//    void setTags(List<String> tags) {
+//        this.tags = tags;
+//    }
+//
+//    void setComments(List<String> comments) {
+//        this.comments = comments;
+//    }
+//
+//    void setPropertyMap(Map<String, Object> propertyMap) {
+//        this.propertyMap = propertyMap;
+//    }
+//
+//    void setLinks(List<String> links) {
+//        this.links = links;
+//    }
 }

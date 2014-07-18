@@ -2,7 +2,9 @@ import DS from 'ember-data';
 
 var XrefModel = DS.Model.extend({
   title: DS.attr('string'),
-  referenceText: DS.attr('string'),  
+  referenceText: DS.attr('string')
+
+
 });
 
 XrefModel.reopenClass({
