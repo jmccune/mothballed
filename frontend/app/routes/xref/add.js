@@ -9,7 +9,7 @@ export default Ember.Route.extend({
    //  	outlet:'main'
    //  });
     this.render('xref.add',{
-    	into: 'xref.index',
+    	into: 'xref',
     	outlet:'xref-main'
     });
   }
