@@ -64,7 +64,7 @@ public class DataReferenceV1 {
         return Objects.toStringHelper(this)
                 .add("id",this.id)
                 .add("referenceText",text)
-                //.add("authors", Joiner.on(",").join(this.authors))
+                .add("authors", Joiner.on(",").join(this.authors))
                 .toString();
     }
 
@@ -80,9 +80,9 @@ public class DataReferenceV1 {
         return referenceText;
     }
 
-//    public List<String> getAuthors() {
-//        return authors;
-//    }
+    public List<String> getAuthors() {
+        return authors;
+    }
 //
 //    public List<String> getLocationReferences() {
 //        return locationReferences;
@@ -116,9 +116,9 @@ public class DataReferenceV1 {
         this.referenceText = referenceText;
     }
 
-//    void setAuthors(List<String> authors) {
-//        this.authors = authors;
-//    }
+    void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
 //
 //    void setLocationReferences(List<String> locationReferences) {
 //        this.locationReferences = locationReferences;

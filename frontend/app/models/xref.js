@@ -1,7 +1,8 @@
 import DS from 'ember-data';
 
 var XrefModel = DS.Model.extend({  
-  referenceText: DS.attr('string')
+  referenceText: DS.attr('string'),
+  authors: DS.attr('stringArray')
 });
 
 /*
