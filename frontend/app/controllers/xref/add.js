@@ -4,6 +4,7 @@ import Ember from 'ember';
 export default Ember.ObjectController.extend({
 	exampleProperty: 'the controller example property',
 	referenceText: null,
+	
 	actions: {
 		addXref: function() {
 			console.log("BUTTON PRESSED");
