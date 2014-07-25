@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * Created by justinanddiana on 7/18/14.
  */
-public class EmberXRefsResponse {
+public class EmberXrefsWrapper {
 
     private List<DataReferenceV1> data;
 
-    public EmberXRefsResponse(List<DataReferenceV1> data) {
+    public EmberXrefsWrapper(List<DataReferenceV1> data) {
         this.data = data;
     }
 

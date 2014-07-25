@@ -34,6 +34,7 @@ public class DataReferenceV1 {
     // ==============================================================
     // CONSTRUCTION
     // ==============================================================
+    /** For use in serialization/deserialization. */
     DataReferenceV1() {}
     
     public DataReferenceV1(DataReferenceV1Builder builder) {
@@ -63,7 +64,7 @@ public class DataReferenceV1 {
         return Objects.toStringHelper(this)
                 .add("id",this.id)
                 .add("referenceText",text)
-                .add("authors", Joiner.on(",").join(this.authors))
+                //.add("authors", Joiner.on(",").join(this.authors))
                 .toString();
     }
 
@@ -107,7 +108,7 @@ public class DataReferenceV1 {
     // SETTERS
     // ==============================================================
 
-     void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 

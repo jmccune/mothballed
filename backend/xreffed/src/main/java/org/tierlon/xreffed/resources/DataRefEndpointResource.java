@@ -1,10 +1,14 @@
 package org.tierlon.xreffed.resources;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tierlon.xreffed.api.model.DataReferenceV1;
 import org.tierlon.xreffed.api.model.DataReferenceV1Builder;
-import org.tierlon.xreffed.api.model.wrappers.EmberXRefsResponse;
+import org.tierlon.xreffed.api.model.wrappers.EmberXrefWrapper;
+import org.tierlon.xreffed.api.model.wrappers.EmberXrefsWrapper;
 import org.tierlon.xreffed.api.repositories.IDataReferenceRepository;
+import org.tierlon.xreffed.utils.ConversionUtils;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -20,7 +24,7 @@ import java.util.UUID;
  */
 public class DataRefEndpointResource {
 
-
+    Logger logger = LoggerFactory.getLogger(DataRefEndpointResource.class);
     IDataReferenceRepository dataRepo;
 
     @Autowired
@@ -30,10 +34,10 @@ public class DataRefEndpointResource {
     }
 
     @GET
-    public  EmberXRefsResponse listAll() {
+    public EmberXrefsWrapper listAll() {
 
         List<DataReferenceV1> answers =  dataRepo.findAll();
-        return new EmberXRefsResponse(answers);
+        return new EmberXrefsWrapper(answers);
     }
 
 
@@ -44,10 +48,12 @@ public class DataRefEndpointResource {
     }
 
     @POST
-    public String addXRef(@Valid DataReferenceV1 dataRef) {
+    public EmberXrefWrapper addXRef(@Valid EmberXrefWrapper dataRef) {
+        logger.debug("addXRef() call data: "+ ConversionUtils.toJSON(dataRef));
+        DataReferenceV1 xref = dataRef.getXref();
+        xref.setId(DataReferenceV1Builder.generateNextId());
 
-        System.out.println("Received DataRef: "+dataRef);
-        return "Successfully added dataref";
+        return new EmberXrefWrapper(xref);
     }
 
     @GET

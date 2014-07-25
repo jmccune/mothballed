@@ -12,8 +12,11 @@ public class DataReferenceV1Builder {
     Map<String, Object> propertyMap;
     List<String> links;
 
+    static public String generateNextId() {
+        return UUID.randomUUID().toString();
+    }
     public DataReferenceV1Builder(String referenceText) {
-        this.id = UUID.randomUUID().toString();
+        this.id = generateNextId();
         this.referenceText = referenceText;
         this.locationReferences = new ArrayList<>();
         this.authors = new ArrayList<>();

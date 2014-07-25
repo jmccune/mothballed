@@ -19,9 +19,12 @@ spring:
 ########## Everything else is basic Dropwizard ###################
 
 logging:
-  level: INFO
+  level: DEBUG
   loggers:
         io.dropwizard: INFO
+        org: WARN
+        com: WARN
+        org.tierlon: DEBUG
   #appenders:
   #  - type: console
 

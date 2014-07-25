@@ -1,12 +1,10 @@
 import DS from 'ember-data';
 
-var XrefModel = DS.Model.extend({
-  title: DS.attr('string'),
+var XrefModel = DS.Model.extend({  
   referenceText: DS.attr('string')
-
-
 });
 
+/*
 XrefModel.reopenClass({
   FIXTURES: [
   {
@@ -17,5 +15,6 @@ XrefModel.reopenClass({
     referenceText: 'Some Quoted 2 Text',    
   }
 ]});
+*/
 
 export default XrefModel; 
