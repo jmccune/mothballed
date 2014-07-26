@@ -23,5 +23,7 @@ app.import({
 	'ember-data': ['default']
 });
 
+app.import('vendor/typeahead.js/dist/typeahead.bundle.js');
+
 
 module.exports = app.toTree();
