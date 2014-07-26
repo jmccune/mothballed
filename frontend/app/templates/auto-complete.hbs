@@ -1,8 +1,13 @@
 {{input type="text" value=searchText}}
 
 The Search Text: {{searchText}}
+<br>
+EXAMPLE>>{{exampleProperty}}
+<br>
+
+{{searchResults}}
 <ul>
 	{{#each searchResults}}
-		<li> {{this}}</li>
+		<li> ABC {{this}}</li>
 	{{/each}}
 </ul>
