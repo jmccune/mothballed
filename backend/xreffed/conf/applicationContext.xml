@@ -30,5 +30,6 @@
     <bean id="testResource" class="org.tierlon.xreffed.resources.TestResource"></bean>
 
     <bean id="xrefEndpoint" class="org.tierlon.xreffed.resources.DataRefEndpointResource"/>
+    <bean id="autocompleteEndpoints" class="org.tierlon.xreffed.resources.AutocompleteEndpointResource"/>
 
 </beans>

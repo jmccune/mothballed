@@ -11,7 +11,15 @@ export default Ember.View.extend({
 		var myController = this.get('controller');
 		var myDataCompletionType = this.$().attr('data-completiontype');
 		console.log("My Controller>> "+myController);
-		console.log("myDataCompletionType >> "+myDataCompletionType);
+		console.log("myDataCompletionType >> "+myDataCompletionType);		
+
+		var bestAnswers = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			remote: 'http://localhost:8080/autocomplete/authors/%QUERY'
+		});
+
+		bestAnswers.initialize();
 
 		var substringMatcher = function(strs) {
 		  return function findMatches(q, cb) {
@@ -48,15 +56,23 @@ export default Ember.View.extend({
 		  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
 		];
  
-		this.$('#the-basics .typeahead').typeahead({
-		  hint: true,
-		  highlight: true,
-		  minLength: 1
-		},
+
+ 	// 	this.$('div .typeahead').typeahead({
+		//   hint: true,
+		//   highlight: true,
+		//   minLength: 1
+		// },
+		// {
+		//   name: 'states',
+		//   displayKey: 'value',
+		//   source: substringMatcher(states)
+		// });
+
+		this.$('input.typeahead').typeahead(null,
 		{
-		  name: 'states',
+		  name: 'authors',
 		  displayKey: 'value',
-		  source: substringMatcher(states)
+		  source: bestAnswers.ttAdapter()
 		});
 	}
 });
