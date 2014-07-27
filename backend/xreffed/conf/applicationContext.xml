@@ -10,7 +10,10 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
 
+    <context:component-scan base-package="org.tierlon" />
+    <bean id="autocompleteRepositoryCustom" class="org.tierlon.xreffed.api.repositories.IAutocompleteRepositoryCustom"/>
     <mongo:mongo id="mongo" />
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
@@ -20,8 +23,6 @@
 
     <mongo:repositories base-package="org.tierlon.xreffed.api.repositories" />
 
-    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
-    <context:component-scan base-package="org.tierlon.xreffed" />
 
     <bean id="test" class="java.lang.String">
         <!-- collaborators and configuration for this bean go here -->
