@@ -15,7 +15,6 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
  */
 public class IAutocompleteRepositoryImpl implements IAutocompleteRepositoryCustom {
 
-
     private MongoTemplate mongoTemplate;
 
 
@@ -26,7 +25,6 @@ public class IAutocompleteRepositoryImpl implements IAutocompleteRepositoryCusto
 
     @Override
     public List<AutocompleteReference> findCompletions(String queryTerm, String entityType) {
-        System.err.println(">>> MongoTemplate on construction: "+mongoTemplate);
 
         Criteria criteria = where("tokens").regex(queryTerm+".*");
         Query query=Query.query(criteria);
@@ -35,6 +33,5 @@ public class IAutocompleteRepositoryImpl implements IAutocompleteRepositoryCusto
         }
 
         return mongoTemplate.find(query, AutocompleteReference.class);
-
     }
 }

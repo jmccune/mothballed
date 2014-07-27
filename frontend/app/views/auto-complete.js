@@ -16,7 +16,7 @@ export default Ember.View.extend({
 		var bestAnswers = new Bloodhound({
 			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
-			remote: 'http://localhost:8080/autocomplete/authors/%QUERY'
+			remote: 'http://localhost:8080/autocomplete/author/%QUERY'
 		});
 
 		bestAnswers.initialize();

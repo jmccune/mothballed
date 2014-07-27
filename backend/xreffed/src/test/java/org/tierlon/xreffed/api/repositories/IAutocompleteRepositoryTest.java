@@ -28,12 +28,25 @@ public class IAutocompleteRepositoryTest {
         long count = dataRepo.count();
         System.out.println("FOUND "+count+" results on startup!");
 
-        String[] titleTokens = {"alice","wonderland","in"};
+        String[] bookTokens = {"alice","wonderland","in"};
         String[] authorTokens = {"lewis","carroll"};
         String[] friendTokens = {"alexander","the","great"};
-        dataRepo.save(new AutocompleteReference(titleTokens,"book","0123456","{}"));
+        String[] friendTokens2 = {"john","doe"};
+        String[] friendTokens3 = {"joseph","smith"};
+        String[] friendTokens4 = {"joey","the","kid"};
+        String[] friendTokens5 = {"alfred","james"};
+        String[] friendTokens6 = {"jennifer","lopez"};
+        String[] friendTokens7 = {"josephine","buonaparte"};
+
+        dataRepo.save(new AutocompleteReference(bookTokens,"book","0123456","{}"));
         dataRepo.save(new AutocompleteReference(authorTokens,"author","0123456","{}"));
         dataRepo.save(new AutocompleteReference(friendTokens,"friend","0123456","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens2,"friend","0123457","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens3,"friend","0123458","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens4,"friend","0123459","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens5,"friend","0123460","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens6,"friend","0123461","{}"));
+        dataRepo.save(new AutocompleteReference(friendTokens7,"friend","0123462","{}"));
 
     }
 
@@ -61,9 +74,25 @@ public class IAutocompleteRepositoryTest {
     @Test
     public void customFindTest() {
 
-        List<AutocompleteReference> foundReferences = dataRepo.findCompletions("al","book");
-        System.err.println(">>>>>> "+foundReferences.size());
-        //assertTrue(foundReferences.size() == 1);
+        Object[] tests = {
+                "al","",3,  //Should find alexander,alice, alfred
+                "al","book",1,
+                "alice","",1,
+                "albatross","",0,
+                "j","friend",6,
+                "jo","friend",4,
+                "jos","friend",2,
+                "joseph","friend",2,
+                "josephi","friend",1
+        };
+
+        for (int i=0; i<tests.length; i+=3) {
+            String queryTerm = (String) tests[i+0];
+            String entityType = (String) tests[i+1];
+            Integer numExpected = (Integer) tests[i+2];
+            List<AutocompleteReference> foundReferences = dataRepo.findCompletions(queryTerm,entityType);
+            assertTrue(foundReferences.size() == numExpected);
+        }
     }
 
 
