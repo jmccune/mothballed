@@ -1,7 +1,7 @@
 package org.tierlon.xreffed.api.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.tierlon.xreffed.api.model.DataReferenceV1;
+import org.tierlon.xreffed.api.model.reference.DataReferenceV1;
 
 /**
  * Created by justinanddiana on 7/3/14.

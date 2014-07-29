@@ -1,4 +1,4 @@
-package org.tierlon.xreffed.api.model;
+package org.tierlon.xreffed.api.model.reference;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;

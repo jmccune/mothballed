@@ -3,7 +3,7 @@ package org.tierlon.xreffed.resources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tierlon.xreffed.api.model.AutocompleteReference;
+import org.tierlon.xreffed.api.model.reference.AutocompleteReference;
 import org.tierlon.xreffed.api.repositories.IAutocompleteRepository;
 
 import javax.ws.rs.*;
@@ -79,8 +79,8 @@ public class AutocompleteEndpointResource {
 
         List<AutocompleteReference> refList = new ArrayList<>();
         for (String tokenString : tokenStrings) {
-            String id = "id-"+tokenString.replace(",","-");
-            String json = "{ 'id':'"+id+"', 'value':'"+tokenString.replace(","," ")+"' }";
+            String id = "id-"+tokenString.replace(",", "-");
+            String json = "{ 'id':'"+id+"', 'value':'"+tokenString.replace(",", " ")+"' }";
             json = json.replace("'","\"");
             AutocompleteReference reference =
                     new AutocompleteReference(tokenString.split(","),"author",id,json);

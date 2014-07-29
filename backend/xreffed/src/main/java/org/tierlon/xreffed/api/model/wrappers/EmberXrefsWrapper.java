@@ -1,6 +1,6 @@
 package org.tierlon.xreffed.api.model.wrappers;
 
-import org.tierlon.xreffed.api.model.DataReferenceV1;
+import org.tierlon.xreffed.api.model.reference.DataReferenceV1;
 
 import java.util.List;
 

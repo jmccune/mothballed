@@ -1,7 +1,7 @@
 package org.tierlon.xreffed.api.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.tierlon.xreffed.api.model.AutocompleteReference;
+import org.tierlon.xreffed.api.model.reference.AutocompleteReference;
 
 import java.util.List;
 
