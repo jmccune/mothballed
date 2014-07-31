@@ -7,7 +7,6 @@ description = 'XReffed Service'
 
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
     compile "com.bericotech:fallwizard:${fallwizardVersion}"
 
     compile "org.springframework.data:spring-data-mongodb:${springDataMongoDbVersion}"

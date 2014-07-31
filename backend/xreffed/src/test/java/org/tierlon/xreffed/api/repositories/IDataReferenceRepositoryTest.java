@@ -1,13 +1,15 @@
 package org.tierlon.xreffed.api.repositories;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import org.tierlon.xreffed.api.model.reference.DataReferenceV1;
 import org.tierlon.xreffed.api.model.reference.DataReferenceV1Builder;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.testng.Assert.assertTrue;
+
 
 /**
  * Created by justinanddiana on 7/3/14.
@@ -40,6 +42,7 @@ public class IDataReferenceRepositoryTest {
 
         dataRepo.save(dataRef);
         long afterCount = dataRepo.count();
+
         assertTrue(beforeCount+1 == afterCount);
     }
 }

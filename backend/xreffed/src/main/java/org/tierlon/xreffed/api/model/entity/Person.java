@@ -2,6 +2,7 @@ package org.tierlon.xreffed.api.model.entity;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
+import org.tierlon.xreffed.api.model.component.NameComponent;
 
 import java.util.List;
 
@@ -11,13 +12,7 @@ import java.util.List;
 public class Person {
 
     private String id;
-    private String displayName;
-
-    private List<String> firstNames;
-    private List<String> middleNames;
-    private List<String> lastNames;
-    private List<String> titles;
-
+    private NameComponent name;
     private List<String> roles;
 
     // ==============================================================
@@ -28,11 +23,7 @@ public class Person {
 
     public Person(PersonBuilder builder) {
         this.id = builder.id;
-        this.displayName = builder.displayName;
-        this.firstNames = builder.firstNames;
-        this.middleNames = builder.middleNames;
-        this.lastNames = builder.lastNames;
-        this.titles = builder.titles;
+        this.name = builder.name;
         this.roles = builder.roles;
     }
 
@@ -44,7 +35,7 @@ public class Person {
         String rolesAsString = Joiner.on(" ").join(roles);
         return Objects.toStringHelper(this)
                 .add("id",this.id)
-                .add("displayName",displayName)
+                .add("name",name)
                 .add("roles",rolesAsString)
                 .toString();
     }
@@ -53,30 +44,19 @@ public class Person {
     // PUBLIC -- GETTERS
     // ==============================================================
 
+
     public String getId() {
         return id;
     }
 
-    public List<String> getFirstNames() {
-        return firstNames;
+    public String getName() {
+        return this.name.getName();
     }
 
-    public List<String> getLastNames() {
-        return lastNames;
+    public NameComponent getNameComponent() {
+        return this.name;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
-
-    public List<String> getMiddleNames() {
-        return middleNames;
-    }
-
-    public List<String> getTitles() {
-        return titles;
-    }
 
     public List<String> getRoles() {
         return roles;
@@ -86,28 +66,11 @@ public class Person {
         this.id = id;
     }
 
-    void setFirstNames(List<String> firstNames) {
-        this.firstNames = firstNames;
-    }
-
-    void setLastNames(List<String> lastNames) {
-        this.lastNames = lastNames;
-    }
-
-    void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-
-    void setMiddleNames(List<String> middleNames) {
-        this.middleNames = middleNames;
-    }
-
-    void setTitles(List<String> titles) {
-        this.titles = titles;
-    }
-
     void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    void setNameComponent(NameComponent name) {
+        this.name = name;
     }
 }

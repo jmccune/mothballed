@@ -1,14 +1,15 @@
 package org.tierlon.xreffed.api.repositories;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import org.tierlon.xreffed.api.model.reference.AutocompleteReference;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.testng.Assert.assertTrue;
+
 
 /**
  * Created by justinanddiana on 7/26/14.
