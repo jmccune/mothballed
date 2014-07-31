@@ -44,7 +44,8 @@ public class NameComponent {
     // PRIVATE Fields
     // ==============================================================
 
-    public Map<NameType,Object> nameMap;
+    private Map<SingleNameType,String> nameMap;
+    private Map<MultiNameType,List<String>> multiNameMap;
 
     // ==============================================================
     // CONSTRUCTION
@@ -57,20 +58,128 @@ public class NameComponent {
             throw new IllegalArgumentException("Name: "+name+" doesn't work as a person's name--not specific enough!");
         }
 
-        nameMap = new HashMap<NameType,Object>();
+        nameMap = new HashMap<SingleNameType,String>();
         nameMap.put(SingleNameType.NAME, name);
+
+        multiNameMap = new HashMap<MultiNameType,List<String>>();
     }
 
     public NameComponent(NameComponent other) {
-        nameMap = new HashMap<NameType,Object>();
+        nameMap = new HashMap<SingleNameType,String>();
         nameMap.putAll(other.nameMap);
+
+        multiNameMap = new HashMap<MultiNameType,List<String>>();
+        multiNameMap.putAll(other.multiNameMap);
     }
+
+    // ==============================================================
+    // SETTERS
+    // ==============================================================
+
+    /**
+     * Sets the value for the given value of the given namecomponent.
+     * @param type (non-null) the type of name
+     * @param value (non-null) the value to set
+     * @return the old value or NULL if no former value.
+     */
+    public String set(SingleNameType type, String value) {
+        if (type == null || value == null) {
+            throw new NullPointerException();
+        }
+        return nameMap.put(type,value);
+    }
+
+    /**
+     * Sets the value for the given value of the given namecomponent.
+     *
+     * All values returned or given are defensively copied and
+     * may be used/altered without affecting the value set in the
+     * NameComponent.
+     *
+     * @param type (non-null) the type of name
+     * @param values (non-null, non-null elements) the list of names
+     *               that are given for that type of name.
+     *               (e.g. if the type is alias, this is the list of
+     *               aliases for the given name.)
+     * @return the old list of values or an EMPTY LIST
+     *  if no former value.
+     */
+    public List<String> set(MultiNameType type, List<String> values) {
+        if (type == null || values == null) {
+            throw new NullPointerException();
+        }
+        for (String value: values) {
+            if (value == null) {
+                throw new NullPointerException(
+                        "No nulls allowed, not even in list");
+            }
+        }
+
+        List<String> myList = new ArrayList<String>();
+        myList.addAll(values);
+        List<String> results =  new ArrayList<String>();
+        List<String> foundList = multiNameMap.put(type,myList);
+        if ( foundList != null ) {
+            results.addAll(foundList);
+        }
+        return results;
+    }
+
+
+    /**
+     * Clears the given parameter, returning the old value (if any)
+     *
+     * @param type
+     * @return the old value, or NULL/EmptyList depending upon the
+     * type.
+     */
+    public Object clear(NameType type) {
+        if (type instanceof SingleNameType) {
+            return nameMap.remove(type);
+        }
+        else if (type instanceof MultiNameType) {
+            List<String> results = multiNameMap.remove(type);
+            if (results == null) {
+                return new ArrayList<String>();
+            }
+            return results;
+        }
+        else {
+            throw new IllegalStateException("Unsupported name type!");
+        }
+    }
+
+
 
     // ==============================================================
     // GETTERS
     // ==============================================================
+
+    /** Gets all the used name types used by the naem component:
+     *  Will return the NAME type for sure-- however, may return
+     *  other name types (maiden name, preferred, etc).
+     */
     public Set<NameType> getUsedNameTypes() {
-        return nameMap.keySet();
+        Set<NameType> set = new HashSet<NameType>();
+        set.addAll(nameMap.keySet());
+        set.addAll(multiNameMap.keySet());
+        return set;
+    }
+
+    /** Gets all the used name types used that may only have
+     * a single value.  (E.g. this includes the required
+     * NAME type-- however may include the given/preferred name, etc.)
+     */
+    public Set<NameType> getUsedSingleNameTypes() {
+        Set<NameType> set = new HashSet<NameType>();
+        set.addAll(nameMap.keySet());
+        return set;
+    }
+
+    public Set<MultiNameType> getUsedMultiNameTypes() {
+        Set<MultiNameType> set = new HashSet<MultiNameType>();
+        set.addAll(multiNameMap.keySet());
+        return set;
     }
 
     public String getName() {
@@ -85,11 +194,8 @@ public class NameComponent {
     }
 
     public List<String> getNames(MultiNameType nameType) {
-        List<String> results = (List<String>) nameMap.get(nameType);
-        if ( results != null ) {
-            return results;
-        }
-        return new ArrayList<>();
+        List<String> results = multiNameMap.get(nameType);
+        return (results == null) ? new ArrayList<String>() : results;
     }
 
     // ==============================================================
