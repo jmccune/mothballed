@@ -1,6 +1,8 @@
 package org.tierlon.xreffed.api.model.component;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.tierlon.xreffed.io.serializers.NameComponentDeserializer;
 import org.tierlon.xreffed.io.serializers.NameComponentSerializer;
 
 import java.util.*;
@@ -14,6 +16,7 @@ import java.util.*;
  *  )
  */
 @JsonSerialize(using = NameComponentSerializer.class)
+@JsonDeserialize(using = NameComponentDeserializer.class)
 public class NameComponent {
 
     // ==============================================================
@@ -38,6 +41,14 @@ public class NameComponent {
         NICKNAMES
     };
 
+    static public NameType getType(String value) {
+        NameType result = typeLookupMap.get(value);
+        if (result == null) {
+            throw new IllegalArgumentException(
+                    "Value: " + value + " is not a valid type!");
+        }
+        return result;
+    }
     //TODO -- SUFFIXES, TITLES
 
     // ==============================================================
@@ -55,7 +66,8 @@ public class NameComponent {
         String[] res = name.split("\\W");
 
         if (res.length<2) {
-            throw new IllegalArgumentException("Name: "+name+" doesn't work as a person's name--not specific enough!");
+            throw new IllegalArgumentException("Name: "+name+
+            " doesn't work as a person's name--not specific enough!");
         }
 
         nameMap = new HashMap<SingleNameType,String>();
@@ -72,6 +84,19 @@ public class NameComponent {
         multiNameMap.putAll(other.multiNameMap);
     }
 
+    // ==============================================================
+    // OBJECT
+    // ==============================================================
+    public boolean equals(Object other) {
+        if (other == null) { return false; }
+        if (!(other instanceof NameComponent)) {
+            return false;
+        }
+
+        NameComponent otherComponent = (NameComponent) other;
+        return this.nameMap.equals(otherComponent.nameMap) &&
+                this.multiNameMap.equals(otherComponent.multiNameMap);
+    }
     // ==============================================================
     // SETTERS
     // ==============================================================
@@ -205,4 +230,22 @@ public class NameComponent {
         if (name == null)  {return ""; }
         return name.trim();
     }
+
+
+    // ==============================================================
+    // STATIC PRIVATE INFO
+    // ==============================================================
+
+    private static Map<String,NameType> typeLookupMap;
+
+    static {
+        typeLookupMap = new HashMap<String,NameType>();
+        for (SingleNameType type : SingleNameType.values()) {
+            typeLookupMap.put(type.toString(),type);
+        }
+        for (MultiNameType type : MultiNameType.values()) {
+            typeLookupMap.put(type.toString(),type);
+        }
+    }
+
 }
