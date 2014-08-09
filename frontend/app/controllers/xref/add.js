@@ -17,7 +17,13 @@ export default Ember.ObjectController.extend({
 				console.log("AFTER SAVE >> ID: "+xref.get('id'));
 			});
 			console.log("Received data>> "+referenceText);			
-		}
+		},		
+		authorAutoCompletion: function(a,b,c) {
+   			console.log("AUTO COMPLETION!!!!!");
+   			console.dir(a);
+   			console.dir(b);
+   			console.dir(c);
+   		}
 	}
 });
 

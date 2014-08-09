@@ -12,5 +12,14 @@ export default Ember.Route.extend({
     	into: 'xref',
     	outlet:'xref-main'
     });
+  },
+  actions: {
+    authorAutoCompletion: function(a,b,c) {
+        console.log(" *** ROUTER *** AUTO COMPLETION!!!!!");
+        console.dir(a);
+        console.dir(b);
+        console.dir(c);
+      }     
   }
+
 });

@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+//NOTE TEMPORARILY REMOVED FROM USE -- May return when we do autocomplete list functionality.
 export default Ember.Controller.extend({
 	searchText: null,
 	exampleProperty: "THIS IS A TEST!",
@@ -16,6 +17,11 @@ export default Ember.Controller.extend({
 		return ['one','two','three'].filter(function(name) {
 			return name.match(regex);
 		});
-	}.property('searchText')
+	}.property('searchText'),
+	actions: {
+		turnItUp2: function(level) {
+			console.log("TURNED UP LEVEL: "+level);
+		}
+	}
 
 });

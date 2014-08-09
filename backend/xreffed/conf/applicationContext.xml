@@ -11,21 +11,29 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <mongo:mongo id="mongo" />
+    <mongo:mongo host="localhost" port="27017" id="mongo" />
+    <mongo:db-factory dbname="xreffed" mongo-ref="mongo"/>
+    <mongo:mapping-converter>
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonWriteConverter"/>
+            </mongo:converter>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonReadConverter"/>
+            </mongo:converter>
+        </mongo:custom-converters>
+    </mongo:mapping-converter>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg ref="mongo" />
-        <constructor-arg value="xreffed" />
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongoConverter" ref="mappingConverter"/>
     </bean>
+
 
     <mongo:repositories base-package="org.tierlon.xreffed.api.repositories" />
 
     <!-- Scans within the base package of the application for @Component classes to configure as beans -->
     <context:component-scan base-package="org.tierlon.xreffed" />
-
-    <bean id="test" class="java.lang.String">
-        <!-- collaborators and configuration for this bean go here -->
-    </bean>
 
     <bean id="testResource" class="org.tierlon.xreffed.resources.TestResource"></bean>
 
