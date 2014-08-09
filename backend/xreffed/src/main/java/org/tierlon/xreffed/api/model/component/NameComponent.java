@@ -195,8 +195,8 @@ public class NameComponent {
      * a single value.  (E.g. this includes the required
      * NAME type-- however may include the given/preferred name, etc.)
      */
-    public Set<NameType> getUsedSingleNameTypes() {
-        Set<NameType> set = new HashSet<NameType>();
+    public Set<SingleNameType> getUsedSingleNameTypes() {
+        Set<SingleNameType> set = new HashSet<SingleNameType>();
         set.addAll(nameMap.keySet());
         return set;
     }
@@ -221,6 +221,15 @@ public class NameComponent {
     public List<String> getNames(MultiNameType nameType) {
         List<String> results = multiNameMap.get(nameType);
         return (results == null) ? new ArrayList<String>() : results;
+    }
+
+    public Collection<String> getAllNames() {
+        HashSet<String> results = new HashSet<String>();
+        results.addAll(nameMap.values());
+        for (List<String> valueList : multiNameMap.values()) {
+            results.addAll(valueList);
+        }
+        return results;
     }
 
     // ==============================================================

@@ -10,14 +10,31 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <mongo:mongo id="mongo" />
+    <context:component-scan base-package="org.tierlon" />
+    <mongo:mongo host="localhost" port="27017" id="mongo" />
+
+    <mongo:db-factory dbname="test-xreffed" mongo-ref="mongo"/>
+
+    <mongo:mapping-converter>
+        <!--<mongo:custom-converters base-package="org.tierlon.xreffed.io.converters" /> -->
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonWriteConverter"/>
+            </mongo:converter>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonReadConverter"/>
+            </mongo:converter>
+        </mongo:custom-converters>
+
+    </mongo:mapping-converter>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg ref="mongo" />
-        <constructor-arg value="test-xreffed" />
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongoConverter" ref="mappingConverter"/>
     </bean>
 
+
     <mongo:repositories base-package="org.tierlon.xreffed.api.repositories" />
-    <context:component-scan base-package="org.tierlon" />
+
 
 </beans>
