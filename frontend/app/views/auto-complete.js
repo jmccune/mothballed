@@ -58,7 +58,22 @@ export default Ember.View.extend({
 		  source: bestAnswers.ttAdapter()
 		});
 
+		typeAheadEl.keypress(function (eventInfo) {
+  			if (eventInfo.which == 13) {
+    			var value = typeAheadEl.val();
+    			if (clearAfterSelection) {
+    				typeAheadEl.typeahead('val', "");
+    			}
+    			var selectedObject = {
+    				id: null,  //Object needs to be defined.
+    				value: value
+    			};
+    			myController.send(completionEventName,eventInfo,selectedObject);      			
+  			}
+		});
+
 		typeAheadEl.on('typeahead:selected', function (eventInfo, selectedObject ,dataSet) {
+			console.log("SEND Event? "+completionEventName);
 			myController.send(completionEventName,eventInfo,selectedObject,dataSet);  
 			if (clearAfterSelection) {
 				typeAheadEl.typeahead('val', "");
