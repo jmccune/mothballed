@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import utilities from '../../utils/utility-general';
 
 // controllers/xref/add.js
 export default Ember.ObjectController.extend({
@@ -6,13 +7,14 @@ export default Ember.ObjectController.extend({
 	authors: [ { id:null, value:'James Dean'} ],
 	//model: 'xref',
 	actions: {
-		addXref: function() {
-			console.log("BUTTON PRESSED");
+		addXref: function() {			
 			var referenceText = this.get('referenceText');
 
 			var authorList =this.get('authors');
 			console.dir(authorList);
-			
+			authorList = utilities.convertIdEntitiesToTransportFormat(authorList);
+			console.dir(authorList);
+
 			var xref = this.store.createRecord('xref',{				
   				referenceText: referenceText,
   				authors: authorList
@@ -23,10 +25,8 @@ export default Ember.ObjectController.extend({
 			});
 			console.log("Received data>> "+referenceText);			
 		},		
-		authorAutoCompletion: function(eventInfo, selectedObject ,dataSet) {
-   			console.log("AUTO COMPLETION!!!!!");
-   			var authors = this.get('authors').pushObject(selectedObject)   			
-   			
+		authorAutoCompletion: function(eventInfo, selectedObject ,dataSet) {   			
+   			var authors = this.get('authors').pushObject(selectedObject)   			   			
    		}
 	}
 });
