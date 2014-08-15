@@ -20,10 +20,12 @@ app.import({
 	development: 'vendor/ember-data/ember-data.js',
 	production: 'vendor/ember-data/ember-data.prod.js'	
 },{
+	exports: {
 	'ember-data': ['default']
+	}
 });
 
-app.import('vendor/typeahead.js/dist/typeahead.bundle.js');
 
+app.import('vendor/typeahead.js/dist/typeahead.bundle.js');
 
 module.exports = app.toTree();
