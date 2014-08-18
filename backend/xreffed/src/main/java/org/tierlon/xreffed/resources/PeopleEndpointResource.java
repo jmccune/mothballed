@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -32,9 +33,13 @@ public class PeopleEndpointResource {
     @GET
     public EmberPeopleWrapper listAll() {
 
+        ArrayList<Person> array = new ArrayList<>();
         Person person = new PersonBuilder("John Doe","author").create();
+        Person person2 = new PersonBuilder("Jane Eyre","character").create();
 
-        return new EmberPeopleWrapper(Collections.EMPTY_LIST);
+        array.add(person);
+        array.add(person2);
+        return new EmberPeopleWrapper(array);
 
     }
 

@@ -21,6 +21,12 @@
     <script src="assets/frontend.js"></script>
     <script>
       window.Frontend = require('frontend/app')['default'].create(FrontendENV.APP);
+
+      var App = window.Frontend;
+      console.log("APP");
+      console.dir(App);
+
+      App.inject('NameComponent', 'store', 'store:main');
     </script>
   </body>
 </html>

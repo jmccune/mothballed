@@ -11,4 +11,6 @@ var App = Ember.Application.extend({
 
 loadInitializers(App, 'frontend');
 
+
+
 export default App;

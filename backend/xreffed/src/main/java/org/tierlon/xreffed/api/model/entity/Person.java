@@ -1,5 +1,6 @@
 package org.tierlon.xreffed.api.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import org.springframework.data.annotation.Id;
@@ -62,6 +63,7 @@ public class Person {
         return id;
     }
 
+    @JsonIgnore
     public String getName() {
         return this.name.getName();
     }

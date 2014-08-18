@@ -39,6 +39,7 @@ public class NameComponentSerializer extends JsonSerializer<NameComponent> {
                 throw new IllegalStateException("Unsupported name type!");
             }
         }
+        jsonGenerator.writeEndObject();
 
     }
 }
