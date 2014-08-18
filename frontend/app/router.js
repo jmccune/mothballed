@@ -11,6 +11,9 @@ Router.map(function() {
 		this.route('add');
 		this.route('list');
 	});
+	this.resource('author', {path: '/author'},function() {
+		this.route('list');
+	});
 	this.resource('testinfo' ,{ path: '/test'});
 });
 

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-// routes/todos.js
+// routes/xref.js
 export default Ember.Route.extend({
   model: function() {
     return this.store.find('xref');

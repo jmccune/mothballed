@@ -25,8 +25,13 @@ export default Ember.ObjectController.extend({
 			});
 			console.log("Received data>> "+referenceText);			
 		},		
-		authorAutoCompletion: function(eventInfo, selectedObject ,dataSet) {   			
-   			var authors = this.get('authors').pushObject(selectedObject)   			   			
+		authorAutoCompletion: function(eventInfo, selectedObject ,dataSet) {   
+			if (selectedObject.id) {
+				var authors = this.get('authors').pushObject(selectedObject)   			   				
+			} else {
+				// add the new author
+			}
+   			
    		}
 	}
 });

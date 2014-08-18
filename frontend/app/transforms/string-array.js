@@ -1,7 +1,7 @@
 import DS from "ember-data";
 import Ember from 'ember';
 
-
+//app/transforms/string-array
 export default DS.Transform.extend({
 	deserialize: function(serialized) {
 		return (Ember.typeOf(serialized) === "array")  ? serialized : [];
