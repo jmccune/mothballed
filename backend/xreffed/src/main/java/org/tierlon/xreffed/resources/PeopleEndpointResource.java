@@ -1,17 +1,16 @@
 package org.tierlon.xreffed.resources;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tierlon.xreffed.api.model.entity.Person;
-import org.tierlon.xreffed.api.model.entity.PersonBuilder;
-import org.tierlon.xreffed.api.model.reference.DataReferenceV1;
 import org.tierlon.xreffed.api.model.wrappers.EmberPeopleWrapper;
 import org.tierlon.xreffed.api.model.wrappers.EmberPersonWrapper;
-import org.tierlon.xreffed.api.model.wrappers.EmberXrefsWrapper;
+import org.tierlon.xreffed.api.repositories.IPersonRepository;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -25,23 +24,26 @@ import java.util.Collections;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PeopleEndpointResource {
 
-    private ArrayList<Person> array = new ArrayList<>();
-    private Integer id = 12345;
+    Logger logger = LoggerFactory.getLogger(DataRefEndpointResource.class);
+    IPersonRepository dataRepo;
+
+    @Autowired
+    public PeopleEndpointResource(IPersonRepository dataRepo) {
+        this.dataRepo = dataRepo;
+    }
+
     @GET
     public EmberPeopleWrapper listAll() {
-
-        return new EmberPeopleWrapper(array);
-
+        List<Person> personList = dataRepo.findAll();
+        return new EmberPeopleWrapper(personList);
     }
 
     @POST
     public EmberPersonWrapper createNewPerson(EmberPersonWrapper personWrapper) {
         Person person = personWrapper.getPerson();
-        person.setId(""+id);
-        id++;
-        array.add(person);
+        person.autoSetId();
+        logger.info("Saving person: " + person);
+        dataRepo.save(person);
         return personWrapper;
     }
-
-
 }

@@ -30,7 +30,6 @@ public class DataRefEndpointResource {
     @Autowired
     public DataRefEndpointResource(IDataReferenceRepository dataRepo) {
         this.dataRepo = dataRepo;
-        System.out.println(">>>  DataRepo: "+dataRepo);
     }
 
     @GET

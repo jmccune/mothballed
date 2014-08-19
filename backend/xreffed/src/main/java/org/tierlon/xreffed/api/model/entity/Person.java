@@ -8,6 +8,7 @@ import org.tierlon.xreffed.api.model.component.NameComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by justinanddiana on 7/28/14.
@@ -55,6 +56,15 @@ public class Person {
                Objects.equal(otherPerson.roles, roles);
     }
     // ==============================================================
+    // PUBLIC
+    // ==============================================================
+
+    public void autoSetId() {
+        if (this.id == null)  {
+            this.id = UUID.randomUUID().toString();
+        }
+    }
+    // ==============================================================
     // PUBLIC -- GETTERS
     // ==============================================================
 
@@ -79,7 +89,7 @@ public class Person {
     // ==============================================================
     // Serialization Methods  (NON-PUBLIC)
     // ==============================================================
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 
@@ -90,4 +100,5 @@ public class Person {
     void setNameComponent(NameComponent name) {
         this.name = name;
     }
+
 }
