@@ -5,6 +5,7 @@
 {{/each}}
 </ul>
 
-<input type="text" placeholder="Person Name">
+
+{{input value=name action="addPerson" on="enter"}}
 
 <button {{action 'addPerson'}}> Add </button>

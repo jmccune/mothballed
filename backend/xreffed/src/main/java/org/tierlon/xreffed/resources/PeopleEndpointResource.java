@@ -25,18 +25,11 @@ import java.util.Collections;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PeopleEndpointResource {
 
-    String authorPrefixList = " { \"people\": [";
-    String authorPostfixList = "]}";
-
+    private ArrayList<Person> array = new ArrayList<>();
+    private Integer id = 12345;
     @GET
     public EmberPeopleWrapper listAll() {
 
-        ArrayList<Person> array = new ArrayList<>();
-        Person person = new PersonBuilder("John Doe","author").create();
-        Person person2 = new PersonBuilder("Jane Eyre","character").create();
-
-        array.add(person);
-        array.add(person2);
         return new EmberPeopleWrapper(array);
 
     }
@@ -44,7 +37,9 @@ public class PeopleEndpointResource {
     @POST
     public EmberPersonWrapper createNewPerson(EmberPersonWrapper personWrapper) {
         Person person = personWrapper.getPerson();
-        person.setId("12345");
+        person.setId(""+id);
+        id++;
+        array.add(person);
         return personWrapper;
     }
 
