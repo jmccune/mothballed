@@ -3,6 +3,8 @@
 {{#each}}
 	<li> NAME: {{name}} </li>
 {{/each}}
-
 </ul>
 
+<input type="text" placeholder="Person Name">
+
+<button {{action 'addPerson'}}> Add </button>

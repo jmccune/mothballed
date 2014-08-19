@@ -4,12 +4,10 @@ import org.tierlon.xreffed.api.model.entity.Person;
 import org.tierlon.xreffed.api.model.entity.PersonBuilder;
 import org.tierlon.xreffed.api.model.reference.DataReferenceV1;
 import org.tierlon.xreffed.api.model.wrappers.EmberPeopleWrapper;
+import org.tierlon.xreffed.api.model.wrappers.EmberPersonWrapper;
 import org.tierlon.xreffed.api.model.wrappers.EmberXrefsWrapper;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +39,13 @@ public class PeopleEndpointResource {
         array.add(person2);
         return new EmberPeopleWrapper(array);
 
+    }
+
+    @POST
+    public EmberPersonWrapper createNewPerson(EmberPersonWrapper personWrapper) {
+        Person person = personWrapper.getPerson();
+        person.setId("12345");
+        return personWrapper;
     }
 
 

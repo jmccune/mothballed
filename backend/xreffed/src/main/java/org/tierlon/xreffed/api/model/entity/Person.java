@@ -79,7 +79,7 @@ public class Person {
     // ==============================================================
     // Serialization Methods  (NON-PUBLIC)
     // ==============================================================
-    void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
