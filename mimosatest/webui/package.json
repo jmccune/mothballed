@@ -1,0 +1,22 @@
+{
+  "name": "webui",
+  "version": "0.0.1",
+  "homepage": "",
+  "author": "",
+  "description": "",
+  "contributors": [
+    {
+      "name": "",
+      "email": ""
+    }
+  ],
+  "preferGlobal": "false",
+  "private": true,
+  "dependencies": {
+    "express": "3.0.0beta4",
+    "jade": "0.26.3",
+    "watch-connect": "0.3.4",
+    "gzippo": "git://github.com/dbashford/gzippo.git",
+    "consolidate": "0.4.0"
+  }
+}

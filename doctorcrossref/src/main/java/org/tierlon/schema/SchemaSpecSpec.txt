@@ -1,0 +1,151 @@
+The Schema Schema Spec:
+	<START> : <ENTITY_SPEC>*
+	
+	<ENTITY_SPEC> :  <ENTITY_HEADER>  <OBJECT_SPEC>
+	
+	
+	<ENTITY_HEADER>: <ENTITY_LINEAGE_SPEC> [<MARKER> : <CUSTOM_VALIDATOR>] <MARKER> \n
+	<ENTITY_LINEAGE_SPEC>: [<PARENT_ENTITIES> <PARENT_MARKER> ] <ENTITY_NAME>
+	
+	<PARENT_ENTITIES>: <ENTITY_NAME>   | 
+	                   [<PARENT_ENTITIES> <OR_MARKER>] <ENTITY_NAME> 
+	
+	<OBJECT_SPEC>: 
+		<FIELD_SPEC> [<OBJECT_SPEC>]  
+		
+	
+	<FIELD_SPEC>:
+	   <INDENT> <FIELDNAME_SPEC>:<FIELDTYPE>[@(<VALIDATION_SPEC>)][#<DEFAULT_VALUE>]
+	
+	<FIELDNAME_SPEC>:
+		<FIELDNAME>				|
+		"[" <FIELDNAME> "]"   		# Implies this field is not required.
+	
+	<FIELDTYPE>:
+		"string" |
+		"date"   |
+		"number" |
+		"number>float" |
+		"number>integer" |
+		"object" |
+		"object>"<ENTITY_NAME> |
+		"ref>"<ENTITY_NAME>
+		"list>"<FIELDTYPE>
+		
+	<VALIDATION_SPEC>: [NOT>]<A_VALIDATION> [<MORE_VALIDATION>]
+	
+	<MORE_VALIDATION>: <BOOLEAN> [NOT>] <A_VALIDATION> [<MORE_VALIDATION>]
+	
+	<A_VALIDATION>:
+		<CUSTOM_VALIDATOR> |
+		<TYPE_VALIDATION>
+	
+	<CUSTOM_VALIDATOR>: 
+		<CLASS_SPEC>  		#Any class that implements the IValidate interface
+		
+	<TYPE_VALIDATION>:
+		## Validation is tied to the context of the fieldtype.##
+		#string#
+			<string_prop_func>
+			<expression>  #Value of field is used as the left operand.
+		#date#
+			<expression>  #Value of field is used as the left operand.
+		#number#
+			<expression>  #Value of field is used as the left operand.
+		#object#
+			##No Validation Possible##
+		#object> <ENTITY_NAME>#
+			validate>true |		# Validate the object	
+			validate>false 		# Do not validate the child entity
+		#ref#
+			##TBD##
+		#list> <FIELDTYPE>#
+			##TBD##
+	
+	
+	<string_prop_func>:         ## Must return boolean.
+								## Error in data always returns false.
+								
+			$length	<expression> #Return stringLength <positive integer> or 0
+			$isUpperCase		 #Return <boolean>
+			$isLowerCase		 #Return <boolean>
+			$isMixedCase		 #Return <boolean>
+			etc.
+	
+	<expression>:  <operator><operand>
+	
+	<operator>: == |
+				>= |
+				<= |
+				>  |
+				<  | 
+				!= 
+	
+	<operand>:  <number>        |
+				"<string>"      |
+				null			|   #As appropriate
+				"<date-string>"     #date context only
+				
+	<BOOLEAN>:  &&  | 
+			    ||  
+			    
+	
+		
+	## Traditional PERL/REGEXP Multiplicity specification
+	<REQ_SPEC>: ?     ## 0 or 1
+				*     ## 0 or more  (E.g. optional)				
+	            +     ## 1 or more
+	            {m,n} ## at least m and no more than n
+	            
+	            
+		
+		
+	<ENTITY_NAME>: [<NAMESPACE>:]<LABEL>
+	<CLASS_SPEC>: <LABEL> |  [<CLASS_SPEC>.]<LABEL>
+	<FIELDNAME>:<LABEL>
+	<NAMESPACE>:<LABEL>
+	<LABEL>: [A-Za-z][0-9_-A-Za-z]*
+	<MARKER>:          ": "   	  ## Note Trailing Space is important
+	<OR_MARKER>:       " | " 	  ## Note Preceding & Trailing Space important
+	<PARENT_MARKER>:   "> "  	  ## Note Trailing Space is important
+	<INDENT>: "\t" | "  " {3,5}   ## Indent or 3-5 spaces
+	
+================================
+EXAMPLES:
+
+Entity:
+		Label:string@($length>0 && $length<128)
+		Description:string#"No Description Given"
+		CreatedDate:date
+		EndDate:date@($value>@CreatedDate)
+		Type:String@(org.tierlon.etc.TypeValidator)#"NONE"
+		[Creator]:Entity@(Type=Entity>Person || Type=Entity>Organization)
+		[EndDate]:Date
+
+
+================================
+VALIDATION RULES:
+
+ -- $<label> rules:
+	$<label>   is equivalent to saying:
+						 <fieldtype>.<label>()
+						 or
+						 <fieldtype>.get<label>()
+						 
+	Example:
+		string:@($length   means effectively:
+							String.length() is invoked for the given string
+	
+	RESERVED:
+	$value  is a reserved label that gets the value of the given object
+	
+	string:$value      would return something like "foo"
+	date:$value 	   would return something like "2012-10-22..."
+	
+ -- @<label>  rules:
+	@<label>   is equivalent to saying:
+						<thisModel>.get<label>()
+						or 
+						<thisModel>.<label>
+	Example:	
+		endDate:@($value>@StartDate)	

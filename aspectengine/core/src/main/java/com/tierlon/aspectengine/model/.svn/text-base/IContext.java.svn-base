@@ -1,0 +1,58 @@
+package com.tierlon.aspectengine.model;
+
+import java.util.Collection;
+import java.util.Map;
+
+
+/**
+ * This represents the context of information.  
+ * 
+ * In the real world, information is usually shared in contexts-- implicit and explicit.
+ * If you and I are in the same culture, speaking the same language, from the same region,
+ * we share the same context and therefore understanding about the meaning of certain words,
+ * expressions, ideas, etc.  If we do not, a certain amount of misunderstanding can occur
+ * as we try to interact. 
+ * 
+ * In any system where you are trying to generalize relations and information, you will
+ * run into the problem of contexts.   This can get quite fuzzy, as in a user asking
+ * for "I want the red cars."   Red (255,0,0) as an rgb value is quite precise, but
+ * what exactly does "Red" as a word mean to the given user?
+ * 
+ * Note: This gets interesting.   Length for instance is a single dimension.
+ * 								  Length in meters is a dual-context-- a dimension and a unit type.
+ *    
+ * @author justinanddiana
+ */
+public interface IContext extends IRootElement{
+	
+	/** Indicates whether this context is atomic in nature (true) or 
+	 * represents an aggregation of contextual information.
+	 * "I want the red, turbocharged, sports car" has several contextual
+	 * bits of information.
+	 * 
+	 * @return true if this context represents exactly one dimension,
+	 * 		false if this context represents more than one dimension.
+	 */
+	public boolean isAtomicContext();
+	
+	/** What aspects/dimensions/etc are represented by this context. */
+	public Collection<ContextRepresentationKey> getContextualRepresentationKeys();
+	
+	/** Information about the context itself.  A mapping
+	 * of all the public properties of the context.  
+	 * 
+	 * This is a quick/common catch all for the object properties that
+	 * a particular context may define/have.
+	 * 
+	 * @return (non-null, possibly empty) the information/data related to a 
+	 * particular context.
+	 */
+	public Map<String,Object> getContextInformation();
+	
+	/** Is the given object/element within the context defined by this object? 
+	 * If the response is 1.0 or greater the answer is true.  If
+	 * the response is -1.0 or lower the answer is false.   
+	 * Between -1.0 and 1.0 is INDETERMINATE and RESERVED FOR FUTURE USE.
+	 */
+	public float withinContext(IRootElement element);
+}

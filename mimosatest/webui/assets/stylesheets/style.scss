@@ -1,0 +1,52 @@
+$blue: #5B83AD;
+$yellow: #FFFFE0;
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+  .template {
+    background-color: $yellow;
+  }
+
+  .helper {
+    border:1px solid $blue;
+  }
+
+  .styled {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+
+    margin-top: 100px;
+    position: absolute;
+  }
+  
+  .warning-circle {
+    display:inline-block;
+    border-radius:3px;
+    margin: 0px 0px 0px 5px;
+    position:relative;
+    height:20px;
+    width:15px;
+    background-color: #EE0000;
+    box-shadow: 2px 2px 2px #333333;
+  }
+  
+  .warning-triangle { 
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    *margin-right: .3em;
+    line-height: 21px;
+    vertical-align: text-top;
+    background-image: url("/images/admin/oca_warning_21x21.png");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+  }
+}
+
+
+
