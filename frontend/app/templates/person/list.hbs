@@ -1,0 +1,11 @@
+<h4> Authors in the system </h4>
+<ul>
+{{#each}}
+	<li> NAME: {{name}} </li>
+{{/each}}
+</ul>
+
+
+{{input value=name action="addPerson" on="enter"}}
+
+<button {{action 'addPerson'}}> Add </button>

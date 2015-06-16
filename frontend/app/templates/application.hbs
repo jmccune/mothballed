@@ -1,0 +1,22 @@
+
+
+<nav class="navbar navbar-inverse" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+	      {{#link-to 'home' classNames="navbar-brand"}} XReffed {{/link-to}}
+	    </div>	
+    
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	      	<li>{{#link-to 'testinfo'}} Test {{/link-to}}</li>	        
+	      	<li>{{#link-to 'xref'}} XRef {{/link-to}}</li>	        
+	      	<li>{{#link-to 'person'}} People {{/link-to}}</li>	        
+	        <li>{{#link-to 'about'}} About {{/link-to}}</li>
+	      </ul>
+	    </div>
+    </div>	
+</nav>
+<hr>
+{{outlet main}}
+<hr>
+<div> FOOTER </div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/data/mongo
+       http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <mongo:mongo host="localhost" port="27017" id="mongo" />
+    <mongo:db-factory dbname="xreffed" mongo-ref="mongo"/>
+    <mongo:mapping-converter>
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonWriteConverter"/>
+            </mongo:converter>
+            <mongo:converter>
+                <bean class="org.tierlon.xreffed.io.converters.PersonReadConverter"/>
+            </mongo:converter>
+        </mongo:custom-converters>
+    </mongo:mapping-converter>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongoConverter" ref="mappingConverter"/>
+    </bean>
+
+
+    <mongo:repositories base-package="org.tierlon.xreffed.api.repositories" />
+
+    <!-- Scans within the base package of the application for @Component classes to configure as beans -->
+    <context:component-scan base-package="org.tierlon.xreffed" />
+
+    <bean id="testResource" class="org.tierlon.xreffed.resources.TestResource"></bean>
+
+    <bean id="xrefEndpoint" class="org.tierlon.xreffed.resources.DataRefEndpointResource"/>
+    <bean id="autocompleteEndpoints" class="org.tierlon.xreffed.resources.AutocompleteEndpointResource"/>
+    <bean id="devEndpoint" class="org.tierlon.xreffed.resources.StubMeDevResource"/>
+    <bean id="peopleEndpoint" class="org.tierlon.xreffed.resources.PeopleEndpointResource"/>
+
+</beans>

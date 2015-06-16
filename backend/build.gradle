@@ -1,0 +1,123 @@
+description = 'XReffed Project'
+group = 'org.tierlon.xreffed'
+version = '0.0.1-SNAPSHOT'
+
+
+
+// Include "fat jar" shadow building Repo (3rd Party)
+// & resources...
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:0.8'
+    }
+}
+
+
+// ====================================================
+// VERSION INFORMATION
+// ====================================================
+ext {
+
+    // --  Fallwizard version --
+    fallwizardVersion = '1.4.0'
+
+    // -- Spring Versions --
+    springDataMongoDbVersion = '1.5.1.RELEASE'
+
+    // -- Google Library Versions --
+    guavaVersion = '17.0'
+
+    // --- Logging Versions --
+    slf4jVersion = '1.6.4'
+    logbackVersion = '1.0.10'
+
+    // --- Testing Versions --
+    junitVersion = '4.11'
+    testngVersion= '6.8.8'
+}
+
+
+
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url "http://repository.springsource.com/maven/bundles/release" }
+        maven { url "http://repo.spring.io/plugins-release/" }
+        maven { url "http://maven.springframework.org/milestone" }
+        mavenCentral()
+    }
+}
+
+
+subprojects {
+    apply plugin: 'java' // or 'groovy'. Must be explicitly applied
+    apply plugin: 'idea'
+    //apply plxgin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'shadow'
+
+    sourceCompatibility        = 1.7
+
+    configurations {
+        compile
+        runtime
+        //compile.exclude module: 'slf4j-log4j12'
+        //all*.exclude group: 'commons-logging' // this is where we exclude
+        //all*.exclude module: 'slf4j-log4j12'
+        //all*.exclude module: 'log4j-over-slf4j'
+        //all*.exclude module: 'slf4j-jdk14'
+    }
+
+    //common deps
+    dependencies {
+        compile "com.google.guava:guava:${guavaVersion}"
+
+        compile "org.slf4j:slf4j-api:${slf4jVersion}"
+        compile "ch.qos.logback:logback-core:${logbackVersion}"
+        compile "ch.qos.logback:logback-classic:${logbackVersion}"
+
+        testCompile "org.testng:testng:${testngVersion}"
+        testCompile "org.mockito:mockito-core:1.9.5"
+    }
+
+    // CONFIGURE IDEA
+    idea {
+        project {
+            //if you want to set specific jdk and language level
+            jdkName = '1.7'
+            languageLevel = '1.7'
+        }
+
+        module {
+            //and some extra test source dirs
+            testSourceDirs += file('src/integration-test/java')
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+                srcDir 'src/main/generated'
+            }
+            resources {
+                srcDir 'config'
+            }
+        }
+
+        test {
+            java {
+                srcDir 'src/test/java'
+            }
+            resources {
+                srcDir 'test-config'
+            }
+        }
+    }
+
+
+
+}

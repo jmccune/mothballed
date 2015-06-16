@@ -1,0 +1,12 @@
+<h4> Placeholder for where the list of XRefs will go </h4>
+<ul>
+{{#each}}
+	<li> Item: {{id}} -- {{referenceText}} <br>
+		Authors:
+	    {{#each authors}} 
+	    	<span class="badge authorlist"> {{this}}  </span> 
+	    {{/each}} 
+	</li>
+{{/each}}
+</ul>
+

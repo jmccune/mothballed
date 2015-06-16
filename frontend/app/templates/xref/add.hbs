@@ -1,0 +1,19 @@
+Add a new reference:<br>
+<div class="data-entry-form">
+
+{{exampleProperty}}
+<span class="label"> Quote: </span>
+{{textarea value=referenceText cols="80" rows="4"}}
+<br>
+
+<br>
+<div class="row">
+	<div class="col-md-2"> {{view 'auto-complete' data-completiontype='author' }} </div>
+	<div class="col-md-10"> 
+		{{#each authors}} 
+			<span class="badge authorlist"> {{this.value}}  </span> 
+		{{/each}} 
+	</div>
+</div>
+<br>
+<button {{action 'addXref'}}> Add </button>

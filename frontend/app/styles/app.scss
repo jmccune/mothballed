@@ -1,0 +1,18 @@
+@import 'vendor/bootstrap-sass-official/assets/stylesheets/bootstrap';
+@import './typeahead';
+
+html, body {
+  margin: 20px;
+}
+
+.navbar-second {
+  background-color: #dddddd;
+  border-color: #777777;
+  padding: 0px; 
+  margin-top:-17px; 
+}
+
+.authorlist {
+  font-weight: normal !important;
+}
+
